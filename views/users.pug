@@ -1,0 +1,16 @@
+doctype html
+form(action='/users/add', method='post')
+  label Region name:
+  br
+  input.input-value(type='text')
+  br
+  input(type='submit' value='Add')
+
+script.
+
+  var inputValue = document.querySelector('.input-value')
+  inputValue.addEventListener('change', function(){
+    console.log(inputValue.value)
+  })
+
+  
