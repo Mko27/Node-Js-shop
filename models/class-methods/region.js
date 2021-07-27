@@ -16,10 +16,10 @@ module.exports = (Region, sequelize) => {
         return Region.findAll()
     }
 
-    Region.add = (name) => {
+    Region.add = () => {
         console.log('Add regions')
         return Region.create({
-            name
+            name: '{Armavir}'
           })
     }
     

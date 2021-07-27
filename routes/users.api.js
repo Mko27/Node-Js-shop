@@ -20,16 +20,15 @@ router.get('/', function(req, res, next) {
 //   .catch(err => res.render('error', {error: err}))
 // })
 
-
-router.get('/:name', (req, res) => {
-  let {name} = req.params;
-  return Region.add(`{${name}}`).then(reg => res.json(reg));
+router.post('/add', (req, res) => {
+  return Region.add().then(reg => res.json(reg));
 })  
 
 router.get('/:id', (req, res) => {
-  let { id } = req.params;
+  const { id } = req.params;
 
   return Region.findById(id).then(region => res.json(region));
 })
 
+//console.log(inputValue);
 module.exports = router;
