@@ -1,5 +1,5 @@
 module.exports = (ProductTag, sequelize) => {
-    Tag.findById = (id) => {
+    ProductTag.findById = (id) => {
         const query = {
             where: {
                 id

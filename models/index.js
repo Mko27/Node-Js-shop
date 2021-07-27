@@ -2,12 +2,11 @@ const Sequelize = require('sequelize')
 
 const { PG } = require('../config')
 
-const path = require('path');
-
-const City = require('./city')
 const Region = require('./region')
-const Product = require('./product')
 
+const fs = require('fs')     
+
+const path = require('path')
 /**
  * @description Initialize pg and pg models.
  */
@@ -28,45 +27,35 @@ const sequelizeMain = new Sequelize(PG.CONNECTION_STRING_MAIN, {
 /**
  * Import models working with Main DB.
  */
-const MODELS_MAIN = [];
+const MODELS_MAIN = [
+  './region',
+];
 
 //const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
 
-
 // MODELS_MAIN.forEach((modelPath) => {
-//   //const model = sequelizeMain.import(modelPath)
-//   const model = require(modelPath.join(__dirname))(sequelize, Sequelize.DataTypes)
+//   const model = sequelizeMain.options.classMethods.associate(modelPath)
 //   db[`${model.name}Model`] = model
 // })
 
+fs
+  .readdirSync(__dirname)
+  .filter(file => {
+    return (file.indexOf('.') !== 0) && (file !== 'index.js') && (file !== 'class-methods')
+  })
+  .forEach(file => {
+    const model = require(path.join(__dirname, file))(sequelizeMain, Sequelize.DataTypes)
+    //console.log('model: ', model)
+    db[model.name] = model
+  })
+
+Object.keys(db).forEach(function (modelName) {
+  if ('associate' in db[modelName]) {
+    db[modelName].associate(db)
+  }
+  console.log(db[modelName])
+})
+
 db.sequelizeMain = sequelizeMain;
-
-///////
-/*
-Region.associate = function (models) {
-  City.hasOne(models.Region, {
-    foreignKey: 'regionId'
-  })
-  Region.hasMany(models.City);
-}
-
-City.associaqte = function (models) {
-  City.hasMany(models.Product)
-  Product.hasOne(models.City, {
-    foreignKey: 'cityId'
-  })
-}
-*/
-///////
-
-(async () => {
-  console.log('start');
-  await sequelize.sync({ force: true });
-  const jane = Region.build({ name: "Jane" });
-  console.log(jane instanceof Region); 
-  console.log(jane.name);
-  await jane.save();
-  console.log('Jane was saved to the database!')
-})();
-
+console.log('db: ', db)
 module.exports = db

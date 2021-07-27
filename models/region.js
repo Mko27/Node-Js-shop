@@ -1,11 +1,12 @@
-const classMethod = require('./class-methods/city')
+const classMethod = require('./class-methods/region')
 
 module.exports = (sequelize, DataTypes) => {
     const Region = sequelize.define("Region", {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        autoIncrement: true
+        autoIncrement: true,
+        primaryKey: true
         },
       name: {
         type: DataTypes.STRING
@@ -13,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
         tableName: 'region',
-        timesStamp: false
-    });
+        timestamps: false
+    })
   
     return  classMethod(Region, sequelize)
   }

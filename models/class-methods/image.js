@@ -1,5 +1,5 @@
 module.exports = (Image, sequelize) => {
-    Tag.findById = (id) => {
+    Image.findById = (id) => {
         const query = {
             where: {
                 id

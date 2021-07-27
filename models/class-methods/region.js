@@ -1,4 +1,5 @@
 module.exports = (Region, sequelize) => {
+    console.log('21312321321323')
     Region.findById = (id) => {
         const query = {
             where: {
@@ -10,8 +11,14 @@ module.exports = (Region, sequelize) => {
         return Region.findOne(query)
     }
 
-    Region.findAll = () => {
-        
+    Region.getRegions = () => {
+        console.log('Get regions')
+        return Region.findAll()
     }
+
+    Region.add = () => {
+        console.log('Add regions')
+    }
+    
     return Region
 }
