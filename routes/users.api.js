@@ -8,27 +8,28 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 /* GET users listing. */
-//  router.get('/', function(req, res, next) {
-// res.render('users')
-// });
+router.get('/', function(req, res, next) {
+  res.render('users')
+});
 
-router.get('/', (req, res) => {
-  return Region.getRegions()
-  .then(usersapi => {
-    console.log('usersapi: ', usersapi)
-    return res.render('users', {
-      usersapi
-    })})
-  .catch(err => res.render('error', {error: err}))
-})
+// router.get('/', (req, res) => {
+//   return Region.getRegions()
+//   .then(region => {
+//     console.log('region: ', region)
+//     return res.json(region)})
+//   .catch(err => res.render('error', {error: err}))
+// })
 
 
-router.post('/add', (req, res) => {
-  return Region.add();
-})
+router.get('/:name', (req, res) => {
+  let {name} = req.params;
+  return Region.add(`{${name}}`).then(reg => res.json(reg));
+})  
 
 router.get('/:id', (req, res) => {
-  return Region.findById();
+  let { id } = req.params;
+
+  return Region.findById(id).then(region => res.json(region));
 })
 
 module.exports = router;

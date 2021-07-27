@@ -7,7 +7,7 @@ module.exports = (Region, sequelize) => {
             },
             raw: true
         }
-
+        console.log(query.where.id)
         return Region.findOne(query)
     }
 
@@ -16,8 +16,11 @@ module.exports = (Region, sequelize) => {
         return Region.findAll()
     }
 
-    Region.add = () => {
+    Region.add = (name) => {
         console.log('Add regions')
+        return Region.create({
+            name
+          })
     }
     
     return Region
