@@ -53,9 +53,9 @@ Object.keys(db).forEach(function (modelName) {
   if ('associate' in db[modelName]) {
     db[modelName].associate(db)
   }
-  console.log(db[modelName])
+  //console.log(db[modelName])
 })
 
 db.sequelizeMain = sequelizeMain;
-console.log('db: ', db)
+//console.log('db: ', db)
 module.exports = db
