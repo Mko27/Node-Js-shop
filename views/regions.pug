@@ -1,13 +1,35 @@
 doctype html
-form(action='/reg/add', method='post')
+form(action='/reg/add' method='post' id="add")
   label Region name:
   br
-  input.input-value(type='text' name = 'data')
+  input.input-value(type='text' name='name' id='name')
   br
-  input(type='submit' value='Add')
-  //- h2=reg
-  //- pre #{reg.stack}
-script.
+  input(type='submit' value='Add') 
+  pre #{region}
 
+form(action='/reg/delete' method='post' id="delete")
+  label Deleted region id:
+  br
+  input.input-value(type='text' name='id' id='id' required='')
+  br
+  input(type='submit' value='Delete') 
+
+script.
+  const add = document.getElementById("add");
+  const name = document.getElementById("name");
+  const delete = document.getElementById("delete")
+  const id = document.getElementById("id")
+
+  //- add.addEventListener('submit', (e) => {
+  //- if (name.value === '' || name.value == null) {
+  //-   }  
+  //- })
+
+  //- delete.addEventListener('submit', (e) => {
+  //- if (id.value === '' || id.value == null) {
+  //-   }  
+  //- })
+  
+  
 
   
