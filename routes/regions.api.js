@@ -12,9 +12,11 @@ const RegionServices = require('./services/regions.service')
 
 router.get('/', RegionServices.getAllRegions);
 
-router.post('/add', RegionServices.addRegion)  
+router.post('/add', 
 
-router.get('/:id', RegionServices.getRegionById)
+RegionServices.addRegion)  
+
+router.post('/search', RegionServices.getRegionById)
 
 router.post('/delete', RegionServices.deleteRegionById)
 

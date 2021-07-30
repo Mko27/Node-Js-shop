@@ -18,6 +18,7 @@ module.exports = (Region, sequelize) => {
     Region.add = (region) => {
         //console.log(region)
         console.log("Add region");
+        console.log(region)
         return Region.create(region)
     }
 

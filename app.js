@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var regionsRouter = require('./routes/regions.api');
+const regionErrorHandle = require('./middlewares/validations/ErrorHandler')
 
 const db = require('./models/index');
 
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/reg', regionsRouter);
+app.use(regionErrorHandle)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

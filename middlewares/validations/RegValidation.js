@@ -7,8 +7,18 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const Joi = require('joi')
 
-const val = Joi.object({
-    name: Joi.string().required()
-  })
+const nameVal = Joi.object({
+    name: Joi.string()
+             .required()
+})
 
-module.exports = {val}
+const idVal = Joi.object({
+    id: Joi.number()
+            .required()
+})
+
+module.exports = {
+    nameVal,
+    idVal
+} 
+
