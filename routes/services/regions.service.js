@@ -11,10 +11,9 @@ const RegValidation = require('../../middlewares/validations/RegValidation')
 
 const getAllRegions = (req, res) =>{
     return Region.getRegions()
-    .then(reg => {
-      const names = reg.map(item => item.dataValues.name);
-
-      return res.render('regions', {region: names})
+    .then(regs => {
+      const names = regs.map(reg => reg.dataValues.name);
+      return res.render('regions', {regions: names})
     })
     .catch(err => console.log(err))
 }
@@ -24,10 +23,10 @@ const  addRegion = async (req, res, next) => {
     console.log("data: ", data)
     const result = await RegValidation.nameVal.validateAsync(data)
                             .then(() => Region.add(data)
-                              .then(Region.getRegions()
+                              .then(() => Region.getRegions()
                                 .then(regs => {
-                                  const names = regs.map(reg => reg.dataValues.name);                      
-                                  return res.render('regions', {region: names})})
+                                  const names = regs.map(reg => reg.dataValues.name);                    
+                                  return res.render('regions', {regions: names})})
                                 .catch(err => console.log(err)))
                               .catch(err => console.log(err)))
                             .catch(err => next(RegionError.badRequest(err.message)))
@@ -46,10 +45,10 @@ const deleteRegionById = async (req, res, next) => {
     const data = req.body;
 
     const result = await RegValidation.idVal.validateAsync(data)
-                            .then(() => Region.delete(data.id).then((reg) => Region.getRegions()
-                              .then(reg => {
-                                const names = reg.map(item => item.dataValues.name);                    
-                                return res.render('regions', {region: names})})
+                            .then(() => Region.delete(data.id).then(() => Region.getRegions()
+                              .then(regs => {
+                                const names = regs.map(reg => reg.dataValues.name);                    
+                                return res.render('regions', {regions: names})})
                                   .catch(err => console.log(err)))
                               .catch(err => console.log(err)))
                             .catch((err) => {console.log('******************: ', err); return next(RegionError.badRequest(err.message))})
