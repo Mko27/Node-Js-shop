@@ -14,13 +14,17 @@ class RegionError {
       this.message = message;
     }
   
-    static badRequest(msg) {
+    static invalidInput(msg) {
       return new RegionError(400, msg);
+    }
+
+    static notFound() {
+      return new RegionError(404, 'Page not found')
     }
   
     static internal(msg) {
       return new RegionError(500, msg);
-    }
+      }
   }
   
   module.exports = RegionError;

@@ -20,9 +20,6 @@ module.exports = (sequelize, DataTypes) => {
           phone: {
               type: DataTypes.STRING
           },
-          brand: {
-              type: DataTypes.STRING
-          },
           registeredAt: {
             type: DataTypes.DATE
           },

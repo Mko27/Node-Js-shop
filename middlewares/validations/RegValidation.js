@@ -10,11 +10,12 @@ const Joi = require('joi')
 const nameVal = Joi.object({
     name: Joi.string()
              .required()
+             .regex(/^[a-zA-Z]{1,60}$/)
 })
 
 const idVal = Joi.object({
     id: Joi.number()
-            .required()
+           .required()
 })
 
 module.exports = {

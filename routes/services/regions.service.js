@@ -29,7 +29,7 @@ const  addRegion = async (req, res, next) => {
                                   return res.render('regions', {regions: names})})
                                 .catch(err => console.log(err)))
                               .catch(err => console.log(err)))
-                            .catch(err => next(RegionError.badRequest(err.message)))
+                            .catch(err => {console.log('/////////// ',err.type);return next(RegionError.invalidInput(err.message))})
 }
 
 const getRegionById = async (req, res, next) => {
@@ -38,7 +38,7 @@ const getRegionById = async (req, res, next) => {
                               .then(() => Region.findById(data.id)
                                 .then(region => res.json(region))
                                 .catch(err => console.log(err)))
-                              .catch(err => next(RegionError.badRequest('field is required')))
+                              .catch(err => next(RegionError.invalidInput(err.message)))
 }
 
 const deleteRegionById = async (req, res, next) => {
@@ -51,8 +51,7 @@ const deleteRegionById = async (req, res, next) => {
                                 return res.render('regions', {regions: names})})
                                   .catch(err => console.log(err)))
                               .catch(err => console.log(err)))
-                            .catch((err) => {console.log('******************: ', err); return next(RegionError.badRequest(err.message))})
-
+                            .catch((err) => next(RegionError.invalidInput(err.message)))
 }
 
 module.exports = {

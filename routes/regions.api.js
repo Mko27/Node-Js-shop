@@ -6,7 +6,9 @@ const {Region} = models
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const RegionServices = require('./services/regions.service')
-//const RegionValidation = require('../middlewares/validations/RegionValidation')
+const RegionError = require('../middlewares/validations/RegionError')
+const RegValidation = require('../middlewares/validations/RegValidation')
+
 
 /* GET users listing. */
 
@@ -17,5 +19,9 @@ router.post('/add', RegionServices.addRegion)
 router.post('/search', RegionServices.getRegionById)
 
 router.post('/delete', RegionServices.deleteRegionById)
+
+router.get('*', function (req, res , next) {
+    return next(RegionError.notFound())
+})
 
 module.exports = router;
