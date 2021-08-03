@@ -27,6 +27,7 @@ module.exports = {
    * @description Error handler.
    */
   handleError: () => {
+    console.log('111111111111')
     return (err, req, res, next) => {
       const ERROR_CASE = ERROR_CASES[err.name] || ERROR_CASES.DEFAULT
 
@@ -37,10 +38,10 @@ module.exports = {
         code: ERROR_CASE.errorCode,
         message: ERROR_CASE.errorMessage || (err.errors && err.errors[0] && err.errors[0].message) || err.message
       }
-
+      console.log('/////////////********', errorResponse)
       // temp. log to explore and add more cases.
       errorResponse.status === 500 && console.log('Case: ', err.status, err.statusCode, err.code, err.name, err.message)
-
+      console.log('error handling')
       return res.status(errorResponse.status).json(errorResponse)
     }
   }

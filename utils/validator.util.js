@@ -3,8 +3,8 @@ const Joi = require('joi')
 const { VALIDATIONS } = require('../config')
 const { DEFAULT_OPTIONS } = VALIDATIONS
 
-const { ErrorsUtil } = require('../utils')
-const { InputValidationError } = ErrorsUtil
+const { ErrorsUtil } = require('./index')
+const { ValidationError } = ErrorsUtil
 
 class ValidatorUtil {
   /**
@@ -15,11 +15,12 @@ class ValidatorUtil {
    * @description Validate input with given schema.
    */
   static validate (args, schema, next) {
-    const { error } = Joi.validate(args, schema, DEFAULT_OPTIONS)
-
+    const { error } = schema.validate(args, DEFAULT_OPTIONS)
+    console.log('+++++++++++++++++', error)
     if (error) {
       const msg = error && error.details && error.details[0] && error.details[0].message
-      return next(new InputValidationError(msg))
+      console.log(error)
+      return next(new ValidationError(msg))
     }
     next()
   }

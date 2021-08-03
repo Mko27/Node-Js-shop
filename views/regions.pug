@@ -2,7 +2,7 @@ doctype html
 form(action='/reg/add' method='post' id="add")
   label Region name:
   br
-  input.input-value(type='text' name='name' id='name' pattern='[A-Za-z]{1,60}' required='')
+  input.input-value(type='text' name='name' id='name')
   br
   input(type='submit' value='Add') 
   pre #{regions}
