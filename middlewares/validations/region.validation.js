@@ -32,10 +32,15 @@ module.exports = {
 
   validateIdRegion: (req, res, next) => {
     console.log('start id validation')
-    console.log('|||||||||||||||| ', req.body)
-    ValidatorUtil.validate({ body: req.body }, Joi.object({
+    console.log('|||||||||||||||| ', req.params)
+    ValidatorUtil.validate({ body: req.body, params: req.params }, Joi.object({
+      params: {
+        id: Joi.number(),
+        name: Joi.string()
+      },
+      
       body: {
-        id: Joi.number().required()
+        id: Joi.number()
       }
     }), next)
   }

@@ -1,0 +1,11 @@
+doctype html
+style
+  include ../public/stylesheets/style.css
+form(action='/reg/delete' method='post' id="delete")
+  label Region name
+  br
+  input.input-value(type='text' name='id' id='id')
+  br
+  input(type='submit' value='Delete')
+  br
+  pre #{msg}

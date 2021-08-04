@@ -29,6 +29,15 @@ module.exports = (Region, sequelize) => {
         }
         return Region.destroy(query)
     }
+
+    Region.updateName = (id, name) => {
+        const query = {
+            where: {
+                id
+            }
+        }
+        return Region.update({name}, query)
+    }
     
     return Region
 }

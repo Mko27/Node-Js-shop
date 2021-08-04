@@ -1,7 +1,16 @@
 doctype html
-p Regions:
+style
+  include ../public/stylesheets/style.css
+div
+  p Regions:
   br
-  pre #{regions}
+  -console.log(regions)
+  table(style='width:100%', border='1')
+    each region, idx in regions
+      tr 
+        td #{region}                  
+      br
+
 
 //- form(action='/reg/delete' method='post' id="delete")
 //-   label Deleted region id:

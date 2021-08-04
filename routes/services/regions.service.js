@@ -15,12 +15,12 @@ const  addRegion = (req, res, next) => {
     const data = req.body;
     console.log("data: ", data)
     return Region.add(data)
-      .then(() => res.render('regionsAdd', {msg: 'Successfully added'}))
+      .then(() => res.render('regionAdd', {msg: 'Successfully added'}))
       .catch(next)
 }
 
 const getRegionById = (req, res, next) => {
-    const data = req.body;
+    const data = req.params;
     return Region.findById(data.id)
       .then(region => res.json(region))
       .catch(next)
@@ -28,15 +28,25 @@ const getRegionById = (req, res, next) => {
 
 const deleteRegionById = (req, res, next) => {
     const data = req.body;
-
+    console.log('================= ', req.body)
     return Region.delete(data.id)
-      .then(() => res.render('regions'))
+      .then(() => res.render('regionDelete', {msg: 'Successfully deleted'}))
       .catch(next)
+}
+
+const updateRegionById = (req, res, next) => {
+  const data = req.params;
+  console.log('req.params ======', data)
+
+  return Region.updateName(data.id, data.name)
+    .then(() => res.render('update.pug', {msg: 'Succsessfully updated'}))
+    .catch(next)
 }
 
 module.exports = {
     getAllRegions,
     addRegion,
     getRegionById,
-    deleteRegionById
+    deleteRegionById,
+    updateRegionById
 }

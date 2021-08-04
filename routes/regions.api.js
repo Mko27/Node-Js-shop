@@ -6,18 +6,33 @@ const { validateCreateRegion, validateIdRegion } = require('../middlewares/valid
 
 /* GET users listing. */
 
-router.get('/', RegionServices.getAllRegions);
+router.get('/', 
+    RegionServices.getAllRegions)
 
 router.get('/add', function (req, res, next) {
-    res.render('regionsAdd')
+    res.render('regionAdd')
 })
 
+router.get('/delete', function (req, res ,next) {
+    res.render('regionDelete')
+})
+
+router.get('/:id/:name', 
+    validateIdRegion, 
+    RegionServices.updateRegionById)
+
+router.get('/:id',
+    validateIdRegion,
+    RegionServices.getRegionById)
+
+router.post('/delete', 
+    validateIdRegion,
+    RegionServices.deleteRegionById)
+
 router.post('/add',
- validateCreateRegion,
- RegionServices.addRegion)  
+    validateCreateRegion,
+    RegionServices.addRegion)  
 
-router.post('/search', validateIdRegion, RegionServices.getRegionById)
 
-router.post('/delete', validateIdRegion, RegionServices.deleteRegionById)
 
 module.exports = router;
