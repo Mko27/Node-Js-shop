@@ -20,13 +20,23 @@ module.exports = {
       , next)
   },
 
-  validateCreateRegion: (req, res,next) => {
+  validateCreateRegion: (req, res, next) => {
     console.log('start region validation')
     ValidatorUtil.validate({ body: req.body }, Joi.object({
       body: {
-        name: Joi.string().required()
+        name: Joi.string().required(),
       }
     })
     , next)
+  },
+
+  validateIdRegion: (req, res, next) => {
+    console.log('start id validation')
+    console.log('|||||||||||||||| ', req.body)
+    ValidatorUtil.validate({ body: req.body }, Joi.object({
+      body: {
+        id: Joi.number().required()
+      }
+    }), next)
   }
 }

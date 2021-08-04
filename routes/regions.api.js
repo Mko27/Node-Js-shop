@@ -8,8 +8,8 @@ const Op = Sequelize.Op;
 const RegionServices = require('./services/regions.service')
 // const RegionError = require('../middlewares/validations/RegionError')
 // const RegValidation = require('../middlewares/validations/RegValidation')
-const app = require('../app');
-const { validateCreateRegion } = require('../middlewares/validations/region.validation');
+const { validateCreateRegion, validateIdRegion } = require('../middlewares/validations/region.validation');
+const { handleError } = require('../middlewares/validations/error-handler.middleware')
 
 
 /* GET users listing. */
@@ -20,12 +20,8 @@ router.post('/add',
  validateCreateRegion,
  RegionServices.addRegion)  
 
-router.post('/search', RegionServices.getRegionById)
+router.post('/search', validateIdRegion, RegionServices.getRegionById)
 
-router.post('/delete', RegionServices.deleteRegionById)
-
-// router.get('*', function (req, res , next) {
-//     return next(RegionError.notFound())
-// })
+router.post('/delete', validateIdRegion, RegionServices.deleteRegionById)
 
 module.exports = router;
