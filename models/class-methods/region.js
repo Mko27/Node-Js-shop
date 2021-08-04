@@ -3,8 +3,7 @@ module.exports = (Region, sequelize) => {
         const query = {
             where: {
                 id
-            },
-            raw: true
+            }
         }
         console.log(query.where.id)
         return Region.findOne(query)
@@ -26,8 +25,7 @@ module.exports = (Region, sequelize) => {
         const query = {
             where: {
                 id
-            },
-            raw: true
+            }
         }
         return Region.destroy(query)
     }

@@ -1,5 +1,3 @@
-const Joi = require('joi')
-
 const { VALIDATIONS } = require('../config')
 const { DEFAULT_OPTIONS } = VALIDATIONS
 

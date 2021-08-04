@@ -33,7 +33,7 @@ module.exports = {
     return (err, req, res, next) => {
       const ERROR_CASE = ERROR_CASES[err.name] || ERROR_CASES.DEFAULT
 
-      console.log('ERROR: ', err)
+      //console.log('ERROR: ', err)
       // if error get from sequelize check error message as err.errors && err.errors[0] && err.errors[0].message
       const errorResponse = {
         status: ERROR_CASE.statusCode,

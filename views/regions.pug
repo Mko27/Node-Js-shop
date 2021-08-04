@@ -1,25 +1,21 @@
 doctype html
-form(action='/reg/add' method='post' id="add")
-  label Region name:
+p Regions:
   br
-  input.input-value(type='text' name='name' id='name')
-  br
-  input(type='submit' value='Add') 
   pre #{regions}
 
-form(action='/reg/delete' method='post' id="delete")
-  label Deleted region id:
-  br
-  input.input-value(type='text' name='id' id='id' required='')
-  br
-  input(type='submit' value='Delete')
+//- form(action='/reg/delete' method='post' id="delete")
+//-   label Deleted region id:
+//-   br
+//-   input.input-value(type='text' name='id' id='id')
+//-   br
+//-   input(type='submit' value='Delete')
 
-form(action='/reg/search' method='post' id="search")
-  label Searched region id:
-  br
-  input.input-value(type='text' name='id' id='id' required='')
-  br
-  input(type='submit' value='Search') 
+//- form(action='/reg/search' method='post' id="search")
+//-   label Searched region id:
+//-   br
+//-   input.input-value(type='text' name='id' id='id')
+//-   br
+//-   input(type='submit' value='Search') 
 
 
 script.
