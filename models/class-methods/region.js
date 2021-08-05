@@ -11,17 +11,17 @@ module.exports = (Region, sequelize) => {
 
     Region.getRegions = () => {
         console.log('Get regions')
-        return Region.findAll({attributes : ['name']})
+        return Region.findAll()
     }
 
-    Region.add = (region) => {
+    Region.createRegion = (region) => {
         //console.log(region)
-        console.log("Add region");
+        console.log("Region created");
         console.log(region)
         return Region.create(region)
     }
 
-    Region.delete = (id) => {
+    Region.deleteRegionById = (id) => {
         const query = {
             where: {
                 id
@@ -30,13 +30,13 @@ module.exports = (Region, sequelize) => {
         return Region.destroy(query)
     }
 
-    Region.updateName = (id, name) => {
+    Region.updateRegionById = (id, data) => {
         const query = {
             where: {
                 id
             }
         }
-        return Region.update({name}, query)
+        return Region.update(data, query)
     }
     
     return Region

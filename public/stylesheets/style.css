@@ -14,3 +14,7 @@ form{
   left:40%;
   width:250px;
 }
+
+.edit-input {
+  display: none;
+}

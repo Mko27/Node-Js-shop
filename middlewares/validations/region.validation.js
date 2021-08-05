@@ -31,17 +31,27 @@ module.exports = {
   },
 
   validateIdRegion: (req, res, next) => {
-    console.log('start id validation')
+    console.log('start find id validation')
     console.log('|||||||||||||||| ', req.params)
+    ValidatorUtil.validate({ params: req.params }, Joi.object({
+      params: {
+        id: Joi.number().positive(),
+      }
+    }), next)
+  },
+
+  validateRegionUpdateParams: (req, res, next) => {
+    console.log('start update validation')
     ValidatorUtil.validate({ body: req.body, params: req.params }, Joi.object({
       params: {
-        id: Joi.number(),
-        name: Joi.string()
+        id: Joi.number().positive()
       },
-      
+
       body: {
-        id: Joi.number()
+        name: Joi.string().required()
       }
     }), next)
   }
+
+  
 }

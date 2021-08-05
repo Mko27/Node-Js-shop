@@ -3,18 +3,18 @@ const {Region} = models
 
 const getAllRegions = (req, res) =>{
     return Region.getRegions()
-    .then(regs => {
-      const names = regs.map(reg => reg.dataValues.name);
-      return res.render('regions', {regions: names})
+    .then(regions => {
+      console.log(regions)
+      return res.render('regions', {regions})
     })
     .catch(err => console.log(err))
 }
 
-const  addRegion = (req, res, next) => {
+const  regionCreate = (req, res, next) => {
     console.log(req.body)
     const data = req.body;
     console.log("data: ", data)
-    return Region.add(data)
+    return Region.createRegion(data)
       .then(() => res.render('regionAdd', {msg: 'Successfully added'}))
       .catch(next)
 }
@@ -22,30 +22,31 @@ const  addRegion = (req, res, next) => {
 const getRegionById = (req, res, next) => {
     const data = req.params;
     return Region.findById(data.id)
-      .then(region => res.json(region))
+      .then(region => res.render('region', { elem: region.name }))
       .catch(next)
 }
 
 const deleteRegionById = (req, res, next) => {
-    const data = req.body;
-    console.log('================= ', req.body)
-    return Region.delete(data.id)
-      .then(() => res.render('regionDelete', {msg: 'Successfully deleted'}))
+    const data = req.params;
+    console.log('================= ', data)
+    return Region.deleteRegionById(data.id)
+      .then(() => res.render('regions'))
       .catch(next)
 }
 
 const updateRegionById = (req, res, next) => {
   const data = req.params;
   console.log('req.params ======', data)
-
-  return Region.updateName(data.id, data.name)
+  const elem = req.body;
+  console.log('elem ===== ', elem)
+  return Region.updateRegionById(data.id, elem)
     .then(() => res.render('update.pug', {msg: 'Succsessfully updated'}))
     .catch(next)
 }
 
 module.exports = {
     getAllRegions,
-    addRegion,
+    regionCreate,
     getRegionById,
     deleteRegionById,
     updateRegionById

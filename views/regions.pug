@@ -4,44 +4,60 @@ style
 div
   p Regions:
   br
-  -console.log(regions)
+  
   table(style='width:100%', border='1')
     each region, idx in regions
-      tr 
-        td #{region}                  
+      tr
+        form(action='/reg/id' method='delete') 
+        td( class='reg') #{region.dataValues.name}
+          input.delete-icon(type='submit' data-id=region.dataValues.id value='delete')
+          input.edit-input(type='text' data-id=region.dataValues.id)    
+        form
+        td
+          input.edit-icon(id='edit' type='submit' data-id=region.dataValues.id value='edit')                    
       br
 
-
-//- form(action='/reg/delete' method='post' id="delete")
-//-   label Deleted region id:
-//-   br
-//-   input.input-value(type='text' name='id' id='id')
-//-   br
-//-   input(type='submit' value='Delete')
-
-//- form(action='/reg/search' method='post' id="search")
-//-   label Searched region id:
-//-   br
-//-   input.input-value(type='text' name='id' id='id')
-//-   br
-//-   input(type='submit' value='Search') 
-
-
 script.
-  //- const add = document.getElementById("add");
-  //- const name = document.getElementById("name");
-  //- const delete = document.getElementById("delete");
-  //- const id = document.getElementById("id");
+  
+  let deleteBtns = document.querySelectorAll('.delete-icon')
+  var Btn;
+  deleteBtns.forEach((deleteBtn) => {
+    deleteBtn.addEventListener('click', function(){
+      Btn = deleteBtn.getAttribute('data-id')
+      console.log(Btn)
+      alert('Delete button works');
+      fetch('/reg/' + Btn, {
+        method: 'DELETE',
+      })
+      .then(res => location.reload()) // or res.json()
+      .catch(err => console.log(err))
+    })
+  });
 
-  //- add.addEventListener('submit', (e) => {
-  //- if (name.value === '' || name.value == null) {
-  //-   }  
-  //- })
+  let editBtns = document.querySelectorAll('.edit-icon')
+  var BtnE;
+  editBtns.forEach((editBtn) => {
+    editBtn.addEventListener('click', function(){
 
-  //- delete.addEventListener('submit', (e) => {
-  //- if (id.value === '' || id.value == null) {
-  //-   }  
-  //- })
+      BtnE = editBtn.getAttribute('data-id')
+      const editInput = document.getElementsByClassName('edit-input')
+      editInput[0].style.display = 'block'
+      console.log('editInput[0]',editInput[0].style)
+      alert('Edit button works');
+      
+
+      //- fetch('/reg/' + BtnE, {
+      //-   method: 'PATCH',
+      //- })
+      //- .then(res => res.text()) // or res.json()
+      //- .catch(err => console.log(err))
+    })
+  });
+
+
+
+  
+
   
   
 
