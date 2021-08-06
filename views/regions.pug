@@ -10,22 +10,22 @@ div
       tr
         form(action='/reg/id' method='delete') 
         td( class='reg') #{region.dataValues.name}
-          input.delete-icon(type='submit' data-id=region.dataValues.id value='delete')
-          input.edit-input(type='text' data-id=region.dataValues.id)    
-        form
+          input.delete-icon(type='submit' data-id=region.dataValues.id value='delete')    
         td
+          form(action='/reg/id' method='patch')
+          input.edit-input(type='text' name='name')
+          input.submit-icon(type='submit' data-id=region.dataValues.id value='submit')
           input.edit-icon(id='edit' type='submit' data-id=region.dataValues.id value='edit')                    
       br
 
 script.
   
-  let deleteBtns = document.querySelectorAll('.delete-icon')
+  var deleteBtns = document.querySelectorAll('.delete-icon')
   var Btn;
   deleteBtns.forEach((deleteBtn) => {
     deleteBtn.addEventListener('click', function(){
       Btn = deleteBtn.getAttribute('data-id')
       console.log(Btn)
-      alert('Delete button works');
       fetch('/reg/' + Btn, {
         method: 'DELETE',
       })
@@ -34,25 +34,46 @@ script.
     })
   });
 
-  let editBtns = document.querySelectorAll('.edit-icon')
+  var editBtns = document.querySelectorAll('.edit-icon')
   var BtnE;
-  editBtns.forEach((editBtn) => {
+  editBtns.forEach((editBtn, index) => {
     editBtn.addEventListener('click', function(){
-
       BtnE = editBtn.getAttribute('data-id')
+      const editIcon = document.getElementsByClassName('edit-icon')
+      editIcon[index].style.display = 'none'
+      console.log('------------------ ',BtnE)
       const editInput = document.getElementsByClassName('edit-input')
-      editInput[0].style.display = 'block'
-      console.log('editInput[0]',editInput[0].style)
-      alert('Edit button works');
-      
-
-      //- fetch('/reg/' + BtnE, {
-      //-   method: 'PATCH',
-      //- })
-      //- .then(res => res.text()) // or res.json()
-      //- .catch(err => console.log(err))
-    })
+      const submitInput = document.getElementsByClassName('submit-icon')
+      console.log('edit-input ', editInput)
+      editInput[index].style.display = 'block'
+      submitInput[index].style.display = 'block'
+      //console.log('editInput[0]',editInput[1].style)
+    })  
   });
+
+  var submitBtns = document.querySelectorAll('.submit-icon')
+  var BtnS;
+  submitBtns.forEach((submitBtn, index) => {
+    submitBtn.addEventListener('click', function(){
+      BtnS = submitBtn.getAttribute('data-id')
+      var name = document.getElementsByClassName('edit-input')[index].value
+      console.log('name == ', name)
+      console.log(BtnS)
+      fetch('/reg/' + BtnS, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+       body: JSON.stringify({name: name}),
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        location.reload();
+      })
+      .catch(err => console.log(err))
+    })
+  })
 
 
 

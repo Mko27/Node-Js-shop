@@ -30,7 +30,7 @@ const deleteRegionById = (req, res, next) => {
     const data = req.params;
     console.log('================= ', data)
     return Region.deleteRegionById(data.id)
-      .then(() => res.render('regions'))
+      .then(() => res.json({msg: "Successfully deleted"}))
       .catch(next)
 }
 
@@ -40,7 +40,7 @@ const updateRegionById = (req, res, next) => {
   const elem = req.body;
   console.log('elem ===== ', elem)
   return Region.updateRegionById(data.id, elem)
-    .then(() => res.render('update.pug', {msg: 'Succsessfully updated'}))
+    .then(() => res.json({msg: "Successfully updated"}))
     .catch(next)
 }
 

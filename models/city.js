@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING
       },
-      regionID: {
+      regionId: {
         type: DataTypes.INTEGER,
         allowNull: false
       }

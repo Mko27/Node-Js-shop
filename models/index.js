@@ -4,6 +4,8 @@ const { PG } = require('../config')
 
 const Region = require('./region')
 
+const City = require('./city')
+
 const fs = require('fs')     
 
 const path = require('path')
@@ -29,6 +31,7 @@ const sequelizeMain = new Sequelize(PG.CONNECTION_STRING_MAIN, {
  */
 const MODELS_MAIN = [
   './region',
+  './city'
 ];
 
 //const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
@@ -53,8 +56,17 @@ Object.keys(db).forEach(function (modelName) {
   if ('associate' in db[modelName]) {
     db[modelName].associate(db)
   }
-  //console.log(db[modelName])
+  console.log(db[modelName])
 })
+
+
+
+// sequelize.sync({force: false}).then(function () {
+//     console.log("Database Configured");
+// });
+
+// Region.hasMany(City);
+// City.belongsTo(Region);
 
 db.sequelizeMain = sequelizeMain;
 //console.log('db: ', db)

@@ -10,8 +10,9 @@ module.exports = (City, sequelize) => {
         return City.findOne(query)
     }
 
-    City.findAll = () => {
-        
+    City.getCities = () => {
+        console.log('Get Cities')
+        return City.findAll()
     }
     return City
 }

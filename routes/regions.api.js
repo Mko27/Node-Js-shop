@@ -25,7 +25,7 @@ router.delete('/:id',
     validateIdRegion,
     RegionServices.deleteRegionById)
 
-router.post('/add',
+router.post('/',
     validateCreateRegion,
     RegionServices.regionCreate)  
 

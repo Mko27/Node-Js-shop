@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var regionsRouter = require('./routes/regions.api');
+var citiesRouter = require('./routes/cities.api')
 const { handleError } = require('./middlewares/validations/error-handler.middleware')
 //const { validateCreateRegion, validateIdRegion } = require('./middlewares/validations/region.validation')
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/reg', regionsRouter);
+app.use('/cities', citiesRouter);
 // app.use(validateCreateRegion)
 // app.use(validateIdRegion)
 app.use(handleError())

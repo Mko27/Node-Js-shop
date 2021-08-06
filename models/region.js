@@ -19,3 +19,4 @@ module.exports = (sequelize, DataTypes) => {
   
     return  classMethod(Region, sequelize)
   }
+  

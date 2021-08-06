@@ -1,5 +1,6 @@
 const Joi = require('joi')
 
+const MAX_INT_VALUE = 2147483647;
 
 const ValidatorUtil = require('../../utils/validator.util')
 
@@ -12,9 +13,9 @@ module.exports = {
     ValidatorUtil.validate({ query: req.query, body: req.body, params: req.params },
       Joi.object({
         query: {
-          limit: Joi.number().positive().max(5).integer(),
-          offset: Joi.number().min(0).max(5).integer(),
-          templateId: Joi.number().positive().max(5).integer()
+          limit: Joi.number().positive().max(MAX_INT_VALUE).integer(),
+          offset: Joi.number().min(0).max(MAX_INT_VALUE).integer(),
+          templateId: Joi.number().positive().max(MAX_INT_VALUE).integer()
         }
       })  
       , next)
@@ -35,7 +36,7 @@ module.exports = {
     console.log('|||||||||||||||| ', req.params)
     ValidatorUtil.validate({ params: req.params }, Joi.object({
       params: {
-        id: Joi.number().positive(),
+        id: Joi.number().positive().max(MAX_INT_VALUE).integer()
       }
     }), next)
   },
@@ -44,7 +45,7 @@ module.exports = {
     console.log('start update validation')
     ValidatorUtil.validate({ body: req.body, params: req.params }, Joi.object({
       params: {
-        id: Joi.number().positive()
+        id: Joi.number().positive().max(MAX_INT_VALUE).integer()
       },
 
       body: {
