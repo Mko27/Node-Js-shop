@@ -3,11 +3,11 @@ const {Region} = models
 
 const getAllRegions = (req, res) =>{
     return Region.getRegions()
-    .then(regions => {
-      console.log(regions)
-      return res.render('regions', {regions})
-    })
-    .catch(err => console.log(err))
+      .then(regions => {
+        console.log(regions)
+        return res.render('regions', {regions})
+      })
+      .catch(err => console.log(err))
 }
 
 const  regionCreate = (req, res, next) => {

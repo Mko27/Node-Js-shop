@@ -22,6 +22,16 @@ module.exports = (Region, sequelize) => {
         return Region.create(region)
     }
 
+    // Region.findIdByName = (RegionId) => {
+    //     const query = {
+    //         where: {
+    //             name: RegionId
+    //         },
+    //         raw: true
+    //     }
+    //     return Region.findOne(query)
+    // }
+
     Region.deleteRegionById = (id) => {
         const query = {
             where: {

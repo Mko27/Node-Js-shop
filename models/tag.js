@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     }, 
     {
         tableName: 'tag',
-        timesStamp: false
+        timestamps: false
     });
 
     return classMethod(Tag, sequelize)

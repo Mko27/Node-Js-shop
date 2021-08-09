@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     }, 
     {
         tableName: 'user',
-        timesStamp: true
+        timestamps: true
     });
 
     return classMethod(User, sequelize)

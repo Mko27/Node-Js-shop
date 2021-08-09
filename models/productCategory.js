@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
         tableName: 'productCategory',
-        timesStamp: false
+        timestamps: false
     });
   
     return  classMethod(ProductCategory, sequelize)

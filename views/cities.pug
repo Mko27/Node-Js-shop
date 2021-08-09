@@ -1,32 +1,31 @@
 doctype html
+//- include regions.pug
 style
   include ../public/stylesheets/style.css
 div
-  p Regions:
+  p Cities:
   br
   
   table(style='width:100%', border='1')
-    each region, idx in regions ? regions : []
+    each city, idx in cities
       tr
-        form(action='/reg/id' method='delete') 
-        td( class='reg') #{region.dataValues.name}
-          input.delete-icon(type='submit' data-id=region.dataValues.id value='delete')    
+        td( class='reg') #{city.dataValues.name}
+          input.delete-icon(type='submit' data-id=city.dataValues.id value='delete')
         td
-          form(action='/reg/id' method='patch')
+          form(action='/cities/id' method='patch')
           input.edit-input(type='text' name='name')
-          input.submit-icon(type='submit' data-id=region.dataValues.id value='submit')
-          input.edit-icon(id='edit' type='submit' data-id=region.dataValues.id value='edit')                    
+          input.submit-icon(type='submit' data-id=city.dataValues.id value='submit')
+          input.edit-icon(id='edit' type='submit' data-id=city.dataValues.id value='edit')                   
       br
 
-script.
-  
+script. 
   var deleteBtns = document.querySelectorAll('.delete-icon')
   var Btn;
   deleteBtns.forEach((deleteBtn) => {
     deleteBtn.addEventListener('click', function(){
       Btn = deleteBtn.getAttribute('data-id')
       console.log(Btn)
-      fetch('/reg/' + Btn, {
+      fetch('/cities/' + Btn, {
         method: 'DELETE',
       })
       .then(res => location.reload()) // or res.json()
@@ -59,7 +58,7 @@ script.
       var name = document.getElementsByClassName('edit-input')[index].value
       console.log('name == ', name)
       console.log(BtnS)
-      fetch('/reg/' + BtnS, {
+      fetch('/cities/' + BtnS, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -74,12 +73,3 @@ script.
       .catch(err => console.log(err))
     })
   })
-
-
-
-  
-
-  
-  
-
-  

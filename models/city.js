@@ -11,14 +11,14 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING
       },
-      regionId: {
+      RegionId: {
         type: DataTypes.INTEGER,
         allowNull: false
       }
     },
     {
         tableName: 'city',
-        timesStamp: false
+        timestamps: false
     });
   
     return  classMethod(City, sequelize)

@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     }, 
     {
         tableName: 'category',
-        timesStamp: false
+        timestamps: false
     });
 
     return classMethod(Category, sequelize)

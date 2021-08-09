@@ -14,5 +14,31 @@ module.exports = (City, sequelize) => {
         console.log('Get Cities')
         return City.findAll()
     }
+
+    City.createCity = (city) => {
+        console.log("City created");
+        return City.create(city)
+    }
+
+    City.deleteCityById = (id) => {
+        const query = {
+            where: {
+                id
+            },
+            raw: true
+        }
+        return City.destroy(query)
+    }
+
+    City.updateCityById = (id, data) => {
+        const query = {
+            where: {
+                id
+            },
+            raw: true
+        }
+        return City.update(data, query)
+    }
+
     return City
 }

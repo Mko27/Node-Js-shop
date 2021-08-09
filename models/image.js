@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
     }, 
     {
         tableName: 'image',
-        timesStamp: true
+        timestamps: true
     });
 
     return classMethod(Image, sequelize)
