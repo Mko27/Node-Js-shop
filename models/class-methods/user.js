@@ -10,8 +10,25 @@ module.exports = (User, sequelize) => {
         return User.findOne(query)
     }
 
-    User.findAll = () => {
-        
+    User.getUsers = () => {
+        return User.findAll()
     }
+
+    User.registration = (user) => {
+        console.log('user registration')
+        return User.create(user)
+    }
+
+    User.findByEmail = (email) => {
+        const query = {
+            where: {
+                email
+            },
+            raw: true
+        }
+        console.log(query.where.email)
+        return User.find(query)
+    }
+
     return User
 }

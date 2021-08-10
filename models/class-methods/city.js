@@ -12,6 +12,9 @@ module.exports = (City, sequelize) => {
 
     City.getCities = () => {
         console.log('Get Cities')
+        const query = {
+            raw: true
+        }
         return City.findAll()
     }
 

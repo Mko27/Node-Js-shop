@@ -1,13 +1,13 @@
 const  models = require('../../models');
 const {Region} = models
 
-const getAllRegions = (req, res) =>{
+const getAllRegions = (req, res, next) =>{
     return Region.getRegions()
       .then(regions => {
         console.log(regions)
         return res.render('regions', {regions})
       })
-      .catch(err => console.log(err))
+      .catch(next)
 }
 
 const  regionCreate = (req, res, next) => {

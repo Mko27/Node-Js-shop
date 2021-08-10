@@ -2,7 +2,7 @@ const classMethod = require('./class-methods/user')
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define("User", {
-        id: {
+          id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
@@ -15,16 +15,17 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING
           },
           email: {
-              type: DataTypes.STRING
+              type: DataTypes.STRING,
+              unique: true
           },
           phone: {
               type: DataTypes.STRING
           },
           registeredAt: {
-            type: DataTypes.DATE
+            type: DataTypes.DATE, 
           },
           lastLogedAt: {
-            type: DataTypes.DATE
+            type: DataTypes.DATE,
           },
           active: {
             type: DataTypes.BOOLEAN
@@ -41,6 +42,8 @@ module.exports = (sequelize, DataTypes) => {
     }, 
     {
         tableName: 'user',
+        createdAt: 'registeredAt',
+        updatedAt: 'lastLogedAt',
         timestamps: true
     });
 
