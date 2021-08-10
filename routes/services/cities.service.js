@@ -1,5 +1,5 @@
 const  models = require('../../models');
-const {City} = models
+const {City, Region} = models
 
 const getAllCities = (req, res, next) => {
     return City.getCities()
@@ -45,11 +45,18 @@ const updateCityById = (req, res, next) => {
     .catch(next)
 }
 
+const appendRegions = (req, res ,next) => {
+  return Region.getRegions().then((regions) => {
+    res.locals.__regions = regions
+    next()
+  }).catch(next)
+}
 
 module.exports = {
     getAllCities,
     getCityById,
     createCity,
     deleteCityById,
-    updateCityById
+    updateCityById,
+    appendRegions
 }

@@ -3,9 +3,6 @@ var router = express.Router();
 const RegionServices = require('./services/regions.service')
 const { validateCreateRegion, validateIdRegion, validateRegionUpdateParams } = require('../middlewares/validations/region.validation');
 
-
-/* GET users listing. */
-
 router.get('/', 
     RegionServices.getAllRegions)
 

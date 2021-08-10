@@ -35,7 +35,8 @@ module.exports = {
       },
 
       body: {
-        name: Joi.string().required()
+        name: Joi.string().required(),
+        RegionId: Joi.number().positive().max(MAX_INT_VALUE).integer()
       }
     }), next)
   }

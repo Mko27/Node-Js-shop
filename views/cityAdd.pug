@@ -12,8 +12,9 @@ form(action='/cities/' method='post' id="add")
   label Region name
   br
   select(name='RegionId' id="select-state")
-    each region, idx in regions ? regions : []
-        option(value=region.dataValues.id) #{region.dataValues.name}
+    option()
+    each region, idx in __regions ? __regions : []
+      option(value=region.dataValues.id) #{region.dataValues.name}
   br
   input(type='submit' value='Add')
   br

@@ -1,5 +1,4 @@
 doctype html
-//- include regions.pug
 style
   include ../public/stylesheets/style.css
 div
@@ -14,6 +13,9 @@ div
         td
           form(action='/cities/id' method='patch')
           input.edit-input(type='text' name='name')
+          select.edit-select(name='RegionId' id="select-state")
+            each region, idx in __regions ? __regions : []
+              option(value=region.dataValues.id) #{region.dataValues.name}
           input.submit-icon(type='submit' data-id=city.dataValues.id value='submit')
           input.edit-icon(id='edit' type='submit' data-id=city.dataValues.id value='edit')                   
       br
@@ -43,10 +45,11 @@ script.
       console.log('------------------ ',BtnE)
       const editInput = document.getElementsByClassName('edit-input')
       const submitInput = document.getElementsByClassName('submit-icon')
+      const editSelect = document.getElementsByClassName('edit-select')
       console.log('edit-input ', editInput)
       editInput[index].style.display = 'block'
       submitInput[index].style.display = 'block'
-      //console.log('editInput[0]',editInput[1].style)
+      editSelect[index].style.display = 'block'
     })  
   });
 
@@ -56,6 +59,7 @@ script.
     submitBtn.addEventListener('click', function(){
       BtnS = submitBtn.getAttribute('data-id')
       var name = document.getElementsByClassName('edit-input')[index].value
+      var RegionId = document.getElementsByClassName('edit-select')[index].value
       console.log('name == ', name)
       console.log(BtnS)
       fetch('/cities/' + BtnS, {
@@ -63,7 +67,7 @@ script.
         headers: {
           'Content-Type': 'application/json',
         },
-       body: JSON.stringify({name: name}),
+       body: JSON.stringify({name: name, RegionId: RegionId}),
       })
       .then(res => res.json())
       .then(data => {

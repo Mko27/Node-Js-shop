@@ -12,6 +12,9 @@ module.exports = (Region, sequelize) => {
 
     Region.getRegions = () => {
         console.log('Get regions')
+        const query = {
+            raw: true
+        }
         return Region.findAll()
     }
 

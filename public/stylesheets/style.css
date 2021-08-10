@@ -26,3 +26,7 @@ form{
 .submit-icon{
   display: none;
 }
+
+.edit-select{
+  display: none;
+}
