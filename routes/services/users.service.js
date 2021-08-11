@@ -20,26 +20,41 @@ const userById = (req, res, next) => {
     return User.findById(data.id).then((user) =>{console.log('(()) ', user) ;return res.send(user)}).catch(next)
 }
 
+const userByEmail = (req, res, next) => {
+    const data = req.body
+
+    return User.findByEmail(req.body.email).then((user) => {console.log(user); return user}).catch(next)
+}
+
 const userLogin = (req, res, next) => {
-    const data = req.query
+    const data = req.body
     console.log('data email === ', data.email)
     console.log('get query === ', data)
     return User.findByEmail(data.email).then((user) => {
         console.log('user === ', user)
-        if(bcrypt.compareSync(data.password, user.hash))
+        console.log('pswd ', data.password)
+        const pswd = bcrypt.hashSync(data.password, user.salt)
+        console.log(bcrypt.compareSync(data.password, user.hash))
+        //console.log('hash ', pswd)
+        if(bcrypt.compareSync(data.password, user.hash)){
+            console.log('OKK')
             return res.send("Loged")
+        }
         next()
     })
     .catch(next)
 }
 
 const getUsers = (req, res, next) => {
-    return User.getUsers().then((users) => console.log('######## ',users)).catch(next)
+    return User.getUsers()
+        .then((users) => res.send(users))
+        .catch(next)
 }
 
 module.exports = {
     userRegistration,
     userLogin,
     userById,
-    getUsers
+    getUsers,
+    userByEmail
 }

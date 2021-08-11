@@ -27,7 +27,7 @@ module.exports = (User, sequelize) => {
             raw: true
         }
         console.log(query.where.email)
-        return User.find(query)
+        return User.findOne(query)
     }
 
     return User

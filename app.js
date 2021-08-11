@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const passport = require('passport')
 
 var indexRouter = require('./routes/index');
 var regionsRouter = require('./routes/regions.api');
@@ -10,6 +11,8 @@ var citiesRouter = require('./routes/cities.api')
 var usersRouter = require('./routes/users.api')
 const { handleError } = require('./middlewares/validations/error-handler.middleware')
 //const { validateCreateRegion, validateIdRegion } = require('./middlewares/validations/region.validation')
+
+require('./config/passport')(passport)
 
 const db = require('./models/index');
 
@@ -35,6 +38,10 @@ app.use('/cities', citiesRouter);
 app.use('/users', usersRouter)
 // app.use(validateCreateRegion)
 // app.use(validateIdRegion)
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(handleError())
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

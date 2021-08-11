@@ -34,10 +34,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN
           },
           salt: {
-              type: DataTypes.STRING.BINARY
+              type: DataTypes.STRING
           },
           hash: {
-              type: DataTypes.STRING.BINARY
+              type: DataTypes.STRING
           }
     }, 
     {
