@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const passport = require('passport')
+const flash = require('connect-flash');
+const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var regionsRouter = require('./routes/regions.api');
@@ -32,15 +34,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({ 
+  secret: 'root',
+  resave: true, 
+  saveUninitialized: true,
+  cookie: { 
+    path: '/',
+    httpOnly: true,
+    maxAge: 60000,    
+  }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(flash());
+
 app.use('/', indexRouter);
 app.use('/reg', regionsRouter);
 app.use('/cities', citiesRouter);
 app.use('/users', usersRouter)
 // app.use(validateCreateRegion)
 // app.use(validateIdRegion)
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(handleError())
 // catch 404 and forward to error handler
