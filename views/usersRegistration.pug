@@ -1,7 +1,7 @@
 head
   title User Registration
 h1 Register
-form(action='/users/registration' method='post')
+form.container(action='/users/registration' enctype='multipart/form-data' id='reg' method='post')
   label Name
   br
   input(type='text' name='name')
@@ -26,4 +26,10 @@ form(action='/users/registration' method='post')
   br 
   input(type='password' name='password_confirm')
   br
-  input(type='submit' value='Register')
+  label Profile picture
+  br
+  input(type='file' name='pic')
+  br
+  input.regBtn(type='submit' value='Register')
+
+

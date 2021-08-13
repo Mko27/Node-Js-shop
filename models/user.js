@@ -38,6 +38,9 @@ module.exports = (sequelize, DataTypes) => {
           },
           hash: {
               type: DataTypes.STRING
+          },
+          image: {
+            type: DataTypes.STRING,
           }
     }, 
     {

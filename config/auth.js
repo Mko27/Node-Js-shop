@@ -7,7 +7,7 @@ module.exports = {
         return next();
       }
       console.log('Please log in to view that resource');
-      res.redirect('/');
+      res.redirect('/users');
     },
 
     forwardAuthenticated: function(req, res, next) {

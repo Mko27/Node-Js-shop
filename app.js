@@ -6,6 +6,8 @@ var logger = require('morgan');
 const passport = require('passport')
 const flash = require('connect-flash');
 const session = require('express-session');
+var multer = require('multer');
+var multer = multer();
 
 var indexRouter = require('./routes/index');
 var regionsRouter = require('./routes/regions.api');
@@ -33,6 +35,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(multer.array());
+app.use(express.static('public'))
 
 app.use(session({ 
   secret: 'root',
