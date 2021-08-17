@@ -1,0 +1,32 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: bisque;
+}
+
+a {
+  color: #00B7FF;
+}
+
+form{
+  text-align: center;
+  position:fixed;
+  left:40%;
+  width:250px;
+}
+
+.edit-icon{
+  display: block;
+}
+
+.edit-input {
+  display: none;
+}
+
+.submit-icon{
+  display: none;
+}
+
+.edit-select{
+  display: none;
+}
