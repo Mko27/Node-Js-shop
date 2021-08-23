@@ -30,9 +30,15 @@ module.exports = function (passport) {
 
                         return done(null, false, {message: 'Incorrect password'})
                     }
+
+                    console.log('instance ', user instanceof User)
                     console.log('ok')
-                    
-                    return done(null, user)
+                    console.log(user.lastLogedAt)
+                    user.lastLogedAt = new Date()
+                    console.log(user.lastLogedAt)
+                    user.save()
+
+                    return done(null, user) 
                 })
                 .catch(done)
         })

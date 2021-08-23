@@ -1,6 +1,8 @@
+style
+  include ../public/stylesheets/style.css
 head
   title User Registration
-h1 Register
+h1.reg-form-h1 Registration
 form.container(action='/users/registration' enctype='multipart/form-data' id='reg' method='post')
   label Name
   br
@@ -28,7 +30,7 @@ form.container(action='/users/registration' enctype='multipart/form-data' id='re
   br
   label Profile picture
   br
-  input(type='file' name='image')
+  input.img-input(type='file' name='image')
   br
   input.regBtn(type='submit' value='Register')
 

@@ -12,7 +12,7 @@ module.exports = {
           email: Joi.string().email().required(),
           phone: Joi.string().required(),
           password: Joi.string().required(),
-          password_confirm: Joi.string().required()
+          password_confirm: Joi.ref('password')
         }
       })
       , next)

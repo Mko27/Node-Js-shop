@@ -62,6 +62,7 @@ Object.keys(db).forEach(function (modelName) {
 
 db.Region.hasMany(db.City)
 db.City.belongsTo(db.Region)
+
 // db.City.hasOne(db.Region, {
 //   foreignKey: {
 //     regionId: 'regionId'

@@ -11,6 +11,10 @@ const ERROR_CASES = {
     statusCode: 404,
     errorCode: 'NotFound'
   },
+  UsedMailError: {
+    statusCode: 400,
+    errorCode: 'RegisteredMail'
+  },
   
   DEFAULT: {
     statusCode: 500,

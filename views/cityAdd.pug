@@ -4,7 +4,7 @@ link(href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.
 script(src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js')
 style
   include ../public/stylesheets/style.css
-form(action='/cities/' method='post' id="add")
+form.container(action='/cities/' method='post' id="add")
   label City name
   br
   input.input-value(type='text' name='name')

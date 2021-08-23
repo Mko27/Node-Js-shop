@@ -22,10 +22,10 @@ module.exports = (sequelize, DataTypes) => {
               type: DataTypes.STRING
           },
           registeredAt: {
-            type: DataTypes.DATE, 
+            type: DataTypes.DATE 
           },
           lastLogedAt: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATE
           },
           active: {
             type: DataTypes.BOOLEAN
@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
               type: DataTypes.STRING
           },
           image: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING
           }
     }, 
     {

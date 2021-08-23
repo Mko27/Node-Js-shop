@@ -1,7 +1,8 @@
 const CUSTOM_ERRORS = [
   'ItemNotFoundError',
   'ValidationError',
-  'PathNotFoundError'
+  'PathNotFoundError',
+  'UsedMailError'
 ]
 
 const ERRORS = CUSTOM_ERRORS.reduce((acc, className) => {

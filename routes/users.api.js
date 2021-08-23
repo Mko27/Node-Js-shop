@@ -23,22 +23,27 @@ const upload = multer({
     limits: {fileSize: 1000000}
 })
 
-const type = upload.single('image')
+const multerImageUpload = upload.single('image')
 
-router.get('/', forwardAuthenticated,(req, res, next) => {
+router.get('/', forwardAuthenticated, (req, res, next) => {
     res.render('users')
 })
 
-router.get('/registration', forwardAuthenticated,(req, res, next) => {
+router.get('/registration', forwardAuthenticated, (req, res, next) => {
     res.render('usersRegistration')
 })
 
-router.get('/home', ensureAuthenticated,(req, res, next) =>{
-    res.send('Welcome your page')
+router.get('/home', ensureAuthenticated, (req, res, next) =>{
+    res.render('userPage')
 })
 
-router.get('/page',ensureAuthenticated,(req, res, next) =>{
+router.get('/page', ensureAuthenticated, (req, res, next) =>{
     res.send('You are loged')
+})
+
+router.get('/logout', (req, res, next) => {
+    req.logout();
+	res.redirect('/users');
 })
 
 router.get('/failed', (req, res ,next) => {
@@ -46,18 +51,19 @@ router.get('/failed', (req, res ,next) => {
 })
 
 router.post('/registration',
-    type,
-    validateUserRegistration,
+    multerImageUpload,
+    validateUserRegistration, 
     UserServices.userRegistration)
 
 router.post('/', 
     validateUserLogin, 
     (req, res, next) => {
-    passport.authenticate('local', {
-        successRedirect: '/users/home',
-        failureRedirect: '/users/failed',
-        session: true,
-        failureFlash: true
+        console.log('req', req._startTime)
+        passport.authenticate('local', {
+            successRedirect: '/users/home',
+            failureRedirect: '/users/failed',
+            session: true,
+            failureFlash: true
     })(req, res, next)
 })
 
