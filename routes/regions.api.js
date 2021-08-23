@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
 const RegionServices = require('./services/regions.service')
-const { validateCreateRegion, validateIdRegion, validateRegionUpdateParams } = require('../middlewares/validations/region.validation');
+const { validateCreateRegion, validateIdRegion, validateRegionUpdateParams } = require('../middlewares/validations/region.validation')
 
 router.get('/', 
     RegionServices.getAllRegions)

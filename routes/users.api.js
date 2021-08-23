@@ -4,7 +4,8 @@ const path = require('path')
 const UserServices = require('./services/users.service')
 const passport = require('passport')
 const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth')
-const { validateUserRegistration, validateUserLogin } = require('../middlewares/validations/user.validation') 
+const { validateUserRegistration, validateUserLogin } = require('../middlewares/validations/user.validation')
+const { checkUserExist } = require('../middlewares/userExist.middlware')
 const multer = require('multer')
 
 const storage = multer.diskStorage({
@@ -49,7 +50,7 @@ router.get('/logout', (req, res, next) => {
 router.post('/registration',
     multerImageUpload,
     validateUserRegistration,
-    UserServices.checkUserExist, 
+    checkUserExist, 
     UserServices.userRegistration)
 
 router.post('/', 

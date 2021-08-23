@@ -2,33 +2,12 @@ const models = require('../../models')
 const { User } = models
 const bcrypt = require('bcrypt');
 
-const { ErrorsUtil } = require('../../utils/index')
-const { ExistMailError } = ErrorsUtil
-
-const checkUserExist = (req, res, next) => {
-    console.log('check')
-    const email = req.body.email
-    console.log('req email ', email)
-    
-    return User.findByEmail(email)
-        .then((user) => {
-            console.log('find email')
-            if (user) {
-                console.log('error')
-                return next(new ExistMailError('This user exist'))
-            }
-
-            console.log('user not')
-            return next()
-        })
-        .catch(next)
-}
-
 const userRegistration = (req, res, next) => {
-    //console.log('file ', req.file)
-    console.log('reg')
+    req.file = req.file ? req.file : {}
+    console.log('file ', req.file)
     const data = req.body
     data.image = req.file.path
+    console.log(data.image)
 
     data.salt = bcrypt.genSaltSync(10);
     data.hash = bcrypt.hashSync(data.password, data.salt);
@@ -67,6 +46,5 @@ module.exports = {
     userRegistration,
     userById,
     getUsers,
-    userByEmail,
-    checkUserExist
+    userByEmail
 }
