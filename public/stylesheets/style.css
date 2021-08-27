@@ -42,6 +42,16 @@ h1{
   margin-left: 47%;
 }
 
+.add-form{
+  display: none;
+  text-align: center;
+  position:fixed;
+  width:250px;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
 .img-input{
   content: 'Select some files';
   display: inline-block;

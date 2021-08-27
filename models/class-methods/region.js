@@ -10,6 +10,17 @@ module.exports = (Region, sequelize) => {
         return Region.findOne(query)
     }
 
+    Region.findByName = (name) => {
+        const query = {
+            where: {
+                name
+            },
+            raw: true
+        }
+
+        return Region.findOne(query)
+    }
+
     Region.getRegions = () => {
         console.log('Get regions')
         const query = {

@@ -17,6 +17,14 @@ div
           input.submit-icon(type='submit' data-id=region.dataValues.id value='submit')
           input.edit-icon(id='edit' type='submit' data-id=region.dataValues.id value='edit')                    
       br
+  input.add-icon(id='add' type="submit" value='add')
+  form.add-form(action='/reg/' method='post' id="add")
+    label Region name
+    br
+    input.input-value(type='text' name='name' id='name')
+    br
+    input(type='submit' value='Add')
+    br
 
 script.
   
@@ -33,6 +41,18 @@ script.
       .catch(err => console.log(err))
     })
   });
+
+  var addBtns = document.querySelectorAll('.add-icon');
+  addBtns.forEach((addBtn) => {
+    addBtn.addEventListener('click', function(){
+      console.log('click')
+      const addIcon = document.getElementsByClassName('add-icon')
+      const addForm = document.getElementsByClassName('add-form')
+      addForm[0].style.display = 'block'
+      addIcon[0].style.display = 'none'
+    })  
+  });
+
 
   var editBtns = document.querySelectorAll('.edit-icon')
   var BtnE;

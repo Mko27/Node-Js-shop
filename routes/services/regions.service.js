@@ -10,12 +10,12 @@ const getAllRegions = (req, res, next) =>{
       .catch(next)
 }
 
-const  regionCreate = (req, res, next) => {
+const regionCreate = (req, res, next) => {
     console.log(req.body)
     const data = req.body;
     console.log("data: ", data)
     return Region.createRegion(data)
-      .then(() => res.render('regionAdd', {msg: 'Successfully added'}))
+      .then(() => res.redirect('/reg'))
       .catch(next)
 }
 

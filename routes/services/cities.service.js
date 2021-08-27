@@ -3,11 +3,11 @@ const {City, Region} = models
 
 const getAllCities = (req, res, next) => {
     return City.getCities()
-    .then(cities => {
-      console.log(cities)
-      return res.render('cities', {cities})
-    })
-    .catch(err => console.log(err))
+      .then(cities => {
+        console.log(cities)
+        return res.render('cities', {cities})
+      })
+      .catch(err => console.log(err))
 }
 
 const getCityById = (req, res, next) => {
@@ -19,11 +19,11 @@ const getCityById = (req, res, next) => {
 
 const createCity = (req, res, next) => {
   const data = req.body;
-  console.log('data ' ,data)
+  console.log('data ', data)
   console.log("ID : ", data.RegionId)
   
   return City.createCity(data)
-    .then(() => res.render('cityAdd', {msg: 'Successfully added'}))
+    .then(() => res.redirect('/cities'))
     .catch(next)
 }
 

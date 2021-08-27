@@ -15,6 +15,14 @@ const ERROR_CASES = {
     statusCode: 400,
     errorCode: 'RegisteredMail'
   },
+  CategoryDeleteError: {
+    statusCode: 400,
+    errorCode: 'ParentCategory'
+  },
+  ExistNameError: {
+    statusCode: 400,
+    errorCode: 'ExistingName'
+  },
   
   DEFAULT: {
     statusCode: 500,

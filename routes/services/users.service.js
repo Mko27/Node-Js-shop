@@ -1,21 +1,50 @@
 const models = require('../../models')
 const { User } = models
 const bcrypt = require('bcrypt');
+const passport = require('passport')
+
+const loginPage = (req, res, next) => {
+    return res.render('users')
+}
+
+const registrationPage = (req, res, next) => {
+    return res.render('usersRegistration')
+}
+
+const userPage = (req, res, next) => {
+    return res.render('userPage')
+}
+
+const userLogin = (req, res, next) => {
+    console.log('req', req._startTime)
+    passport.authenticate('local', {
+        successRedirect: '/users/home',
+        failureRedirect: '/users/',
+        session: true,
+        failureFlash: true
+    })(req, res, next)
+}
+
+const userLogout = (req, res, next) => {
+    req.logout()
+    res.redirect('/users')
+}
 
 const userRegistration = (req, res, next) => {
-    req.file = req.file ? req.file : {}
     console.log('file ', req.file)
     const data = req.body
-    data.image = req.file.path
-    console.log(data.image)
+    data.salt = bcrypt.genSaltSync(10)
+    data.hash = bcrypt.hashSync(data.password, data.salt)
 
-    data.salt = bcrypt.genSaltSync(10);
-    data.hash = bcrypt.hashSync(data.password, data.salt);
-    console.log('data === ', data)
+    if(req.file) {
+        data.image = req.file.path
+    }
+
+    console.log(data)
 
     return User.registration(data)
-               .then(() => res.send('Registered'))
-               .catch(next)
+        .then(() => res.send('Registered'))
+        .catch(next)
 }
 
 const userById = (req, res, next) => {
@@ -46,5 +75,10 @@ module.exports = {
     userRegistration,
     userById,
     getUsers,
-    userByEmail
+    userByEmail,
+    loginPage,
+    registrationPage,
+    userPage,
+    userLogout,
+    userLogin
 }

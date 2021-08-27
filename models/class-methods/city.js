@@ -10,6 +10,17 @@ module.exports = (City, sequelize) => {
         return City.findOne(query)
     }
 
+    City.findByName = (name) => {
+        const query = {
+            where: {
+                name
+            },
+            raw: true
+        }
+
+        return City.findOne(query)
+    }
+
     City.getCities = () => {
         console.log('Get Cities')
         const query = {
