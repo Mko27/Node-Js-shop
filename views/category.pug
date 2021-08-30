@@ -1,0 +1,150 @@
+doctype html
+html 
+  include head.pug
+script(src='https://code.jquery.com/jquery-2.1.1.min.js' type='text/javascript')
+link(href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css' rel='stylesheet')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js')
+style
+  include ../public/stylesheets/style.css
+div
+  p Categories:
+  br
+
+  table(style='width:100%', border='1')
+    - console.log('------' ,categories)
+    each category, idx in categories ? categories : []
+      tr
+        td( class='reg') #{category.name}
+          input.delete-icon(type='submit' data-id=category.id value='delete')    
+        td
+          form(action='/category/id' method='patch')
+          input.edit-input(type='text' name='name')
+          input.edit-slug(type='text' name='slug')
+          textarea.edit-textarea(name="description", cols="25", rows="5" style='resize:none')
+          select.edit-status(name='status' id='select-state')
+            option(value="0") Live
+            option(value="1") Extinct 
+          select.edit-select(name='parentId' id="select-state")
+            option(value="0") 
+            each category, idx in categories ? categories : []
+              option(value=category.id) #{category.name}
+          input.submit-icon(type='submit' data-id=category.id value='submit')
+          input.edit-icon(id='edit' type='submit' data-id=category.id value='edit')
+  input.add-icon(id='add' type='submit' value='add')
+  form.add-form(action='/category/' method='post')
+    label Category name
+    br
+    input.input-value(type='text' name='name' id='name')
+    br
+    label Slug
+    br
+    input(type='text' name='slug')
+    br 
+    label Description
+    br
+    textarea(rows='4' cols='25' name='description' style='resize:none')
+    br
+    label Status
+    br
+    select(name='status' id='select-state')
+      option(value="0") Live
+      option(value="1") Extinct
+    br
+    label Parent
+    br
+    select(name='parentId' id="select-state")
+      option(value="0")
+      each category, idx in categories ? categories : []
+        option(value=category.id) #{category.name}
+    br
+    input(type='submit' value='Add')
+
+script. 
+  var deleteBtns = document.querySelectorAll('.delete-icon')
+  var Btn;
+  deleteBtns.forEach((deleteBtn) => {
+    deleteBtn.addEventListener('click', function(){
+      Btn = deleteBtn.getAttribute('data-id')
+      console.log(Btn)
+      fetch('/category/' + Btn, {
+        method: 'DELETE',
+      })
+      .then(res => location.reload()) // or res.json()
+      .catch(err => console.log(err))
+    })
+  });
+
+  var addBtns = document.querySelectorAll('.add-icon');
+  addBtns.forEach((addBtn) => {
+    addBtn.addEventListener('click', function(){
+      console.log('click')
+      const addIcon = document.getElementsByClassName('add-icon')
+      const addForm = document.getElementsByClassName('add-form')
+      addForm[0].style.display = 'block'
+      addIcon[0].style.display = 'none'
+    })  
+  });
+
+  var editBtns = document.querySelectorAll('.edit-icon')
+  var BtnE;
+  editBtns.forEach((editBtn, index) => {
+    editBtn.addEventListener('click', function(){
+      BtnE = editBtn.getAttribute('data-id')
+      const editIcon = document.getElementsByClassName('edit-icon')
+      editIcon[index].style.display = 'none'
+      console.log('------------------ ',BtnE)
+      const editInput = document.getElementsByClassName('edit-input')
+      const editSlug = document.getElementsByClassName('edit-slug')
+      const editTextarea = document.getElementsByClassName('edit-textarea')
+      const submitInput = document.getElementsByClassName('submit-icon')
+      const editStatus = document.getElementsByClassName('edit-status')
+      const editSelect = document.getElementsByClassName('edit-select')
+      console.log('edit-input ', editInput)
+      editInput[index].style.display = 'block'
+      editSlug[index].style.display = 'block'
+      editTextarea[index].style.display = 'block'
+      submitInput[index].style.display = 'block'
+      editSelect[index].style.display = 'block'
+      editStatus[index].style.display = 'block'
+    })  
+  });
+
+  function status(res) {
+    if (!res.ok) {
+        alert(error);
+    }
+    return res;
+  }
+
+  var submitBtns = document.querySelectorAll('.submit-icon')
+  var BtnS;
+  submitBtns.forEach((submitBtn, index) => {
+    submitBtn.addEventListener('click', function(){
+      BtnS = submitBtn.getAttribute('data-id')
+      var name = document.getElementsByName('name')[index].value
+      var slug = document.getElementsByName('slug')[index].value
+      var description = document.getElementsByName('description')[index].value
+      var parentId = document.getElementsByClassName('edit-select')[index].value
+      var status = document.getElementsByClassName('edit-status')[index].value
+      console.log('name == ', name)
+      console.log(BtnS)
+      fetch('/category/' + BtnS, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+       body: JSON.stringify({
+        name: name,
+        slug: slug,
+        description: description,
+        status: status, 
+        parentId: parentId}),
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        //location.reload();
+      })
+      .catch(err => console.log(err))
+    })
+  })

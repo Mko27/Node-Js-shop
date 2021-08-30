@@ -1,0 +1,105 @@
+doctype html
+style
+  include ../public/stylesheets/style.css
+div
+  p Cities:
+  br
+  
+  table(style='width:100%', border='1')
+    each city, idx in cities
+      tr
+        td( class='reg') #{city.dataValues.name}
+          input.delete-icon(type='submit' data-id=city.dataValues.id value='delete')
+        td
+          form(action='/cities/id' method='patch')
+          input.edit-input(type='text' name='name')
+          select.edit-select(name='RegionId' id="select-state")
+            each region, idx in __regions ? __regions : []
+              option(value=region.dataValues.id) #{region.dataValues.name}
+          input.submit-icon(type='submit' data-id=city.dataValues.id value='submit')
+          input.edit-icon(id='edit' type='submit' data-id=city.dataValues.id value='edit')                   
+      br
+  input.add-icon(id='add' type='submit' value='add')
+  form.add-form(action='/cities' method='post' id="add")
+    label City name
+    br
+    input.input-value(type='text' name='name')
+    br
+    label Region
+    br
+    select(name='RegionId' id="select-state")
+      option()
+      each region, idx in __regions ? __regions : []
+        option(value=region.dataValues.id) #{region.dataValues.name}
+    br
+    input(type='submit' value='Add')
+  br
+
+script. 
+  var deleteBtns = document.querySelectorAll('.delete-icon')
+  var Btn;
+  deleteBtns.forEach((deleteBtn) => {
+    deleteBtn.addEventListener('click', function(){
+      Btn = deleteBtn.getAttribute('data-id')
+      console.log(Btn)
+      fetch('/cities/' + Btn, {
+        method: 'DELETE',
+      })
+      .then(res => location.reload()) // or res.json()
+      .catch(err => console.log(err))
+    })
+  });
+
+  var addBtns = document.querySelectorAll('.add-icon');
+  addBtns.forEach((addBtn) => {
+    addBtn.addEventListener('click', function(){
+      console.log('click')
+      const addIcon = document.getElementsByClassName('add-icon')
+      const addForm = document.getElementsByClassName('add-form')
+      addForm[0].style.display = 'block'
+      addIcon[0].style.display = 'none'
+    })  
+  });
+
+  var editBtns = document.querySelectorAll('.edit-icon')
+  var BtnE;
+  editBtns.forEach((editBtn, index) => {
+    editBtn.addEventListener('click', function(){
+      BtnE = editBtn.getAttribute('data-id')
+      const editIcon = document.getElementsByClassName('edit-icon')
+      editIcon[index].style.display = 'none'
+      console.log('------------------ ',BtnE)
+      const editInput = document.getElementsByClassName('edit-input')
+      const submitInput = document.getElementsByClassName('submit-icon')
+      const editSelect = document.getElementsByClassName('edit-select')
+      console.log('edit-input ', editInput)
+      editInput[index].style.display = 'block'
+      submitInput[index].style.display = 'block'
+      editSelect[index].style.display = 'block'
+    })  
+  });
+
+  var submitBtns = document.querySelectorAll('.submit-icon')
+  var BtnS;
+  submitBtns.forEach((submitBtn, index) => {
+    submitBtn.addEventListener('click', function(){
+      BtnS = submitBtn.getAttribute('data-id')
+      var name = document.getElementsByClassName('edit-input')[index].value
+      var RegionId = document.getElementsByClassName('edit-select')[index].value
+      console.log('name == ', name)
+      console.log(BtnS)
+      fetch('/cities/' + BtnS, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+       body: JSON.stringify({name: name, RegionId: RegionId}),
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        location.reload();
+      })
+      .catch(err => console.log(err))
+    })
+  })

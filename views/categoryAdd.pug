@@ -1,0 +1,40 @@
+doctype html
+script(src='https://code.jquery.com/jquery-2.1.1.min.js' type='text/javascript')
+link(href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css' rel='stylesheet')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js')
+style
+  include ../public/stylesheets/style.css
+form.container(action='/category/' method='post')
+  label Category name
+  br
+  input.input-value(type='text' name='name' id='name')
+  br
+  label Slug
+  br
+  input(type='text' name='slug')
+  br 
+  label Description
+  br
+  textarea(rows='4' cols='25' name='description' style='resize:none')
+  br
+  label Status
+  br
+  select(name='status' id='select-state')
+    option(value="0") Live
+    option(value="1") Extinct
+  br
+  label Parent
+  br
+  select(name='parentId' id="select-state")
+    option()
+    each category, idx in __categories ? __categories : []
+      option(value=category.dataValues.id) #{category.dataValues.name}
+  br
+  input(type='submit' value='Add')
+  br
+  //- pre #{msg}
+
+script.
+    $(document).ready(function () {
+        $("select").select2();
+    });
