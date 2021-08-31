@@ -41,6 +41,18 @@ module.exports = {
         parentId: Joi.number().max(MAX_INT_VALUE).integer().allow('')
       }
     }), next)
+  },
+
+  validateCategoryList: (req, res, next) => {
+    console.log('start validation')
+    ValidatorUtil.validate({ query: req.query },
+      Joi.object({
+        query: {
+          limit: Joi.number().positive().max(100).integer(),
+          page: Joi.number().min(0).max(MAX_INT_VALUE).integer()
+        }
+      })
+      , next)
   }
 
 }

@@ -36,7 +36,6 @@ module.exports = (Category, sequelize) => {
 
   Category.getCategories = () => {
     const query = {
-      limit: 5,
       where: {
         id: {
           [Op.gte]: 1
@@ -46,6 +45,21 @@ module.exports = (Category, sequelize) => {
     }
 
     return Category.findAll(query)
+  }
+
+  Category.getCategoriesPagination = (limit, offset) => {
+    const query = {
+      limit,
+      offset,
+      where: {
+        id: {
+          [Op.gte]: 1
+        }
+      },
+      raw: true
+    }
+
+    return Category.findAndCountAll(query)
   }
 
   Category.createCategory = (category) => {

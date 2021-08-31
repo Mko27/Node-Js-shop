@@ -10,12 +10,13 @@ div
       tr
         form(action='/reg/id' method='delete') 
         td( class='reg') #{region.dataValues.name}
-          input.delete-icon(type='submit' data-id=region.dataValues.id value='delete')    
+          //- input.delete-icon(type='submit' data-id=region.dataValues.id value='delete')    
         td
           form(action='/reg/id' method='patch')
           input.edit-input(type='text' name='name')
           input.submit-icon(type='submit' data-id=region.dataValues.id value='submit')
-          input.edit-icon(id='edit' type='submit' data-id=region.dataValues.id value='edit')                    
+          input.edit-icon(id='edit' type='submit' data-id=region.dataValues.id value='edit')
+          input.delete-icon(type='submit' data-id=region.dataValues.id value='delete')                    
       br
   input.add-icon(id='add' type="submit" value='add')
   form.add-form(action='/reg/' method='post' id="add")
@@ -37,7 +38,16 @@ script.
       fetch('/reg/' + Btn, {
         method: 'DELETE',
       })
-      .then(res => location.reload()) // or res.json()
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if(data.msg){
+          location.reload()
+          return;
+        }
+        alert(data.message)
+        throw new Error()
+      })
       .catch(err => console.log(err))
     })
   });

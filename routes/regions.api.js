@@ -12,8 +12,8 @@ router.get('/:id',
   RegionServices.getRegionById)
 
 router.patch('/:id',
-  checkRegionName,
   validateRegionUpdateParams,
+  checkRegionName,
   RegionServices.updateRegionById)
 
 router.delete('/:id',
@@ -21,8 +21,8 @@ router.delete('/:id',
   RegionServices.deleteRegionById)
 
 router.post('/',
-  checkRegionName,
   validateCreateRegion,
+  checkRegionName,
   RegionServices.regionCreate)
 
 module.exports = router

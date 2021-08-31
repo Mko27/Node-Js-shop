@@ -10,6 +10,18 @@ const getAllCategories = (req, res, next) => {
     .catch(next)
 }
 
+const getCategoriesPagination = (req, res, next) => {
+  console.log(req.query)
+  const page = parseInt(req.query.page, 10)
+  const limit = parseInt(req.query.limit) || 3
+
+  const offset = page ? page * limit : 0
+
+  return Category.getCategoriesPagination(limit, offset)
+    .then((categories) => res.render('category', { categories: categories.rows }))
+    .catch(next)
+}
+
 const createCategory = (req, res, next) => {
   console.log(req.body)
   const data = req.body
@@ -23,7 +35,7 @@ const deleteCategoryById = (req, res, next) => {
   const data = req.params
   console.log('================= deleted')
   return Category.deleteCategoryById(data.id)
-    .then(() => res.redirect('/category'))
+    .then(() => res.json({ msg: 'Successfully deleted' }))
     .catch(next)
 }
 
@@ -33,12 +45,13 @@ const updateCategoryById = (req, res, next) => {
   const elem = req.body
   console.log('elem', elem)
   return Category.updateCategoryById(data.id, elem)
-    .then(() => res.redirect('/category'))
+    .then(() => res.json({ msg: 'Successfully updated' }))
     .catch(next)
 }
 
 module.exports = {
   getAllCategories,
+  getCategoriesPagination,
   createCategory,
   deleteCategoryById,
   updateCategoryById

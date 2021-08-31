@@ -1,6 +1,6 @@
 const Joi = require('joi')
 
-const MAX_INT_VALUE = 2147483647;
+const MAX_INT_VALUE = 2147483647
 
 const ValidatorUtil = require('../../utils/validator.util')
 
@@ -17,7 +17,7 @@ module.exports = {
   //         offset: Joi.number().min(0).max(MAX_INT_VALUE).integer(),
   //         templateId: Joi.number().positive().max(MAX_INT_VALUE).integer()
   //       }
-  //     })  
+  //     })
   //     , next)
   // },
 
@@ -25,7 +25,7 @@ module.exports = {
     console.log('start region validation')
     ValidatorUtil.validate({ body: req.body }, Joi.object({
       body: {
-        name: Joi.string().required(),
+        name: Joi.string().required()
       }
     })
     , next)
@@ -54,5 +54,4 @@ module.exports = {
     }), next)
   }
 
-  
 }

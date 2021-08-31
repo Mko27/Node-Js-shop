@@ -13,8 +13,8 @@ router.get('/:id',
   CityServices.getCityById)
 
 router.post('/',
-  checkCityName,
   validateCreateCity,
+  checkCityName,
   CityServices.createCity)
 
 router.delete('/:id',
@@ -22,8 +22,8 @@ router.delete('/:id',
   CityServices.deleteCityById)
 
 router.patch('/:id',
-  checkCityName,
   validateCityUpdateParams,
+  checkCityName,
   CityServices.updateCityById)
 
 module.exports = router

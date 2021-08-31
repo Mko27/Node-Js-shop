@@ -15,7 +15,7 @@ div
     each category, idx in categories ? categories : []
       tr
         td( class='reg') #{category.name}
-          input.delete-icon(type='submit' data-id=category.id value='delete')    
+          //- input.delete-icon(type='submit' data-id=category.id value='delete')    
         td
           form(action='/category/id' method='patch')
           input.edit-input(type='text' name='name')
@@ -30,6 +30,7 @@ div
               option(value=category.id) #{category.name}
           input.submit-icon(type='submit' data-id=category.id value='submit')
           input.edit-icon(id='edit' type='submit' data-id=category.id value='edit')
+          input.delete-icon(type='submit' data-id=category.id value='delete')
   input.add-icon(id='add' type='submit' value='add')
   form.add-form(action='/category/' method='post')
     label Category name
@@ -58,6 +59,9 @@ div
         option(value=category.id) #{category.name}
     br
     input(type='submit' value='Add')
+  br
+  input.prev-icon(type='submit' value='<')
+  input.next-icon(type='submit' value='>')
 
 script. 
   var deleteBtns = document.querySelectorAll('.delete-icon')
@@ -69,10 +73,39 @@ script.
       fetch('/category/' + Btn, {
         method: 'DELETE',
       })
-      .then(res => location.reload()) // or res.json()
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if(data.msg){
+          location.reload()
+          return;
+        }
+        alert(data.message)
+        throw new Error()
+      })
       .catch(err => console.log(err))
     })
   });
+
+  var nextBtns = document.querySelectorAll('.next-icon')
+
+  nextBtns.forEach((nextBtn) => {
+    const page = 1
+    const limit = 3
+    nextBtn.addEventListener('click', function(){
+      fetch('/category/?page=' + page  + '&' + 'limit=' + limit, {
+        method: 'GET'
+      })
+      .then(res => {
+        console.log('ok')
+        return res.json()})
+      .then(data => {
+        console.log('OK!')
+        return console.log(JSON.parse(data))})
+      .catch(err => console.log(err))
+    })
+    })
+  
 
   var addBtns = document.querySelectorAll('.add-icon');
   addBtns.forEach((addBtn) => {
@@ -143,7 +176,12 @@ script.
       .then(res => res.json())
       .then(data => {
         console.log(data)
-        //location.reload();
+        if(data.msg){
+          location.reload()
+          return;
+        }
+        alert(data.message)
+        throw new Error()
       })
       .catch(err => console.log(err))
     })

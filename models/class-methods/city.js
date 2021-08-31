@@ -1,58 +1,58 @@
 module.exports = (City, sequelize) => {
-    City.findById = (id) => {
-        const query = {
-            where: {
-                id
-            },
-            raw: true
-        }
-
-        return City.findOne(query)
+  City.findById = (id) => {
+    const query = {
+      where: {
+        id
+      },
+      raw: true
     }
 
-    City.findByName = (name) => {
-        const query = {
-            where: {
-                name
-            },
-            raw: true
-        }
+    return City.findOne(query)
+  }
 
-        return City.findOne(query)
+  City.findByName = (name) => {
+    const query = {
+      where: {
+        name
+      },
+      raw: true
     }
 
-    City.getCities = () => {
-        console.log('Get Cities')
-        const query = {
-            raw: true
-        }
-        return City.findAll()
-    }
+    return City.findOne(query)
+  }
 
-    City.createCity = (city) => {
-        console.log("City created");
-        return City.create(city)
+  City.getCities = () => {
+    console.log('Get Cities')
+    const query = {
+      raw: true
     }
+    return City.findAll()
+  }
 
-    City.deleteCityById = (id) => {
-        const query = {
-            where: {
-                id
-            },
-            raw: true
-        }
-        return City.destroy(query)
+  City.createCity = (city) => {
+    console.log('City created')
+    return City.create(city)
+  }
+
+  City.deleteCityById = (id) => {
+    const query = {
+      where: {
+        id
+      },
+      raw: true
     }
+    return City.destroy(query)
+  }
 
-    City.updateCityById = (id, data) => {
-        const query = {
-            where: {
-                id
-            },
-            raw: true
-        }
-        return City.update(data, query)
+  City.updateCityById = (id, data) => {
+    const query = {
+      where: {
+        id
+      },
+      raw: true
     }
+    return City.update(data, query)
+  }
 
-    return City
+  return City
 }

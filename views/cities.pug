@@ -9,7 +9,7 @@ div
     each city, idx in cities
       tr
         td( class='reg') #{city.dataValues.name}
-          input.delete-icon(type='submit' data-id=city.dataValues.id value='delete')
+          //- input.delete-icon(type='submit' data-id=city.dataValues.id value='delete')
         td
           form(action='/cities/id' method='patch')
           input.edit-input(type='text' name='name')
@@ -17,7 +17,8 @@ div
             each region, idx in __regions ? __regions : []
               option(value=region.dataValues.id) #{region.dataValues.name}
           input.submit-icon(type='submit' data-id=city.dataValues.id value='submit')
-          input.edit-icon(id='edit' type='submit' data-id=city.dataValues.id value='edit')                   
+          input.edit-icon(id='edit' type='submit' data-id=city.dataValues.id value='edit')
+          input.delete-icon(type='submit' data-id=city.dataValues.id value='delete')                   
       br
   input.add-icon(id='add' type='submit' value='add')
   form.add-form(action='/cities' method='post' id="add")
@@ -45,7 +46,16 @@ script.
       fetch('/cities/' + Btn, {
         method: 'DELETE',
       })
-      .then(res => location.reload()) // or res.json()
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if(data.msg){
+          location.reload()
+          return;
+        }
+        alert(data.message)
+        throw new Error()
+      })
       .catch(err => console.log(err))
     })
   });
@@ -98,7 +108,12 @@ script.
       .then(res => res.json())
       .then(data => {
         console.log(data)
-        location.reload();
+        if(data.msg){
+          location.reload()
+          return;
+        }
+        alert(data.message)
+        throw new Error()
       })
       .catch(err => console.log(err))
     })
