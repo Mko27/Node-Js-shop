@@ -10,8 +10,7 @@ module.exports = {
 
     return Category.findByParentId(parentId)
       .then((category) => {
-        if (category) {
-          console.log(category)
+        if (category.count > 0) {
           return next(new CategoryDeleteError('This category is parent'))
         }
 
@@ -29,6 +28,20 @@ module.exports = {
       .then((category) => {
         if (category) {
           return next(new ExistNameError('This name exist'))
+        }
+
+        return next()
+      })
+      .catch(next)
+  },
+
+  checkCategorySlug: (req, res, next) => {
+    const slug = req.body.slug
+
+    return Category.findBySlug(slug)
+      .then((category) => {
+        if (category) {
+          return next(new ExistNameError('this slug exist'))
         }
 
         return next()

@@ -23,6 +23,17 @@ module.exports = (Category, sequelize) => {
     return Category.findOne(query)
   }
 
+  Category.findBySlug = (slug) => {
+    const query = {
+      where: {
+        slug
+      },
+      raw: false
+    }
+
+    return Category.findOne(query)
+  }
+
   Category.findByParentId = (parentId) => {
     const query = {
       where: {
@@ -31,7 +42,7 @@ module.exports = (Category, sequelize) => {
       raw: true
     }
 
-    return Category.findOne(query)
+    return Category.findAndCountAll(query)
   }
 
   Category.getCategories = () => {

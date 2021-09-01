@@ -48,7 +48,7 @@ module.exports = {
     ValidatorUtil.validate({ query: req.query },
       Joi.object({
         query: {
-          limit: Joi.number().positive().max(100).integer(),
+          size: Joi.number().positive().max(100).integer(),
           page: Joi.number().min(0).max(MAX_INT_VALUE).integer()
         }
       })

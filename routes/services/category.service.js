@@ -1,6 +1,34 @@
 const models = require('../../models')
 const { Category } = models
 
+const getPagination = (page, size) => {
+  const limit = size ? +size : 3
+  const offset = page ? page * limit : 0
+
+  return { limit, offset }
+}
+
+const getPagingData = (data, page) => {
+  const { count: totalItems, rows: categories } = data
+  const currentPage = page ? +page : 0
+
+  return { totalItems, categories, currentPage }
+}
+
+const getCategoriesPagination = (req, res, next) => {
+  console.log(req.query)
+  const { page, size } = req.query
+
+  const { limit, offset } = getPagination(page, size)
+
+  return Category.getCategoriesPagination(limit, offset)
+    .then((data) => {
+      const response = getPagingData(data, page)
+      return res.render('category', { categories: response.categories, currentPage: response.currentPage })
+    })
+    .catch(next)
+}
+
 const getAllCategories = (req, res, next) => {
   return Category.getCategories()
     .then((categories) => {
@@ -10,17 +38,17 @@ const getAllCategories = (req, res, next) => {
     .catch(next)
 }
 
-const getCategoriesPagination = (req, res, next) => {
-  console.log(req.query)
-  const page = parseInt(req.query.page, 10)
-  const limit = parseInt(req.query.limit) || 3
+// const getCategoriesPagination = (req, res, next) => {
+//   console.log(req.query)
+//   const page = parseInt(req.query.page, 10)
+//   const limit = parseInt(req.query.limit, 10) || 3
 
-  const offset = page ? page * limit : 0
+//   const offset = page ? page * limit : 0
 
-  return Category.getCategoriesPagination(limit, offset)
-    .then((categories) => res.render('category', { categories: categories.rows }))
-    .catch(next)
-}
+//   return Category.getCategoriesPagination(limit, offset)
+//     .then((categories) => res.render('category', { categories: categories.rows }))
+//     .catch(next)
+// }
 
 const createCategory = (req, res, next) => {
   console.log(req.body)

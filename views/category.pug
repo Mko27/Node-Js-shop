@@ -27,6 +27,7 @@ div
           select.edit-select(name='parentId' id="select-state")
             option(value="0") 
             each category, idx in categories ? categories : []
+              - console.log(category)
               option(value=category.id) #{category.name}
           input.submit-icon(type='submit' data-id=category.id value='submit')
           input.edit-icon(id='edit' type='submit' data-id=category.id value='edit')
@@ -90,18 +91,28 @@ script.
   var nextBtns = document.querySelectorAll('.next-icon')
 
   nextBtns.forEach((nextBtn) => {
-    const page = 1
+    var page = currentPage
     const limit = 3
     nextBtn.addEventListener('click', function(){
-      fetch('/category/?page=' + page  + '&' + 'limit=' + limit, {
-        method: 'GET'
-      })
+      console.log("clicked")
+      fetch(`/category/?page=${page}&size=${limit}`, 
+      {
+        method: 'GET',
+        query: {
+          size: limit,
+          page: page
+        }
+      }
+      )
       .then(res => {
         console.log('ok')
-        return res.json()})
+        page++
+        return res})
       .then(data => {
+        console.log("9999999999", data)
+        location.href = data.url
         console.log('OK!')
-        return console.log(JSON.parse(data))})
+        return console.log(data)})
       .catch(err => console.log(err))
     })
     })

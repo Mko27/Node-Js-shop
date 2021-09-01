@@ -1,5 +1,5 @@
-let express = require('express')
-let router = express.Router()
+const express = require('express')
+const router = express.Router()
 const UserServices = require('./services/users.service')
 const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth')
 const { validateUserRegistration, validateUserLogin } = require('../middlewares/validations/user.validation')

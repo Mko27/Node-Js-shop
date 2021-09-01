@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const CategoryServices = require('./services/category.service')
-const { checkCategoryDelete, checkCategoryName } = require('../middlewares/checkCategory.middlware')
+const { checkCategoryDelete, checkCategoryName, checkCategorySlug } = require('../middlewares/checkCategory.middlware')
 const { validateCreateCategory, validateIdCategory, validateCategoryUpdateParams, validateCategoryList } = require('../middlewares/validations/category.validation')
 
 router.get('/',
@@ -11,6 +11,7 @@ router.get('/',
 router.post('/',
   validateCreateCategory,
   checkCategoryName,
+  checkCategorySlug,
   CategoryServices.createCategory)
 
 router.delete('/:id',
@@ -21,6 +22,7 @@ router.delete('/:id',
 router.patch('/:id',
   validateCategoryUpdateParams,
   checkCategoryName,
+  checkCategorySlug,
   CategoryServices.updateCategoryById)
 
 module.exports = router
