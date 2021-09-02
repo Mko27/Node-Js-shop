@@ -49,7 +49,8 @@ module.exports = {
       Joi.object({
         query: {
           size: Joi.number().positive().max(100).integer(),
-          page: Joi.number().min(0).max(MAX_INT_VALUE).integer()
+          page: Joi.number().min(0).max(MAX_INT_VALUE).integer(),
+          name: Joi.string().allow('')
         }
       })
       , next)

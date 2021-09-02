@@ -12,6 +12,7 @@ div
 
   table(style='width:100%', border='1')
     - console.log('------' ,categories)
+    - console.log('current', currentPage)
     each category, idx in categories ? categories : []
       tr
         td( class='reg') #{category.name}
@@ -64,7 +65,7 @@ div
   input.prev-icon(type='submit' value='<')
   input.next-icon(type='submit' value='>')
 
-script. 
+script.
   var deleteBtns = document.querySelectorAll('.delete-icon')
   var Btn;
   deleteBtns.forEach((deleteBtn) => {
@@ -89,19 +90,20 @@ script.
   });
 
   var nextBtns = document.querySelectorAll('.next-icon')
-
   nextBtns.forEach((nextBtn) => {
-    var page = currentPage
+    var page = 1
     const limit = 3
     nextBtn.addEventListener('click', function(){
       console.log("clicked")
+      page ++
+      console.log(page)
       fetch(`/category/?page=${page}&size=${limit}`, 
       {
         method: 'GET',
-        query: {
-          size: limit,
-          page: page
-        }
+        //- query: {
+        //-   size: limit,
+        //-   page: page
+        //- }
       }
       )
       .then(res => {
@@ -111,8 +113,7 @@ script.
       .then(data => {
         console.log("9999999999", data)
         location.href = data.url
-        console.log('OK!')
-        return console.log(data)})
+        })
       .catch(err => console.log(err))
     })
     })

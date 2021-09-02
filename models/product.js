@@ -41,11 +41,11 @@ module.exports = (sequelize, DataTypes) => {
     soldedAt: {
       type: DataTypes.DATE
     },
-    userId: {
+    UserId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    cityId: {
+    CityId: {
       type: DataTypes.INTEGER,
       allowNull: false
     }

@@ -1,17 +1,17 @@
 module.exports = (ProductTag, sequelize) => {
-    ProductTag.findById = (id) => {
-        const query = {
-            where: {
-                id
-            },
-            raw: true
-        }
-
-        return ProductTag.findOne(query)
+  ProductTag.findById = (id) => {
+    const query = {
+      where: {
+        id
+      },
+      raw: true
     }
 
-    ProductTag.findAll = () => {
-        
-    }
-    return ProductTag
+    return ProductTag.findOne(query)
+  }
+
+  ProductTag.findAll = () => {
+
+  }
+  return ProductTag
 }

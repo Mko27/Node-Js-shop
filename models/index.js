@@ -6,7 +6,7 @@ const { PG } = require('../config')
 
 // const City = require('./city')
 
-const fs = require('fs')     
+const fs = require('fs')
 
 const path = require('path')
 
@@ -22,10 +22,9 @@ const db = {
   Op
 }
 
-
 const sequelizeMain = new Sequelize(PG.CONNECTION_STRING_MAIN, {
   logging: false
-});
+})
 
 /**
  * Import models working with Main DB.
@@ -35,7 +34,7 @@ const sequelizeMain = new Sequelize(PG.CONNECTION_STRING_MAIN, {
 //   './city'
 // ];
 
-//const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
+// const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
 
 // MODELS_MAIN.forEach((modelPath) => {
 //   const model = sequelizeMain.options.classMethods.associate(modelPath)
@@ -49,7 +48,7 @@ fs
   })
   .forEach(file => {
     const model = require(path.join(__dirname, file))(sequelizeMain, Sequelize.DataTypes)
-    //console.log('model: ', model)
+    // console.log('model: ', model)
     db[model.name] = model
   })
 
@@ -57,11 +56,23 @@ Object.keys(db).forEach(function (modelName) {
   if ('associate' in db[modelName]) {
     db[modelName].associate(db)
   }
-  //console.log(db[modelName])
+  // console.log(db[modelName])
 })
 
 db.Region.hasMany(db.City)
 db.City.belongsTo(db.Region)
+
+db.User.hasMany(db.Product)
+db.Product.belongsTo(db.User)
+
+db.City.hasMany(db.Product)
+db.Product.belongsTo(db.City)
+
+db.Product.hasMany(db.ProductCategory)
+db.ProductCategory.belongsTo(db.Product)
+
+db.Category.hasMany(db.ProductCategory)
+db.ProductCategory.belongsTo(db.Category)
 
 // db.City.hasOne(db.Region, {
 //   foreignKey: {
@@ -69,6 +80,6 @@ db.City.belongsTo(db.Region)
 //   }
 // })
 
-db.sequelizeMain = sequelizeMain;
-//console.log('db: ', db)
+db.sequelizeMain = sequelizeMain
+// console.log('db: ', db)
 module.exports = db

@@ -15,16 +15,18 @@ const getPagingData = (data, page) => {
   return { totalItems, categories, currentPage }
 }
 
-const getCategoriesPagination = (req, res, next) => {
+const getCategoriesByQuantity = (req, res, next) => {
   console.log(req.query)
   const { page, size } = req.query
+  const name = req.query.name || ''
 
   const { limit, offset } = getPagination(page, size)
 
-  return Category.getCategoriesPagination(limit, offset)
+  return Category.getCategoriesByQuantity(limit, offset, name)
     .then((data) => {
       const response = getPagingData(data, page)
-      return res.render('category', { categories: response.categories, currentPage: response.currentPage })
+
+      return res.render('category', { categories: response.categories })
     })
     .catch(next)
 }
@@ -79,7 +81,7 @@ const updateCategoryById = (req, res, next) => {
 
 module.exports = {
   getAllCategories,
-  getCategoriesPagination,
+  getCategoriesByQuantity,
   createCategory,
   deleteCategoryById,
   updateCategoryById

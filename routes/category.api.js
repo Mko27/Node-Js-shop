@@ -6,7 +6,7 @@ const { validateCreateCategory, validateIdCategory, validateCategoryUpdateParams
 
 router.get('/',
   validateCategoryList,
-  CategoryServices.getCategoriesPagination)
+  CategoryServices.getCategoriesByQuantity)
 
 router.post('/',
   validateCreateCategory,

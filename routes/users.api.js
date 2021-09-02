@@ -19,6 +19,11 @@ router.get('/home',
   UserServices.userPage
 )
 
+router.get('/add',
+  ensureAuthenticated,
+  UserServices.createAnnouncement
+)
+
 router.get('/logout',
   UserServices.userLogout)
 

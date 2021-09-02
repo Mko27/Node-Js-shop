@@ -58,15 +58,20 @@ module.exports = (Category, sequelize) => {
     return Category.findAll(query)
   }
 
-  Category.getCategoriesPagination = (limit, offset) => {
+  Category.getCategoriesByQuantity = (limit, offset, name) => {
+    const filters = { id: {
+      [Op.gte]: 1
+    }
+    }
+    if (name) {
+      filters.name = {
+        [Op.like]: `%${name}%`
+      }
+    }
     const query = {
       limit,
       offset,
-      where: {
-        id: {
-          [Op.gte]: 1
-        }
-      },
+      where: filters,
       raw: true
     }
 
