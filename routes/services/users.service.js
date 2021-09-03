@@ -1,5 +1,5 @@
 const models = require('../../models')
-const { User } = models
+const { User, City, Product } = models
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 
@@ -12,16 +12,14 @@ const registrationPage = (req, res, next) => {
 }
 
 const userPage = (req, res, next) => {
-  console.log('4564654', req.user.id)
   return res.render('userPage')
 }
 
-const createAnnouncement = (req, res, next) => {
+const createAnnouncementForm = (req, res, next) => {
   return res.render('createAnnouncement')
 }
 
 const userLogin = (req, res, next) => {
-  console.log('req', req.session.id)
   passport.authenticate('local', {
     successRedirect: '/users/home',
     failureRedirect: '/users/',
@@ -67,13 +65,38 @@ const userByEmail = (req, res, next) => {
   const data = req.body
 
   return User.findByEmail(data.email)
-    .then((user) => { console.log(user); return user })
+    .then((user) => {
+      console.log(user)
+      return user
+    })
     .catch(next)
 }
 
 const getUsers = (req, res, next) => {
   return User.getUsers()
     .then((users) => res.send(users))
+    .catch(next)
+}
+
+const appendCities = (req, res, next) => {
+  return City.getCities()
+    .then((cities) => {
+      res.locals.__cities = cities
+      next()
+    })
+    .catch(next)
+}
+
+const createAnnouncement = (req, res, next) => {
+  const data = req.body
+  data.UserId = req.user.id
+  if (data.status === 'Published') {
+    data.publishedAt = new Date()
+  }
+  console.log('User Id', data.UserId)
+
+  return Product.createProduct(data)
+    .then(() => res.redirect('/users/add'))
     .catch(next)
 }
 
@@ -87,5 +110,7 @@ module.exports = {
   userPage,
   userLogout,
   userLogin,
-  createAnnouncement
+  createAnnouncementForm,
+  createAnnouncement,
+  appendCities
 }

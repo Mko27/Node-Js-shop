@@ -89,14 +89,13 @@ script.
     })
   });
 
-  var nextBtns = document.querySelectorAll('.next-icon')
-  nextBtns.forEach((nextBtn) => {
-    var page = 1
-    const limit = 3
+  var nextBtn = document.querySelector('.next-icon')
+  //- nextBtns.forEach((nextBtn) => {
+  //-   var page = 1
+  //-   const limit = 3
     nextBtn.addEventListener('click', function(){
-      console.log("clicked")
-      page ++
-      console.log(page)
+      console.log(window.location.search)
+      //page++
       fetch(`/category/?page=${page}&size=${limit}`, 
       {
         method: 'GET',
@@ -108,7 +107,7 @@ script.
       )
       .then(res => {
         console.log('ok')
-        page++
+        //page++
         return res})
       .then(data => {
         console.log("9999999999", data)
@@ -116,7 +115,7 @@ script.
         })
       .catch(err => console.log(err))
     })
-    })
+  //- })
   
 
   var addBtns = document.querySelectorAll('.add-icon');

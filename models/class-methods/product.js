@@ -17,5 +17,31 @@ module.exports = (Product, sequelize) => {
 
     return Product.findAll(query)
   }
+
+  Product.createProduct = (data) => {
+    return Product.create(data)
+  }
+
+  Product.deleteProduct = (id) => {
+    const query = {
+      where: {
+        id
+      },
+      raw: true
+    }
+
+    return Product.destroy(query)
+  }
+
+  Product.updateProduct = (data, id) => {
+    const query = {
+      where: {
+        id
+      },
+      raw: true
+    }
+    return Product.update(data, query)
+  }
+
   return Product
 }

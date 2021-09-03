@@ -21,7 +21,8 @@ router.get('/home',
 
 router.get('/add',
   ensureAuthenticated,
-  UserServices.createAnnouncement
+  UserServices.appendCities,
+  UserServices.createAnnouncementForm
 )
 
 router.get('/logout',
@@ -36,5 +37,8 @@ router.post('/registration',
 router.post('/',
   validateUserLogin,
   UserServices.userLogin)
+
+router.post('/add',
+  UserServices.createAnnouncement)
 
 module.exports = router

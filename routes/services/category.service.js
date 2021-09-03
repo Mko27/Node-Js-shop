@@ -16,12 +16,11 @@ const getPagingData = (data, page) => {
 }
 
 const getCategoriesByQuantity = (req, res, next) => {
-  console.log(req.query)
   const { page, size } = req.query
   const name = req.query.name || ''
 
   const { limit, offset } = getPagination(page, size)
-
+  console.log('78888888', limit, offset)
   return Category.getCategoriesByQuantity(limit, offset, name)
     .then((data) => {
       const response = getPagingData(data, page)
@@ -34,7 +33,7 @@ const getCategoriesByQuantity = (req, res, next) => {
 const getAllCategories = (req, res, next) => {
   return Category.getCategories()
     .then((categories) => {
-      console.log(categories)
+      // console.log(categories)
       return res.render('category', { categories })
     })
     .catch(next)

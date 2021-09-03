@@ -46,10 +46,11 @@ const updateCityById = (req, res, next) => {
 }
 
 const appendRegions = (req, res, next) => {
-  return Region.getRegions().then((regions) => {
-    res.locals.__regions = regions
-    next()
-  }).catch(next)
+  return Region.getRegions()
+    .then((regions) => {
+      res.locals.__regions = regions
+      next()
+    }).catch(next)
 }
 
 module.exports = {

@@ -1,27 +1,41 @@
 doctype html
 style
   include ../public/stylesheets/style.css
-form.container()
+form.container(action='/users/add' method='post')
     label Name
     br 
-    input()
+    input(name='name')
     br
     label Description 
     br
-    input()
+    textarea(name='description' cols="30" rows="10" style='resize:none')
     br
     label Price
     br
-    input()
+    input(name='price')
     br
     label Address
     br 
-    input()
+    input(name='address')
     br
     label Brand
     br 
-    input()
+    input(name='brand')
     br
     label Model
     br 
-    input()
+    input(name='model')
+    br
+    label Status
+    br 
+    select(name="status")
+      option(value="Published") Published
+      option(value="Unpublished") Unpublished
+    br
+    label City
+    br 
+    select(name="CityId")
+      each city, idx in __cities ? __cities : []
+        option(value=city.dataValues.id) #{city.dataValues.name}
+    br
+    input(type="submit" value="Add")       
