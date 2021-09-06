@@ -91,10 +91,12 @@ script.
 
   var nextBtn = document.querySelector('.next-icon')
   //- nextBtns.forEach((nextBtn) => {
-  //-   var page = 1
-  //-   const limit = 3
+  var page = 1
+  const limit = 3
     nextBtn.addEventListener('click', function(){
-      console.log(window.location.search)
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const params = Object.fromEntries(urlSearchParams.entries());
+      console.log(params)
       //page++
       fetch(`/category/?page=${page}&size=${limit}`, 
       {
@@ -111,7 +113,7 @@ script.
         return res})
       .then(data => {
         console.log("9999999999", data)
-        location.href = data.url
+        //location.href = data.url
         })
       .catch(err => console.log(err))
     })

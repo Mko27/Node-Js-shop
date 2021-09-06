@@ -1,5 +1,5 @@
 const models = require('../../models')
-const { User, City, Product } = models
+const { User, Product } = models
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 
@@ -47,7 +47,10 @@ const userRegistration = (req, res, next) => {
 
   return User.registration(data)
     .then(() => res.send('Registered'))
-    .catch(next)
+    .catch((error) => {
+      console.log('Error...... ', error)
+      return next()
+    })
 }
 
 const userById = (req, res, next) => {
@@ -78,15 +81,6 @@ const getUsers = (req, res, next) => {
     .catch(next)
 }
 
-const appendCities = (req, res, next) => {
-  return City.getCities()
-    .then((cities) => {
-      res.locals.__cities = cities
-      next()
-    })
-    .catch(next)
-}
-
 const createAnnouncement = (req, res, next) => {
   const data = req.body
   data.UserId = req.user.id
@@ -97,6 +91,16 @@ const createAnnouncement = (req, res, next) => {
 
   return Product.createProduct(data)
     .then(() => res.redirect('/users/add'))
+    .catch(next)
+}
+
+const getAnnouncements = (req, res, next) => {
+  const UserId = req.user.id
+
+  return Product.findByUserId(UserId)
+    .then((announcements) => {
+      return res.render('userAnnouncements', { announcements: announcements.rows })
+    })
     .catch(next)
 }
 
@@ -112,5 +116,5 @@ module.exports = {
   userLogin,
   createAnnouncementForm,
   createAnnouncement,
-  appendCities
+  getAnnouncements
 }

@@ -5,6 +5,7 @@ const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth')
 const { validateUserRegistration, validateUserLogin } = require('../middlewares/validations/user.validation')
 const { checkUserExist } = require('../middlewares/userExist.middlware')
 const { multerImageUpload } = require('../middlewares/fileUpload.middlware')
+const { validateUserImage } = require('../middlewares/validations/file.validation')
 
 router.get('/',
   forwardAuthenticated,
@@ -19,10 +20,9 @@ router.get('/home',
   UserServices.userPage
 )
 
-router.get('/add',
+router.get('/announcements',
   ensureAuthenticated,
-  UserServices.appendCities,
-  UserServices.createAnnouncementForm
+  UserServices.getAnnouncements
 )
 
 router.get('/logout',
@@ -30,6 +30,7 @@ router.get('/logout',
 
 router.post('/registration',
   multerImageUpload,
+  validateUserImage,
   validateUserRegistration,
   checkUserExist,
   UserServices.userRegistration)
@@ -37,8 +38,5 @@ router.post('/registration',
 router.post('/',
   validateUserLogin,
   UserServices.userLogin)
-
-router.post('/add',
-  UserServices.createAnnouncement)
 
 module.exports = router

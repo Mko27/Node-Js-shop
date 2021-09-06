@@ -10,12 +10,23 @@ module.exports = (Product, sequelize) => {
     return Product.findOne(query)
   }
 
+  Product.findByUserId = (UserId) => {
+    const query = {
+      where: {
+        UserId
+      },
+      raw: true
+    }
+
+    return Product.findAndCountAll(query)
+  }
+
   Product.getProducts = () => {
     const query = {
       raw: true
     }
 
-    return Product.findAll(query)
+    return Product.findAll()
   }
 
   Product.createProduct = (data) => {

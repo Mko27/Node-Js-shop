@@ -1,0 +1,20 @@
+doctype html
+style
+  include ../public/stylesheets/style.css
+div
+  p My announcements:
+  br
+  
+  table(style='width:100%', border='1')
+    each announcement, idx in announcements ? announcements : []
+      tr
+        form(action='/reg/id' method='delete') 
+        td( class='reg') #{announcement.name}
+          //- input.delete-icon(type='submit' data-id=region.dataValues.id value='delete')    
+        td
+          form(action='/reg/id' method='patch')
+          input.edit-input(type='text' name='name')
+          input.submit-icon(type='submit' data-id=announcement.id value='submit')
+          input.edit-icon(id='edit' type='submit' data-id=announcement.id value='edit')
+          input.delete-icon(type='submit' data-id=announcement.id value='delete')                    
+      br
