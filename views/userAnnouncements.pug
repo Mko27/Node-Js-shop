@@ -59,28 +59,24 @@ script.
   editBtns.forEach((editBtn, index) => {
     editBtn.addEventListener('click', function(){
       BtnE = editBtn.getAttribute('data-id')
-      const editIcon = document.getElementsByClassName('edit-icon')
-      editIcon[index].style.display = 'none'
-      console.log('------------------ ',BtnE)
-      const editInput = document.getElementsByClassName('edit-input')
-      const editPrice = document.getElementsByClassName('edit-price')
-      const editAddress = document.getElementsByClassName('edit-address')
-      const editBrand = document.getElementsByClassName('edit-brand')
-      const editModel = document.getElementsByClassName('edit-model')
-      const editTextarea = document.getElementsByClassName('edit-textarea')
-      const submitInput = document.getElementsByClassName('submit-icon')
-      const editStatus = document.getElementsByClassName('edit-status')
-      const editSelect = document.getElementsByClassName('edit-select')
-      console.log('edit-input ', editInput)
-      editInput[index].style.display = 'block'
-      editPrice[index].style.display = 'block'
-      editAddress[index].style.display = 'block'
-      editBrand[index].style.display = 'block'
-      editModel[index].style.display = 'block'
-      editTextarea[index].style.display = 'block'
-      submitInput[index].style.display = 'block'
-      editSelect[index].style.display = 'block'
-      editStatus[index].style.display = 'block'
+      fetch('/products/my-announcements/edit' + BtnS, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if(data.msg){
+          location.reload()
+          return;
+        }
+        alert(data.message)
+        throw new Error()
+      })
+      .catch(err => console.log(err))
+      
     })  
   });
 
@@ -99,7 +95,7 @@ script.
       var status = document.getElementsByClassName('edit-status')[index].value
       console.log('name == ', name)
       console.log(BtnS)
-      fetch('/products/my-announcements/' + BtnS, {
+      fetch('/products/my-announcements/edit' + BtnS, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

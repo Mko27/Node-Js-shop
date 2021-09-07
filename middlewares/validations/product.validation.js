@@ -15,7 +15,7 @@ module.exports = {
         address: Joi.string().min(3).max(60).required(),
         brand: Joi.string().min(3).max(60).required(),
         model: Joi.string().min(3).max(60).required(),
-        status: Joi.string().valid('Published', 'Unpublished').required(),
+        // status: Joi.string().valid('Unpublished').required(),
         CityId: Joi.number().positive().integer()
       }
     })

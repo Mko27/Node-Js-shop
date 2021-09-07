@@ -24,10 +24,8 @@ const createAnnouncementForm = (req, res, next) => {
 
 const createAnnouncement = (req, res, next) => {
   const data = req.body
+  data.status = 'Unpublished'
   data.UserId = req.user.id
-  if (data.status === 'Published') {
-    data.publishedAt = new Date()
-  }
   console.log('User Id', data.UserId)
 
   return Product.createProduct(data)
