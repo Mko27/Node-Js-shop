@@ -11,6 +11,7 @@ const bodyParser = require('body-parser')
 let indexRouter = require('./routes/index')
 
 const { handleError } = require('./middlewares/validations/error-handler.middleware')
+const { appendCategories } = require('./middlewares/appendCategories.middlware')
 
 require('./config/passport')(passport)
 
@@ -49,6 +50,8 @@ app.use(session({
 
 app.use(passport.initialize())
 app.use(passport.session())
+
+app.use(appendCategories)
 
 app.use(flash())
 

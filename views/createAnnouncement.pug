@@ -1,7 +1,9 @@
 doctype html
+html 
+  include head.pug
 style
   include ../public/stylesheets/style.css
-form.container(action='/products/add' method='post')
+form.container(action='/products/my-announcements/add' method='post')
     label Name
     br 
     input(name='name')
@@ -38,4 +40,10 @@ form.container(action='/products/add' method='post')
       each city, idx in __cities ? __cities : []
         option(value=city.dataValues.id) #{city.dataValues.name}
     br
+    label Category
+    br 
+    select(name="CategoryId")
+      each category, idx in __categories ? __categories : []
+        option(value=category.id) #{category.name}
+    br  
     input(type="submit" value="Add")       

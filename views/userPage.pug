@@ -1,9 +1,11 @@
+html 
+  include head.pug
 head
   title User Page
 h1 Welcome
 form(action='/users/logout' method='get')
   input(type='submit' value='Logout')
-form(action='/users/add' method='get')
+form(action='/products/my-announcements/add' method='get')
   input(type='submit' value='Create announcement')
-form(action='/users/announcements' method='get')
+form(action='/products/my-announcements' method='get')
   input(type='submit' value='My announcements')

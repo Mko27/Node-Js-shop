@@ -2,7 +2,6 @@ const models = require('../../models')
 const { Product, City } = models
 
 const getAllProducts = (req, res, next) => {
-  console.log('products req', req.user)
   return Product.getProducts()
     .then((announcements) => {
       return res.render('announcements', { announcements })
@@ -32,7 +31,7 @@ const createAnnouncement = (req, res, next) => {
   console.log('User Id', data.UserId)
 
   return Product.createProduct(data)
-    .then(() => res.redirect('/products/add'))
+    .then(() => res.redirect('/products/my-announcements/add'))
     .catch(next)
 }
 
@@ -53,11 +52,20 @@ const deleteProductById = (req, res, next) => {
     .catch(next)
 }
 
+const updateProductById = (req, res, next) => {
+  const elem = req.params
+  const data = req.body
+  return Product.updateProduct(data, elem.id)
+    .then(() => res.json({ msg: 'Successfully updated' }))
+    .catch(next)
+}
+
 module.exports = {
   getAllProducts,
   appendCities,
   createAnnouncementForm,
   createAnnouncement,
   deleteProductById,
-  userAnnouncements
+  userAnnouncements,
+  updateProductById
 }

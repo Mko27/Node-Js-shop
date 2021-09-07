@@ -1,4 +1,6 @@
 doctype html
+html 
+  include head.pug
 style
   include ../public/stylesheets/style.css
 div
@@ -7,14 +9,121 @@ div
   
   table(style='width:100%', border='1')
     each announcement, idx in announcements ? announcements : []
-      tr
-        form(action='/reg/id' method='delete') 
-        td( class='reg') #{announcement.name}
-          //- input.delete-icon(type='submit' data-id=region.dataValues.id value='delete')    
+      tr 
+        td( class='reg') #{announcement.name}    
         td
-          form(action='/reg/id' method='patch')
-          input.edit-input(type='text' name='name')
+          form(action='/products/my-announcements/id' method='patch')
+          input.edit-input(type='text' name='name' placeholder='Name')
+          input.edit-price(type='text' name='price' placeholder='Price')
+          input.edit-address(type='text' name='address' placeholder='Address')
+          input.edit-brand(type='text' name='brand' placeholder='Brand')
+          input.edit-model(type='text' name='model' placeholder='Model')
+          textarea.edit-textarea(name="description", cols="25", rows="5" style='resize:none' placeholder='Description')
+          select.edit-status(name='status' id='select-state')
+            option(value="Published") Published
+            option(value="Unpublished") Unpublished 
+          select.edit-select(name="CityId")
+            each city, idx in __cities ? __cities : []
+              option(value=city.dataValues.id) #{city.dataValues.name}
           input.submit-icon(type='submit' data-id=announcement.id value='submit')
           input.edit-icon(id='edit' type='submit' data-id=announcement.id value='edit')
           input.delete-icon(type='submit' data-id=announcement.id value='delete')                    
       br
+
+script.
+  var deleteBtns = document.querySelectorAll('.delete-icon')
+  var Btn;
+  deleteBtns.forEach((deleteBtn) => {
+    deleteBtn.addEventListener('click', function(){
+      Btn = deleteBtn.getAttribute('data-id')
+      console.log(Btn)
+      fetch('/products/my-announcements/' + Btn, {
+        method: 'DELETE',
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if(data.msg){
+          location.reload()
+          return;
+        }
+        alert(data.message)
+        throw new Error()
+      })
+      .catch(err => console.log(err))
+    })
+  });
+
+  var editBtns = document.querySelectorAll('.edit-icon')
+  var BtnE;
+  editBtns.forEach((editBtn, index) => {
+    editBtn.addEventListener('click', function(){
+      BtnE = editBtn.getAttribute('data-id')
+      const editIcon = document.getElementsByClassName('edit-icon')
+      editIcon[index].style.display = 'none'
+      console.log('------------------ ',BtnE)
+      const editInput = document.getElementsByClassName('edit-input')
+      const editPrice = document.getElementsByClassName('edit-price')
+      const editAddress = document.getElementsByClassName('edit-address')
+      const editBrand = document.getElementsByClassName('edit-brand')
+      const editModel = document.getElementsByClassName('edit-model')
+      const editTextarea = document.getElementsByClassName('edit-textarea')
+      const submitInput = document.getElementsByClassName('submit-icon')
+      const editStatus = document.getElementsByClassName('edit-status')
+      const editSelect = document.getElementsByClassName('edit-select')
+      console.log('edit-input ', editInput)
+      editInput[index].style.display = 'block'
+      editPrice[index].style.display = 'block'
+      editAddress[index].style.display = 'block'
+      editBrand[index].style.display = 'block'
+      editModel[index].style.display = 'block'
+      editTextarea[index].style.display = 'block'
+      submitInput[index].style.display = 'block'
+      editSelect[index].style.display = 'block'
+      editStatus[index].style.display = 'block'
+    })  
+  });
+
+  var submitBtns = document.querySelectorAll('.submit-icon')
+  var BtnS;
+  submitBtns.forEach((submitBtn, index) => {
+    submitBtn.addEventListener('click', function(){
+      BtnS = submitBtn.getAttribute('data-id')
+      var name = document.getElementsByName('name')[index].value
+      var price = document.getElementsByName('price')[index].value
+      var address = document.getElementsByName('address')[index].value
+      var brand = document.getElementsByName('brand')[index].value
+      var model = document.getElementsByName('model')[index].value
+      var description = document.getElementsByName('description')[index].value
+      var cityId = document.getElementsByName('CityId')[index].value
+      var status = document.getElementsByClassName('edit-status')[index].value
+      console.log('name == ', name)
+      console.log(BtnS)
+      fetch('/products/my-announcements/' + BtnS, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+       body: JSON.stringify({
+        name: name,
+        price: price,
+        address: address,
+        brand: brand,
+        model: model,
+        description: description,
+        status: status, 
+        cityId: cityId}),
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if(data.msg){
+          location.reload()
+          return;
+        }
+        alert(data.message)
+        throw new Error()
+      })
+      .catch(err => console.log(err))
+    })
+  })

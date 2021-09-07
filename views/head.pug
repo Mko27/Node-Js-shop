@@ -5,5 +5,8 @@ script(src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.
 style
   include ../public/stylesheets/style.css
 div.header
-  h1 Header
-  p My supercool header
+  -console.log("head ",__categories)
+  each category, idx in __categories ? __categories : []
+    a.header__category(href='#') #{category.name}
+  a.header__account(href='http://localhost:3000/users') Sign In
+  a.header__account(href='http://localhost:3000/users/registration') Registration

@@ -1,5 +1,6 @@
 body {
-  padding: 50px;
+  padding: 0;
+  margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #EAEDED;
 }
@@ -31,6 +32,22 @@ a {
 }
 
 .edit-status {
+  display: none;
+}
+
+.edit-price {
+  display: none;
+}
+
+.edit-address {
+  display: none;
+}
+
+.edit-brand {
+  display: none;
+}
+
+.edit-model {
   display: none;
 }
 
@@ -79,9 +96,30 @@ h1{
 }
 
 .header {
-  padding: 60px;
-  text-align: center;
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
   background: #1abc9c;
   color: white;
   font-size: 30px;
+}
+
+.header__account{
+  color: white;
+  margin: 0 3px;
+  text-decoration: none;
+  text-transform: capitalize;
+  font-size: 18px;
+  border-left: 1px solid white;
+  padding-left: 5px;
+}
+
+.header__category{
+  color: white;
+  left: auto;
+  margin: 0 3px;
+  text-decoration: none;
+  text-transform: capitalize;
+  font-size: 18px;
+  border-left: 1px solid white;
 }

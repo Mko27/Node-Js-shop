@@ -1,4 +1,6 @@
 doctype html
+html 
+  include head.pug
 style
   include ../public/stylesheets/style.css
 div
@@ -7,8 +9,6 @@ div
   
   table(style='width:100%', border='1')
     each announcement, idx in announcements ? announcements : []
-      tr
-        - console.log('\\\\\\\\',announcements)
-        form(action='' method='delete') 
+      tr 
         td( class='reg') #{announcement.name}                    
       br
