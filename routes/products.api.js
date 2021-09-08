@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const ProductServices = require('./services/products.service')
+const ProductCategoryServices = require('./services/productCategory.service')
 const { validateCreateProduct, validateIdProduct, validateUpdateProduct } = require('../middlewares/validations/product.validation')
 const { ensureAuthenticated } = require('../config/auth')
 
@@ -25,6 +26,10 @@ router.get('/my-announcements',
 router.post('/my-announcements/add',
   validateCreateProduct,
   ProductServices.createAnnouncement)
+
+router.post('/my-announcements/edit/:id',
+  ProductCategoryServices.createProductCategory
+)
 
 router.patch('/my-announcements/edit/:id',
   validateUpdateProduct,

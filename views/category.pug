@@ -24,7 +24,7 @@ div
           textarea.edit-textarea(name="description", cols="25", rows="5" style='resize:none')
           select.edit-status(name='status' id='select-state')
             option(value="0") Live
-            option(value="1") Extinct 
+            option(value="1") Extinct
           select.edit-select(name='parentId' id="select-state")
             option(value="0") 
             each category, idx in categories ? categories : []
@@ -57,7 +57,7 @@ div
     br
     select(name='parentId' id="select-state")
       option(value="0")
-      each category, idx in categories ? categories : []
+      each category, idx in __categories ? __categories : []
         option(value=category.id) #{category.name}
     br
     input(type='submit' value='Add')

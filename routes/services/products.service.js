@@ -22,6 +22,13 @@ const createAnnouncementForm = (req, res, next) => {
   return res.render('createAnnouncement')
 }
 
+const editAnnouncementForm = (req, res, next) => {
+  const id = req.params.id
+  return Product.findById(id).then((product) => {
+    res.render('editAnnouncement', { product })
+  }).catch()
+}
+
 const createAnnouncement = (req, res, next) => {
   const data = req.body
   data.status = 'Unpublished'
@@ -65,5 +72,6 @@ module.exports = {
   createAnnouncement,
   deleteProductById,
   userAnnouncements,
-  updateProductById
+  updateProductById,
+  editAnnouncementForm
 }

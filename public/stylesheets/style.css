@@ -123,3 +123,7 @@ h1{
   font-size: 18px;
   border-left: 1px solid white;
 }
+
+.input-wrapper{
+  margin-left: 5px;
+}

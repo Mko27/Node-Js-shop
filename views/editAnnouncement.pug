@@ -3,47 +3,136 @@ html
   include head.pug
 style
   include ../public/stylesheets/style.css
-form.container(action='/products/my-announcements/add' method='post')
+
+p(style='text-align:center') #{product.name}
+  form.container(action="" method='patch') 
     label Name
     br 
-    input(name='name')
+    input(name='name' value=product.name)
     br
     label Description 
     br
-    textarea(name='description' cols="30" rows="10" style='resize:none')
+    textarea(name='description' cols="30" rows="10" style='resize:none') #{product.description}
     br
     label Price
     br
-    input(name='price')
+    input(name='price' value=product.price)
     br
     label Address
     br 
-    input(name='address')
+    input(name='address' value=product.address)
     br
     label Brand
     br 
-    input(name='brand')
+    input(name='brand' value=product.brand)
     br
     label Model
     br 
-    input(name='model')
+    input(name='model' value=product.model)
     br
-    //- label Status
-    //- br 
-    //- select(name="status")
-    //-   option(value="Published") Published
-    //-   option(value="Unpublished") Unpublished
-    //- br
+    label Status
+    br 
+    select(name="status")
+      option(value="Published") Published
+      option(value="Unpublished") Unpublished
+    br
     label City
     br 
     select(name="CityId")
       each city, idx in __cities ? __cities : []
         option(value=city.dataValues.id) #{city.dataValues.name}
+    br  
+    input.prod-edit#Submit(type="submit" value="Submit" data-id=product.id)
+  each category, idx in __categories ? __categories : []
+    if category.parentId === 0
+      label #{category.name}
+      br
+      each child in __categories ? __categories : []
+        if child.parentId === category.id
+          .input-wrapper
+            input#homeCheck(type='checkbox' value=child.id)
+            label #{child.name}
+          br
+    //- else 
+    //-   input(type="checkbox" value=category.id)
+    //-   label #{category.name}
     br
-    //- label Category
-    //- br 
-    //- select(name="CategoryId")
-    //-   each category, idx in __categories ? __categories : []
-    //-     option(value=category.id) #{category.name}
-    //- br  
-    input(type="submit" value="Add")  
+  
+
+script.
+  var BtnS;
+  var checkHomeBtn = document.getElementById('homeCheck')
+  var submitBtn = document.getElementById('Submit')
+  console.log(submitBtn.getAttribute('data-id'))
+
+  
+  checkHomeBtn.addEventListener('change', (e) => {
+    console.log('home check ', checkHomeBtn.value)
+    console.log('eeee', e.srcElement.checked)
+    if(e.srcElement.checked){
+      fetch('/products/my-announcements/edit/' + submitBtn.getAttribute('data-id'), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ProductId: submitBtn.getAttribute('data-id'),
+          CategoryId: checkHomeBtn.value,
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if(data.msg){
+          location.reload()
+          return;
+        }
+        alert(data.message)
+        throw new Error()
+      })
+      .catch(err => console.log(err))
+    }
+  })
+  var submitBtns = document.querySelectorAll('.prod-edit')
+  submitBtns.forEach((submitBtn, index) => {
+    submitBtn.addEventListener('click', function(){
+      BtnS = submitBtn.getAttribute('data-id')
+      alert(BtnS)
+      var name = document.getElementsByName('name')[0].value
+      var price = document.getElementsByName('price')[0].value
+      var address = document.getElementsByName('address')[0].value
+      var brand = document.getElementsByName('brand')[0].value
+      var model = document.getElementsByName('model')[0].value
+      var description = document.getElementsByName('description')[0].value
+      var cityId = document.getElementsByName('CityId')[0].value
+      var status = document.getElementsByName('status')[0].value
+      alert('name == ', status)
+      console.log(BtnS)
+      fetch('/products/my-announcements/edit/' + BtnS, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+       body: JSON.stringify({
+        name: name,
+        price: price,
+        address: address,
+        brand: brand,
+        model: model,
+        description: description,
+        status: status, 
+        CityId: cityId}),
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if(data.msg){
+          location.reload()
+          return;
+        }
+        alert(data.message)
+        throw new Error()
+      })
+      .catch(err => console.log(err))
+    })
+  })

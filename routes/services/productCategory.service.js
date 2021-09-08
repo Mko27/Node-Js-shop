@@ -2,10 +2,8 @@ const models = require('../../models')
 const { ProductCategory } = models
 
 const createProductCategory = (req, res, next) => {
-  const data = {
-    CategoryId: req.body.CategoryId,
-    ProductId: req.body.id
-  }
+  console.log('Product Category ', req.body)
+  const data = req.body
 
   return ProductCategory.createProductCategory(data)
     .then(() => res.json({ msg: 'successfully created' }))

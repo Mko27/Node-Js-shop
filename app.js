@@ -8,10 +8,11 @@ const flash = require('connect-flash')
 const session = require('express-session')
 const bodyParser = require('body-parser')
 
-let indexRouter = require('./routes/index')
+const indexRouter = require('./routes/index')
 
 const { handleError } = require('./middlewares/validations/error-handler.middleware')
 const { appendCategories } = require('./middlewares/appendCategories.middlware')
+const { appendProducts } = require('./middlewares/appendProducts.middlware')
 
 require('./config/passport')(passport)
 
