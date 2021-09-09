@@ -28,7 +28,8 @@ router.post('/my-announcements/add',
   ProductServices.createAnnouncement)
 
 router.post('/my-announcements/edit/:id',
-  ProductCategoryServices.createProductCategory
+  ProductCategoryServices.createProductCategory,
+  ProductCategoryServices.createParentCategory
 )
 
 router.patch('/my-announcements/edit/:id',

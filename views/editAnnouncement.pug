@@ -50,48 +50,47 @@ p(style='text-align:center') #{product.name}
       each child in __categories ? __categories : []
         if child.parentId === category.id
           .input-wrapper
-            input#homeCheck(type='checkbox' value=child.id)
+            input#homeCheck(type='checkbox' value=child.id data-id=child.parentId)
             label #{child.name}
           br
-    //- else 
-    //-   input(type="checkbox" value=category.id)
-    //-   label #{category.name}
     br
   
 
 script.
   var BtnS;
-  var checkHomeBtn = document.getElementById('homeCheck')
+  var checkBtnS = document.querySelectorAll('.input-wrapper')
+  console.log(checkBtnS)
   var submitBtn = document.getElementById('Submit')
   console.log(submitBtn.getAttribute('data-id'))
 
-  
-  checkHomeBtn.addEventListener('change', (e) => {
-    console.log('home check ', checkHomeBtn.value)
-    console.log('eeee', e.srcElement.checked)
-    if(e.srcElement.checked){
-      fetch('/products/my-announcements/edit/' + submitBtn.getAttribute('data-id'), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ProductId: submitBtn.getAttribute('data-id'),
-          CategoryId: checkHomeBtn.value,
+  checkBtnS.forEach((checkBtn, idx) => {
+    checkBtn.addEventListener('change', (e) => {
+      console.log(e.target.getAttribute('value'))
+      if(e.srcElement.checked){
+        fetch('/products/my-announcements/edit/' + submitBtn.getAttribute('data-id'), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ProductId: submitBtn.getAttribute('data-id'),
+            CategoryId: e.target.getAttribute('value'),
+            parentId: e.target.getAttribute('data-id')
+          })
         })
-      })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        if(data.msg){
-          location.reload()
-          return;
-        }
-        alert(data.message)
-        throw new Error()
-      })
-      .catch(err => console.log(err))
-    }
+        .then(res => res.json())
+        .then(data => {
+          console.log(data)
+          if(data.msg){
+            //location.reload()
+            return;
+          }
+          alert(data.message)
+          throw new Error()
+        })
+        .catch(err => console.log(err))
+      }
+    })
   })
   var submitBtns = document.querySelectorAll('.prod-edit')
   submitBtns.forEach((submitBtn, index) => {
@@ -127,7 +126,7 @@ script.
       .then(data => {
         console.log(data)
         if(data.msg){
-          location.reload()
+          location.href = '/products/my-announcements'
           return;
         }
         alert(data.message)

@@ -12,7 +12,6 @@ const indexRouter = require('./routes/index')
 
 const { handleError } = require('./middlewares/validations/error-handler.middleware')
 const { appendCategories } = require('./middlewares/appendCategories.middlware')
-const { appendProducts } = require('./middlewares/appendProducts.middlware')
 
 require('./config/passport')(passport)
 
@@ -22,7 +21,7 @@ db.sequelizeMain.authenticate()
   .then(() => console.log('connected'))
   .catch((err) => console.log(err))
 
-let app = express()
+const app = express()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
