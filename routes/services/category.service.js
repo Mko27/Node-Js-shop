@@ -34,7 +34,8 @@ const getAllCategories = (req, res, next) => {
   return Category.getCategories()
     .then((categories) => {
       // console.log(categories)
-      return res.render('category', { categories })
+      res.json({ select: categories })
+      return next()
     })
     .catch(next)
 }

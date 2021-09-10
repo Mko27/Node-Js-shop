@@ -6,7 +6,22 @@ style
   include ../public/stylesheets/style.css
 div.header
   -console.log("head ",__categories)
-  each category, idx in __categories ? __categories : []
-    a.header__category(href='#') #{category.name}
+  ul
+    each category, idx in __categories ? __categories : []
+      li
+        a() #{category.name}
+        ul.dropdown
+          each child, index in category.children ? category.children : []
+            li
+              a() #{child.name}
+              ul 
+                each sub, i in child.children ? child.children : []
+                  li
+                    a() #{sub.name} 
+
+
+ 
+  //- each category, idx in __categories ? __categories : []
+  //-   a.header__category(href='#') #{category.name}
   a.header__account(href='http://localhost:3000/users') Sign In
   a.header__account(href='http://localhost:3000/users/registration') Registration

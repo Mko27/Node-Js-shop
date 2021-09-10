@@ -3,6 +3,7 @@ const router = express.Router()
 const ProductServices = require('./services/products.service')
 const ProductCategoryServices = require('./services/productCategory.service')
 const { validateCreateProduct, validateIdProduct, validateUpdateProduct } = require('../middlewares/validations/product.validation')
+const { checkProductCategoryParent } = require('../middlewares/checkProductCategory.middlware')
 const { ensureAuthenticated } = require('../config/auth')
 
 router.get('/',
@@ -29,6 +30,7 @@ router.post('/my-announcements/add',
 
 router.post('/my-announcements/edit/:id',
   ProductCategoryServices.createProductCategory,
+  checkProductCategoryParent,
   ProductCategoryServices.createParentCategory
 )
 

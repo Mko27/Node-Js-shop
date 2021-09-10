@@ -127,3 +127,112 @@ h1{
 .input-wrapper{
   margin-left: 5px;
 }
+/* 
+a {
+  text-decoration: none;
+}
+
+nav {
+	font-family: monospace;
+}
+
+ul {
+  background: #1abc9c;
+	list-style: none;
+	margin: 0;
+	padding-left: 0;
+}
+
+li {
+	color: #fff;
+  background: #1abc9c;
+	display: block;
+	float: left;
+	padding: 1rem;
+	position: relative;
+	text-decoration: none;
+  transition-duration: 0.5s;
+}
+  
+li a {
+  color: #fff;
+}
+
+li:hover {
+	background: rgb(14, 109, 93);
+	cursor: pointer;
+}
+
+ul li ul {
+	background: rgb(14, 109, 93);
+	visibility: hidden;
+  opacity: 0;
+  min-width: 5rem;
+	position: absolute;
+  transition: all 0.5s ease;
+  margin-top: 1rem;
+	left: 0;
+  display: none;
+}
+
+ul li:hover > ul,
+ul li ul:hover {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+}
+
+ul li ul li {
+	clear: both;
+  width: 100%;
+} */
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: #1bc2a2;
+}
+
+ul li {
+  display: block;
+  position: relative;
+  float: left;
+  background: #1bc2a2;
+}
+
+li ul { display: none; }
+
+ul li a {
+  display: block;
+  padding: 1em;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #fff;
+}
+
+ul li a:hover { background: #2c3e50; }
+
+li:hover > ul {
+  display: block;
+  position: absolute;
+}
+
+li:hover li { float: none; }
+
+li:hover a { background: #1bc2a2; }
+
+li:hover li a:hover { background: #2c3e50; }
+
+ul ul ul {
+  left: 100%;
+  top: 0;
+}
+
+ul:before,
+ul:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+ul:after { clear: both; }

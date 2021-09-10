@@ -44,15 +44,13 @@ p(style='text-align:center') #{product.name}
     br  
     input.prod-edit#Submit(type="submit" value="Submit" data-id=product.id)
   each category, idx in __categories ? __categories : []
-    if category.parentId === 0
-      label #{category.name}
+    label #{category.name}
+    br
+    each child in category.children ? category.children : []
+      .input-wrapper
+        input#homeCheck(type='checkbox' value=child.id data-id=child.parentId)
+        label #{child.name}
       br
-      each child in __categories ? __categories : []
-        if child.parentId === category.id
-          .input-wrapper
-            input#homeCheck(type='checkbox' value=child.id data-id=child.parentId)
-            label #{child.name}
-          br
     br
   
 
