@@ -2,17 +2,22 @@ const models = require('../../models')
 const { ProductCategory } = models
 
 const createProductCategory = (req, res, next) => {
-  console.log('Product Category ', req.body)
-  const { ProductId, CategoryId } = req.body
+  console.log('product category ', req.params)
+  const ProductId = req.params.id
+  const { CategoryId } = req.body
   const createData = { ProductId, CategoryId }
 
   return ProductCategory.createProductCategory(createData)
-    .then(() => next())
+    .then((elem) => {
+      console.log('create product category ', elem)
+      return next()
+    })
     .catch(next)
 }
 
 const createParentCategory = (req, res, next) => {
-  const { ProductId, parentId } = req.body
+  const ProductId = req.params.id
+  const { parentId } = req.body
   const createData = {
     ProductId,
     CategoryId: parentId

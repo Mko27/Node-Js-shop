@@ -10,17 +10,17 @@ div
   table(style='width:100%', border='1')
     each city, idx in cities
       tr
-        td( class='reg') #{city.dataValues.name}
+        td( class='reg') #{city.name}
           //- input.delete-icon(type='submit' data-id=city.dataValues.id value='delete')
         td
           form(action='/cities/id' method='patch')
           input.edit-input(type='text' name='name')
           select.edit-select(name='RegionId' id="select-state")
             each region, idx in __regions ? __regions : []
-              option(value=region.dataValues.id) #{region.dataValues.name}
-          input.submit-icon(type='submit' data-id=city.dataValues.id value='submit')
-          input.edit-icon(id='edit' type='submit' data-id=city.dataValues.id value='edit')
-          input.delete-icon(type='submit' data-id=city.dataValues.id value='delete')                   
+              option(value=region.id) #{region.name}
+          input.submit-icon(type='submit' data-id=city.id value='submit')
+          input.edit-icon(id='edit' type='submit' data-id=city.id value='edit')
+          input.delete-icon(type='submit' data-id=city.id value='delete')                   
       br
   input.add-icon(id='add' type='submit' value='add')
   form.add-form(action='/cities' method='post' id="add")
@@ -33,7 +33,7 @@ div
     select(name='RegionId' id="select-state")
       option()
       each region, idx in __regions ? __regions : []
-        option(value=region.dataValues.id) #{region.dataValues.name}
+        option(value=region.id) #{region.name}
     br
     input(type='submit' value='Add')
   br

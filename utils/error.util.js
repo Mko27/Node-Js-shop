@@ -4,7 +4,8 @@ const CUSTOM_ERRORS = [
   'PathNotFoundError',
   'ExistMailError',
   'CategoryDeleteError',
-  'ExistNameError'
+  'ExistNameError',
+  'RegionDeleteError'
 ]
 
 const ERRORS = CUSTOM_ERRORS.reduce((acc, className) => {

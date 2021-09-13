@@ -1,19 +1,6 @@
 const models = require('../../models')
 const { Category } = models
-
-const getPagination = (page, size) => {
-  const limit = size ? +size : 3
-  const offset = page ? page * limit : 0
-
-  return { limit, offset }
-}
-
-const getPagingData = (data, page) => {
-  const { count: totalItems, rows: categories } = data
-  const currentPage = page ? +page : 0
-
-  return { totalItems, categories, currentPage }
-}
+const { getPagination, getPagingData } = require('../../utils/pagination.util')
 
 const getCategoriesByQuantity = (req, res, next) => {
   const { page, size } = req.query

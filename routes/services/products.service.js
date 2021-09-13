@@ -4,7 +4,7 @@ const { Product, City } = models
 const getAllProducts = (req, res, next) => {
   return Product.getProducts()
     .then((announcements) => {
-      return res.render('announcements', { announcements })
+      return res.render('announcements', { announcements: announcements.rows })
     })
     .catch(next)
 }
@@ -12,7 +12,7 @@ const getAllProducts = (req, res, next) => {
 const appendCities = (req, res, next) => {
   return City.getCities()
     .then((cities) => {
-      res.locals.__cities = cities
+      res.locals.__cities = cities.rows
       next()
     })
     .catch(next)
@@ -60,6 +60,9 @@ const deleteProductById = (req, res, next) => {
 const updateProductById = (req, res, next) => {
   const elem = req.params
   const data = req.body
+  if (data.status === 'Published') {
+    data.publishedAt = new Date()
+  }
   return Product.updateProduct(data, elem.id)
     .then(() => res.json({ msg: 'Successfully updated' }))
     .catch(next)

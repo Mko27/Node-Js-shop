@@ -5,7 +5,7 @@ const getAllCities = (req, res, next) => {
   return City.getCities()
     .then(cities => {
       console.log(cities)
-      return res.render('cities', { cities })
+      return res.render('cities', { cities: cities.rows })
     })
     .catch(err => console.log(err))
 }
@@ -48,7 +48,7 @@ const updateCityById = (req, res, next) => {
 const appendRegions = (req, res, next) => {
   return Region.getRegions()
     .then((regions) => {
-      res.locals.__regions = regions
+      res.locals.__regions = regions.rows
       next()
     }).catch(next)
 }

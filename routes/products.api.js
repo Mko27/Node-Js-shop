@@ -28,7 +28,7 @@ router.post('/my-announcements/add',
   validateCreateProduct,
   ProductServices.createAnnouncement)
 
-router.post('/my-announcements/edit/:id',
+router.post('/my-announcements/edit/:id/category',
   ProductCategoryServices.createProductCategory,
   checkProductCategoryParent,
   ProductCategoryServices.createParentCategory

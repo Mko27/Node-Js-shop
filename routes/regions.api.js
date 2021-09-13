@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const RegionServices = require('./services/regions.service')
-const { checkRegionName } = require('../middlewares/checkRegion.middlware')
+const { checkRegionName, checkRegionDelete } = require('../middlewares/checkRegion.middlware')
 const { validateCreateRegion, validateIdRegion, validateRegionUpdateParams } = require('../middlewares/validations/region.validation')
 
 router.get('/',
@@ -18,6 +18,7 @@ router.patch('/:id',
 
 router.delete('/:id',
   validateIdRegion,
+  checkRegionDelete,
   RegionServices.deleteRegionById)
 
 router.post('/',

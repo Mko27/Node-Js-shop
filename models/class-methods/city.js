@@ -26,7 +26,7 @@ module.exports = (City, sequelize) => {
     const query = {
       raw: true
     }
-    return City.findAll()
+    return City.findAndCountAll(query)
   }
 
   City.createCity = (city) => {
@@ -52,6 +52,16 @@ module.exports = (City, sequelize) => {
       raw: true
     }
     return City.update(data, query)
+  }
+
+  City.findByRegionId = (regionId) => {
+    const query = {
+      where: {
+        RegionId: regionId
+      },
+      raw: true
+    }
+    return City.findAndCountAll(query)
   }
 
   return City

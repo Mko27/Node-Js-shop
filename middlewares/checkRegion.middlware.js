@@ -1,7 +1,7 @@
 const models = require('../models')
-const { Region } = models
+const { Region, City } = models
 const { ErrorsUtil } = require('../utils/index')
-const { ExistNameError } = ErrorsUtil
+const { ExistNameError, RegionDeleteError } = ErrorsUtil
 
 module.exports = {
   checkRegionName: (req, res, next) => {
@@ -16,6 +16,18 @@ module.exports = {
         }
 
         return next()
+      })
+      .catch(next)
+  },
+
+  checkRegionDelete: (req, res, next) => {
+    const regionId = req.params.id
+
+    return City.findByRegionId(regionId)
+      .then((cities) => {
+        if (cities.count > 0) {
+          return next(new RegionDeleteError('This region has cities'))
+        }
       })
       .catch(next)
   }

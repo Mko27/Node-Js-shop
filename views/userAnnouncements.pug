@@ -24,7 +24,7 @@ div
             option(value="Unpublished") Unpublished 
           select.edit-select(name="CityId")
             each city, idx in __cities ? __cities : []
-              option(value=city.dataValues.id) #{city.dataValues.name}
+              option(value=city.id) #{city.name}
           input.submit-icon(type='submit' data-id=announcement.id value='submit')
           input.edit-icon(id='edit' type='submit' data-id=announcement.id value='edit')
           input.delete-icon(type='submit' data-id=announcement.id value='delete')                    

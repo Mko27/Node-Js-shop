@@ -23,6 +23,10 @@ const ERROR_CASES = {
     statusCode: 409,
     errorCode: 'ExistingName'
   },
+  RegionDeleteError: {
+    statusCode: 400,
+    errorCode: 'RegionHasCity'
+  },
 
   DEFAULT: {
     statusCode: 500,

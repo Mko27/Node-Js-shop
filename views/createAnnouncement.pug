@@ -28,22 +28,10 @@ form.container(action='/products/my-announcements/add' method='post')
     br 
     input(name='model')
     br
-    //- label Status
-    //- br 
-    //- select(name="status")
-    //-   option(value="Published") Published
-    //-   option(value="Unpublished") Unpublished
-    //- br
     label City
     br 
     select(name="CityId")
       each city, idx in __cities ? __cities : []
-        option(value=city.dataValues.id) #{city.dataValues.name}
-    br
-    //- label Category
-    //- br 
-    //- select(name="CategoryId")
-    //-   each category, idx in __categories ? __categories : []
-    //-     option(value=category.id) #{category.name}
-    //- br  
+        option(value=city.id) #{city.name}
+    br  
     input(type="submit" value="Add")       

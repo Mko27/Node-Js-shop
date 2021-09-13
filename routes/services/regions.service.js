@@ -5,7 +5,7 @@ const getAllRegions = (req, res, next) => {
   return Region.getRegions()
     .then(regions => {
       console.log(regions)
-      return res.render('regions', { regions })
+      return res.render('regions', { regions: regions.rows })
     })
     .catch(next)
 }

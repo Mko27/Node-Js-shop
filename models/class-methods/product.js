@@ -23,10 +23,13 @@ module.exports = (Product, sequelize) => {
 
   Product.getProducts = () => {
     const query = {
+      where: {
+        status: 'Published'
+      },
       raw: true
     }
 
-    return Product.findAll()
+    return Product.findAndCountAll(query)
   }
 
   Product.createProduct = (data) => {
