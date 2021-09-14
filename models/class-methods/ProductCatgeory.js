@@ -5,6 +5,17 @@ module.exports = (ProductCategory, sequelize) => {
     return ProductCategory.create(data)
   }
 
+  ProductCategory.findByCategoryId = (CategoryId) => {
+    const query = {
+      where: {
+        CategoryId
+      },
+      raw: true
+    }
+
+    return ProductCategory.findAndCountAll(query)
+  }
+
   ProductCategory.deleteProductCategory = () => {
 
   }

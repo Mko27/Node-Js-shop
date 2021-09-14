@@ -9,6 +9,13 @@ const getAllProducts = (req, res, next) => {
     .catch(next)
 }
 
+const getProductsByCategoryId = (req, res, next) => {
+  // const categoryName = req.params.category
+  return Product.getByCategories().then((result) => {
+    return console.log('results ', result)
+  }).catch(next)
+}
+
 const appendCities = (req, res, next) => {
   return City.getCities()
     .then((cities) => {
@@ -76,5 +83,6 @@ module.exports = {
   deleteProductById,
   userAnnouncements,
   updateProductById,
-  editAnnouncementForm
+  editAnnouncementForm,
+  getProductsByCategoryId
 }

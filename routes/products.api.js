@@ -9,6 +9,9 @@ const { ensureAuthenticated } = require('../config/auth')
 router.get('/',
   ProductServices.getAllProducts)
 
+router.get('/:category',
+  ProductServices.getProductsByCategoryId)
+
 router.get('/my-announcements/add',
   ensureAuthenticated,
   ProductServices.appendCities,

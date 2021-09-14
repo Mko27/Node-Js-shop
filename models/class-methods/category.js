@@ -17,7 +17,7 @@ module.exports = (Category, sequelize) => {
       where: {
         name
       },
-      raw: false
+      raw: true
     }
 
     return Category.findOne(query)
@@ -28,7 +28,7 @@ module.exports = (Category, sequelize) => {
       where: {
         slug
       },
-      raw: false
+      raw: true
     }
 
     return Category.findOne(query)
