@@ -1,4 +1,3 @@
-const db = require('../index')
 module.exports = (Product, sequelize) => {
   Product.findById = (id) => {
     const query = {
@@ -22,16 +21,7 @@ module.exports = (Product, sequelize) => {
     return Product.findAndCountAll(query)
   }
 
-  Product.getByCategories = () => {
-    console.log('productcategory ', db)
-    const query = {
-      where: {
-        status: 'Published'
-      },
-      include: { model: db.ProductCategory },
-      raw: true
-    }
-
+  Product.getByCategories = (query) => {
     return Product.findAndCountAll(query)
   }
 
@@ -54,8 +44,7 @@ module.exports = (Product, sequelize) => {
     const query = {
       where: {
         id
-      },
-      raw: true
+      }
     }
 
     return Product.destroy(query)

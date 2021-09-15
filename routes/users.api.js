@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const UserServices = require('./services/users.service')
-const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth')
+const { forwardAuthenticated, ensureAuthenticated } = require('../lib/auth')
 const { validateUserRegistration, validateUserLogin } = require('../middlewares/validations/user.validation')
 const { checkUserExist } = require('../middlewares/userExist.middlware')
 const { multerImageUpload } = require('../middlewares/fileUpload.middlware')
@@ -18,11 +18,6 @@ router.get('/registration',
 router.get('/home',
   ensureAuthenticated,
   UserServices.userPage
-)
-
-router.get('/announcements',
-  ensureAuthenticated,
-  UserServices.getAnnouncements
 )
 
 router.get('/logout',

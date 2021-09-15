@@ -10,16 +10,10 @@ const bodyParser = require('body-parser')
 
 const indexRouter = require('./routes/index')
 
-const { handleError } = require('./middlewares/validations/error-handler.middleware')
+const { handleError } = require('./middlewares/error-handler.middleware')
 const { appendCategories } = require('./middlewares/appendCategories.middlware')
 
-require('./config/passport')(passport)
-
-const db = require('./models/index')
-
-db.sequelizeMain.authenticate()
-  .then(() => console.log('connected'))
-  .catch((err) => console.log(err))
+require('./lib/passport')(passport)
 
 const app = express()
 
@@ -44,7 +38,7 @@ app.use(session({
   cookie: {
     path: '/',
     httpOnly: true,
-    maxAge: 90000
+    maxAge: 900000
   }
 }))
 

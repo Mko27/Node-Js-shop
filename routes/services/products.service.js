@@ -9,17 +9,10 @@ const getAllProducts = (req, res, next) => {
     .catch(next)
 }
 
-const getProductsByCategoryId = (req, res, next) => {
-  // const categoryName = req.params.category
-  return Product.getByCategories().then((result) => {
-    return console.log('results ', result)
-  }).catch(next)
-}
-
 const appendCities = (req, res, next) => {
   return City.getCities()
     .then((cities) => {
-      res.locals.__cities = cities.rows
+      res.locals.__cities = cities
       next()
     })
     .catch(next)
@@ -30,7 +23,7 @@ const createAnnouncementForm = (req, res, next) => {
 }
 
 const editAnnouncementForm = (req, res, next) => {
-  const id = req.params.id
+  const id = parseInt(req.params.id, 10)
   return Product.findById(id).then((product) => {
     res.render('editAnnouncement', { product })
   }).catch()
@@ -40,7 +33,6 @@ const createAnnouncement = (req, res, next) => {
   const data = req.body
   data.status = 'Unpublished'
   data.UserId = req.user.id
-  console.log('User Id', data.UserId)
 
   return Product.createProduct(data)
     .then(() => res.redirect('/products/my-announcements/add'))
@@ -58,19 +50,19 @@ const userAnnouncements = (req, res, next) => {
 }
 
 const deleteProductById = (req, res, next) => {
-  const data = req.params
-  return Product.deleteProduct(data.id)
+  const data = parseInt(req.params.id, 10)
+  return Product.deleteProduct(data)
     .then(() => res.json({ msg: 'Successfully deleted' }))
     .catch(next)
 }
 
 const updateProductById = (req, res, next) => {
-  const elem = req.params
+  const elem = parseInt(req.params.id, 10)
   const data = req.body
   if (data.status === 'Published') {
     data.publishedAt = new Date()
   }
-  return Product.updateProduct(data, elem.id)
+  return Product.updateProduct(data, elem)
     .then(() => res.json({ msg: 'Successfully updated' }))
     .catch(next)
 }
@@ -83,6 +75,5 @@ module.exports = {
   deleteProductById,
   userAnnouncements,
   updateProductById,
-  editAnnouncementForm,
-  getProductsByCategoryId
+  editAnnouncementForm
 }

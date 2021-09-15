@@ -34,7 +34,6 @@ const userLogout = (req, res, next) => {
 }
 
 const userRegistration = (req, res, next) => {
-  console.log('file ', req.file)
   const data = req.body
   data.salt = bcrypt.genSaltSync(10)
   data.hash = bcrypt.hashSync(data.password, data.salt)
@@ -42,8 +41,6 @@ const userRegistration = (req, res, next) => {
   if (req.file) {
     data.image = req.file.path
   }
-
-  console.log(data)
 
   return User.registration(data)
     .then(() => res.send('Registered'))
@@ -54,11 +51,10 @@ const userRegistration = (req, res, next) => {
 }
 
 const userById = (req, res, next) => {
-  const data = req.params
+  const data = parseInt(req.params.id, 10)
 
-  return User.findById(data.id)
+  return User.findById(data)
     .then((user) => {
-      console.log('(()) ', user)
       return res.send(user)
     })
     .catch(next)
@@ -69,7 +65,6 @@ const userByEmail = (req, res, next) => {
 
   return User.findByEmail(data.email)
     .then((user) => {
-      console.log(user)
       return user
     })
     .catch(next)
@@ -87,7 +82,6 @@ const createAnnouncement = (req, res, next) => {
   if (data.status === 'Published') {
     data.publishedAt = new Date()
   }
-  console.log('User Id', data.UserId)
 
   return Product.createProduct(data)
     .then(() => res.redirect('/users/add'))
@@ -98,9 +92,7 @@ const getAnnouncements = (req, res, next) => {
   const UserId = req.user.id
 
   return Product.findByUserId(UserId)
-    .then((announcements) => {
-      return res.render('userAnnouncements', { announcements: announcements.rows })
-    })
+    .then((announcements) => res.render('userAnnouncements', { announcements: announcements.rows }))
     .catch(next)
 }
 

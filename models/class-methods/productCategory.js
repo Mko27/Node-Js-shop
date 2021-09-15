@@ -24,9 +24,8 @@ module.exports = (ProductCategory, sequelize) => {
     const query = {
       where: {
         [Op.and]: [
-          { CategoryId: data.parentId,
-            ProductId: data.ProductId
-          }
+          { CategoryId: data.parentId },
+          { ProductId: data.ProductId }
         ]
       },
       raw: true

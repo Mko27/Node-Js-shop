@@ -12,8 +12,8 @@ module.exports = {
         name: Joi.string().required(),
         slug: Joi.string().required(),
         description: Joi.string().required(),
-        status: Joi.number().integer().min(0).max(1),
-        parentId: Joi.number().integer().max(MAX_INT_VALUE).allow('')
+        status: Joi.number().integer().min(0).max(1).required(),
+        parentId: Joi.number().integer().max(MAX_INT_VALUE).allow('').required()
       }
     })
     , next)
@@ -22,7 +22,7 @@ module.exports = {
   validateIdCategory: (req, res, next) => {
     ValidatorUtil.validate({ params: req.params }, Joi.object({
       params: {
-        id: Joi.number().max(MAX_INT_VALUE).integer().positive()
+        id: Joi.number().max(MAX_INT_VALUE).integer().positive().required()
       }
     }), next)
   },
@@ -30,21 +30,20 @@ module.exports = {
   validateCategoryUpdateParams: (req, res, next) => {
     ValidatorUtil.validate({ body: req.body, params: req.params }, Joi.object({
       params: {
-        id: Joi.number().positive().max(MAX_INT_VALUE).integer()
+        id: Joi.number().positive().max(MAX_INT_VALUE).integer().required()
       },
 
       body: {
         name: Joi.string().required(),
         slug: Joi.string().required(),
         description: Joi.string().required(),
-        status: Joi.number().integer().min(0).max(1),
-        parentId: Joi.number().max(MAX_INT_VALUE).integer().allow('')
+        status: Joi.number().integer().min(0).max(1).required(),
+        parentId: Joi.number().max(MAX_INT_VALUE).integer().allow('').required()
       }
     }), next)
   },
 
   validateCategoryList: (req, res, next) => {
-    console.log('start validation')
     ValidatorUtil.validate({ query: req.query },
       Joi.object({
         query: {

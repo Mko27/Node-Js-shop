@@ -3,24 +3,19 @@ const { City, Region } = models
 
 const getAllCities = (req, res, next) => {
   return City.getCities()
-    .then(cities => {
-      console.log(cities)
-      return res.render('cities', { cities: cities.rows })
-    })
-    .catch(err => console.log(err))
+    .then(cities => res.render('cities', { cities }))
+    .catch(next)
 }
 
 const getCityById = (req, res, next) => {
-  const data = req.params
-  return City.findById(data.id)
+  const data = parseInt(req.params.id, 10)
+  return City.findById(data)
     .then(city => res.render('city', { elem: city.name }))
     .catch(next)
 }
 
 const createCity = (req, res, next) => {
   const data = req.body
-  console.log('data ', data)
-  console.log('ID : ', data.RegionId)
 
   return City.createCity(data)
     .then(() => res.redirect('/cities'))
@@ -28,19 +23,18 @@ const createCity = (req, res, next) => {
 }
 
 const deleteCityById = (req, res, next) => {
-  const data = req.params
-  console.log('================= ', data)
-  return City.deleteCityById(data.id)
+  const data = parseInt(req.params.id, 10)
+
+  return City.deleteCityById(data)
     .then(() => res.json({ msg: 'Successfully deleted' }))
     .catch(next)
 }
 
 const updateCityById = (req, res, next) => {
-  const data = req.params
-  console.log('req.params ======', data)
+  const data = parseInt(req.params.id, 10)
   const elem = req.body
-  console.log('elem ===== ', elem)
-  return City.updateCityById(data.id, elem)
+
+  return City.updateCityById(data, elem)
     .then(() => res.json({ msg: 'Successfully updated' }))
     .catch(next)
 }
@@ -48,7 +42,7 @@ const updateCityById = (req, res, next) => {
 const appendRegions = (req, res, next) => {
   return Region.getRegions()
     .then((regions) => {
-      res.locals.__regions = regions.rows
+      res.locals.__regions = regions
       next()
     }).catch(next)
 }

@@ -1,10 +1,11 @@
-const classMethod = require('./class-methods/productCatgeory')
+const classMethod = require('./class-methods/productCategory')
 
 module.exports = (sequelize, DataTypes) => {
   const ProductCategory = sequelize.define('ProductCategory', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+
       autoIncrement: true,
       primaryKey: true
     },

@@ -7,7 +7,7 @@ const getCategoriesByQuantity = (req, res, next) => {
   const name = req.query.name || ''
 
   const { limit, offset } = getPagination(page, size)
-  console.log('78888888', limit, offset)
+
   return Category.getCategoriesByQuantity(limit, offset, name)
     .then((data) => {
       const response = getPagingData(data, page)
@@ -40,7 +40,6 @@ const getAllCategories = (req, res, next) => {
 // }
 
 const createCategory = (req, res, next) => {
-  console.log(req.body)
   const data = req.body
 
   return Category.createCategory(data)
@@ -49,19 +48,18 @@ const createCategory = (req, res, next) => {
 }
 
 const deleteCategoryById = (req, res, next) => {
-  const data = req.params
-  console.log('================= deleted')
-  return Category.deleteCategoryById(data.id)
+  const data = parseInt(req.params.id, 10)
+
+  return Category.deleteCategoryById(data)
     .then(() => res.json({ msg: 'Successfully deleted' }))
     .catch(next)
 }
 
 const updateCategoryById = (req, res, next) => {
-  const data = req.params
-  console.log('req.params', data)
+  const data = parseInt(req.params.id, 10)
   const elem = req.body
-  console.log('elem', elem)
-  return Category.updateCategoryById(data.id, elem)
+
+  return Category.updateCategoryById(data, elem)
     .then(() => res.json({ msg: 'Successfully updated' }))
     .catch(next)
 }

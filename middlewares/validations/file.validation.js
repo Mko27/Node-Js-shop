@@ -5,8 +5,6 @@ const ValidatorUtil = require('../../utils/validator.util')
 module.exports = {
 
   validateUserImage: (req, file, next) => {
-    console.log('file validation')
-    console.log('req file: ', req.file)
     ValidatorUtil.validateFile({ image: req.file }, Joi.object({
       image: {
         filename: Joi.string(),

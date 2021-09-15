@@ -24,7 +24,6 @@ const appendCategories = (req, res, next) => {
     const categoriesTree = buildTree(categories)
 
     res.locals.__categories = categoriesTree
-    console.log('Categories Tree ', JSON.stringify(res.locals.__categories, null, 2))
     return next()
   }).catch(next)
 }

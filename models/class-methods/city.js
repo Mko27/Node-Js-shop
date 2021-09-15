@@ -22,15 +22,13 @@ module.exports = (City, sequelize) => {
   }
 
   City.getCities = () => {
-    console.log('Get Cities')
     const query = {
       raw: true
     }
-    return City.findAndCountAll(query)
+    return City.findAll(query)
   }
 
   City.createCity = (city) => {
-    console.log('City created')
     return City.create(city)
   }
 
@@ -38,8 +36,7 @@ module.exports = (City, sequelize) => {
     const query = {
       where: {
         id
-      },
-      raw: true
+      }
     }
     return City.destroy(query)
   }
@@ -61,7 +58,7 @@ module.exports = (City, sequelize) => {
       },
       raw: true
     }
-    return City.findAndCountAll(query)
+    return City.count(query)
   }
 
   return City

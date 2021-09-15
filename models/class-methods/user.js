@@ -15,7 +15,6 @@ module.exports = (User, sequelize) => {
   }
 
   User.registration = (user) => {
-    console.log('user registration')
     return User.create(user)
   }
 
@@ -26,7 +25,7 @@ module.exports = (User, sequelize) => {
       },
       raw: false
     }
-    console.log(query.where.email)
+
     return User.findOne(query)
   }
 

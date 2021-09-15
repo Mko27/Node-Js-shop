@@ -5,9 +5,7 @@ const { ExistMailError } = ErrorsUtil
 
 module.exports = {
   checkUserExist: (req, res, next) => {
-    console.log('check')
     const email = req.body.email
-    console.log('req email ', email)
 
     return User.findByEmail(email)
       .then((user) => {

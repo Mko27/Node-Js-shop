@@ -15,10 +15,10 @@ class ValidatorUtil {
    */
   static validate (args, schema, next) {
     const { error } = schema.validate(args, DEFAULT_OPTIONS)
-    console.log('+++++++++++++++++', error)
+
     if (error) {
       const msg = error && error.details && error.details[0] && error.details[0].message
-      console.log(error)
+
       return next(new ValidationError(msg))
     }
     next()
@@ -26,19 +26,14 @@ class ValidatorUtil {
 
   static validateFile (args, schema, next) {
     const { error } = schema.validate(args, DEFAULT_OPTIONS)
-    console.log('+++++++++++++++++', error)
+
     if (error) {
       const msg = error && error.details && error.details[0] && error.details[0].message
-      console.log(error)
-
-      console.log('args ', args.image.path)
 
       fs.unlink(args.image.path, (err) => {
         if (err) {
           console.error(err)
         }
-
-        console.log('Delete file')
       })
 
       return next(new ValidationError(msg))

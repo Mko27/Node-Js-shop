@@ -12,10 +12,10 @@ module.exports = (Category, sequelize) => {
     return Category.findOne(query)
   }
 
-  Category.findByName = (name) => {
+  Category.findByNameOrSlug = (name, slug) => {
     const query = {
       where: {
-        name
+        [Op.or]: [{ name }, { slug }]
       },
       raw: true
     }
@@ -23,16 +23,16 @@ module.exports = (Category, sequelize) => {
     return Category.findOne(query)
   }
 
-  Category.findBySlug = (slug) => {
-    const query = {
-      where: {
-        slug
-      },
-      raw: true
-    }
+  // Category.findBySlug = (slug) => {
+  //   const query = {
+  //     where: {
+  //       slug
+  //     },
+  //     raw: true
+  //   }
 
-    return Category.findOne(query)
-  }
+  //   return Category.findOne(query)
+  // }
 
   Category.findByParentId = (parentId) => {
     const query = {
@@ -42,7 +42,7 @@ module.exports = (Category, sequelize) => {
       raw: true
     }
 
-    return Category.findAndCountAll(query)
+    return Category.count(query)
   }
 
   Category.getCategories = () => {
@@ -79,7 +79,6 @@ module.exports = (Category, sequelize) => {
   }
 
   Category.createCategory = (category) => {
-    console.log('Category created')
     return Category.create(category)
   }
 
@@ -87,8 +86,7 @@ module.exports = (Category, sequelize) => {
     const query = {
       where: {
         id
-      },
-      raw: true
+      }
     }
     return Category.destroy(query)
   }

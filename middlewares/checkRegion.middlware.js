@@ -5,9 +5,7 @@ const { ExistNameError, RegionDeleteError } = ErrorsUtil
 
 module.exports = {
   checkRegionName: (req, res, next) => {
-    console.log('check')
     const name = req.body.name
-    console.log('req name ', name)
 
     return Region.findByName(name)
       .then((region) => {
@@ -21,13 +19,15 @@ module.exports = {
   },
 
   checkRegionDelete: (req, res, next) => {
-    const regionId = req.params.id
+    const regionId = parseInt(req.params.id, 10)
 
     return City.findByRegionId(regionId)
-      .then((cities) => {
-        if (cities.count > 0) {
+      .then((count) => {
+        if (count > 0) {
           return next(new RegionDeleteError('This region has cities'))
         }
+
+        return next()
       })
       .catch(next)
   }

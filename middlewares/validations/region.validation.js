@@ -22,7 +22,6 @@ module.exports = {
   // },
 
   validateCreateRegion: (req, res, next) => {
-    console.log('start region validation')
     ValidatorUtil.validate({ body: req.body }, Joi.object({
       body: {
         name: Joi.string().required()
@@ -32,20 +31,17 @@ module.exports = {
   },
 
   validateIdRegion: (req, res, next) => {
-    console.log('start find id validation')
-    console.log('|||||||||||||||| ', req.params)
     ValidatorUtil.validate({ params: req.params }, Joi.object({
       params: {
-        id: Joi.number().positive().max(MAX_INT_VALUE).integer()
+        id: Joi.number().positive().max(MAX_INT_VALUE).integer().required()
       }
     }), next)
   },
 
   validateRegionUpdateParams: (req, res, next) => {
-    console.log('start update validation')
     ValidatorUtil.validate({ body: req.body, params: req.params }, Joi.object({
       params: {
-        id: Joi.number().positive().max(MAX_INT_VALUE).integer()
+        id: Joi.number().positive().max(MAX_INT_VALUE).integer().required()
       },
 
       body: {
