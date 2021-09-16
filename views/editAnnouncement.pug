@@ -43,6 +43,7 @@ p(style='text-align:center') #{product.name}
         option(value=city.id) #{city.name}
     br  
     input.prod-edit#Submit(type="submit" value="Submit" data-id=product.id)
+  - console.log('tree ', JSON.stringify(__categories, null, 2))
   each category, idx in __categories ? __categories : []
     label #{category.name}
     br
@@ -77,15 +78,14 @@ script.
           },
           body: JSON.stringify({
             ProductId: submitBtn.getAttribute('data-id'),
-            CategoryId: e.target.getAttribute('value'),
-            parentId: e.target.getAttribute('data-id')
+            CategoryId: e.target.getAttribute('value')
           })
         })
         .then(res => res.json())
         .then(data => {
           console.log(data)
           if(data.msg){
-            //location.reload()
+            //- location.reload()
             return;
           }
           alert(data.message)
@@ -95,6 +95,8 @@ script.
       }
     })
   })
+
+
   var submitBtns = document.querySelectorAll('.prod-edit')
   submitBtns.forEach((submitBtn, index) => {
     submitBtn.addEventListener('click', function(){

@@ -23,17 +23,6 @@ module.exports = (Category, sequelize) => {
     return Category.findOne(query)
   }
 
-  // Category.findBySlug = (slug) => {
-  //   const query = {
-  //     where: {
-  //       slug
-  //     },
-  //     raw: true
-  //   }
-
-  //   return Category.findOne(query)
-  // }
-
   Category.findByParentId = (parentId) => {
     const query = {
       where: {
@@ -50,7 +39,9 @@ module.exports = (Category, sequelize) => {
       where: {
         id: {
           [Op.gte]: 1
-        }
+        },
+
+        status: 0
       },
       raw: true
     }

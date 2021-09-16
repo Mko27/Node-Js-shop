@@ -3,7 +3,6 @@ const router = express.Router()
 const ProductServices = require('./services/products.service')
 const ProductCategoryServices = require('./services/productCategory.service')
 const { validateCreateProduct, validateIdProduct, validateUpdateProduct } = require('../middlewares/validations/product.validation')
-const { checkProductCategoryParent } = require('../middlewares/checkProductCategory.middlware')
 const { ensureAuthenticated } = require('../lib/auth')
 const { getProductListByCategoryQuery } = require('../lib/product')
 
@@ -33,10 +32,7 @@ router.post('/my-announcements/add',
   ProductServices.createAnnouncement)
 
 router.post('/my-announcements/edit/:id/category',
-  ProductCategoryServices.createProductCategory,
-  checkProductCategoryParent,
-  ProductCategoryServices.createParentCategory
-)
+  ProductCategoryServices.createProductCategory)
 
 router.patch('/my-announcements/edit/:id',
   validateUpdateProduct,

@@ -5,27 +5,12 @@ module.exports = (ProductCategory, sequelize) => {
     return ProductCategory.create(data)
   }
 
-  ProductCategory.findByCategoryId = (CategoryId) => {
-    const query = {
-      where: {
-        CategoryId
-      },
-      raw: true
-    }
-
-    return ProductCategory.findAndCountAll(query)
-  }
-
-  ProductCategory.deleteProductCategory = () => {
-
-  }
-
-  ProductCategory.findProductCategory = (data) => {
+  ProductCategory.findProductCategory = (CategoryId, ProductId) => {
     const query = {
       where: {
         [Op.and]: [
-          { CategoryId: data.parentId },
-          { ProductId: data.ProductId }
+          { CategoryId },
+          { ProductId }
         ]
       },
       raw: true
@@ -33,5 +18,6 @@ module.exports = (ProductCategory, sequelize) => {
 
     return ProductCategory.findOne(query)
   }
+
   return ProductCategory
 }
