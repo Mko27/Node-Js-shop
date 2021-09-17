@@ -49,11 +49,11 @@ p(style='text-align:center') #{product.name}
     br
     each child in category.children ? category.children : []
       .input-wrapper
-        input#homeCheck(type='checkbox' value=child.id data-id=child.parentId)
+        input#homeCheck.inp(type='checkbox' value=child.id data-id=child.parentId)
         label #{child.name}
         each child_ in child.children ? child.children : []
           .input-wrapper
-            input#homeCheck(type='checkbox' value=child_.id data-id=child_.parentId)
+            input#homeCheck.inp(type='checkbox' value=child_.id data-id=child_.parentId)
             label #{child_.name}
             br
       br
@@ -62,14 +62,14 @@ p(style='text-align:center') #{product.name}
 
 script.
   var BtnS;
-  var checkBtnS = document.querySelectorAll('.input-wrapper')
+  var checkBtnS = document.querySelectorAll('.inp')
   console.log(checkBtnS)
   var submitBtn = document.getElementById('Submit')
   console.log(submitBtn.getAttribute('data-id'))
 
   checkBtnS.forEach((checkBtn, idx) => {
     checkBtn.addEventListener('change', (e) => {
-      console.log(e.target.getAttribute('value'))
+      console.log(e.srcElement)
       if(e.srcElement.checked){
         fetch('/products/my-announcements/edit/' + submitBtn.getAttribute('data-id') + '/category', {
           method: 'POST',
@@ -83,7 +83,6 @@ script.
         })
         .then(res => res.json())
         .then(data => {
-          console.log(data)
           if(data.msg){
             //- location.reload()
             return;
@@ -92,6 +91,8 @@ script.
           throw new Error()
         })
         .catch(err => console.log(err))
+      }else{
+        return
       }
     })
   })
