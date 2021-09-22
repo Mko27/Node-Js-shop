@@ -84,7 +84,7 @@ script.
         .then(res => res.json())
         .then(data => {
           if(data.msg){
-            //- location.reload()
+            console.log(data.msg)
             return;
           }
           alert(data.message)

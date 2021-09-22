@@ -13,12 +13,18 @@ const buildTree = (categories, id = 0, key = 'parentId') =>
 
 const appendCategories = (req, res, next) => {
   return Category.getCategories()
-    .then(buildTree)
-    .then(categoriesTree => {
-      res.locals.__categories = categoriesTree
-      console.log(JSON.stringify(categoriesTree, null, 2))
+    .then((categories) => {
+      res.locals.__categories = buildTree(categories)
+      res.locals.__categoriesList = categories
+      console.log(res.locals.__categoriesList)
       return next()
-    }).catch(next)
+    })
+    // .then(categoriesTree => {
+    //   res.locals.__categories = categoriesTree
+    //   console.log(JSON.stringify(categoriesTree, null, 2))
+    //   return next()
+    // })
+    .catch(next)
 }
 
 module.exports = {
