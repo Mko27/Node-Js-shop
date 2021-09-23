@@ -2,8 +2,8 @@ const models = require('../models')
 const { ProductCategory } = models
 
 module.exports = {
-  checkProductCategoryExist: (CategoryId, ProductId, next) => {
-    return ProductCategory.findProductCategory(CategoryId, ProductId)
+  checkProductCategoryExist: (categoryId, productId, next) => {
+    return ProductCategory.findProductCategory(categoryId, productId)
       .then((element) => {
         if (element) {
           return true

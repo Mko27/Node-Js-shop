@@ -22,12 +22,14 @@ const createAnnouncementForm = (req, res, next) => {
   return res.render('createAnnouncement')
 }
 
-const editAnnouncementForm = (req, res, next) => {
-  const id = parseInt(req.params.id, 10)
-  return Product.findById(id).then((product) => {
-    res.render('editAnnouncement', { product })
-  }).catch()
-}
+// const editAnnouncementForm = (req, res, next) => {
+//   const id = parseInt(req.params.id, 10)
+//   return Product.findById(id)
+//     .then((product) => {
+//       res.render('editAnnouncement', { product })
+//     })
+//     .catch(next)
+// }
 
 const createAnnouncement = (req, res, next) => {
   const data = req.body
@@ -74,6 +76,6 @@ module.exports = {
   createAnnouncement,
   deleteProductById,
   userAnnouncements,
-  updateProductById,
-  editAnnouncementForm
+  updateProductById
+  // editAnnouncementForm
 }

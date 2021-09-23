@@ -3,8 +3,9 @@ const router = express.Router()
 const ProductServices = require('./services/products.service')
 const ProductCategoryServices = require('./services/productCategory.service')
 const { validateCreateProduct, validateIdProduct, validateUpdateProduct } = require('../middlewares/validations/product.validation')
+// const { validateDeleteOrCreateProductCategory } = require('../middlewares/validations/productCategory.validation')
 const { ensureAuthenticated } = require('../lib/auth')
-const { getProductListByCategoryQuery } = require('../lib/product')
+const { getProductListByCategoryQuery, getProductDataAndEditForm } = require('../lib/product')
 
 router.get('/',
   ProductServices.getAllProducts)
@@ -25,14 +26,19 @@ router.get('/my-announcements/add',
 router.get('/my-announcements/edit/:id',
   ensureAuthenticated,
   ProductServices.appendCities,
-  ProductServices.editAnnouncementForm)
+  getProductDataAndEditForm)
 
 router.post('/my-announcements/add',
   validateCreateProduct,
   ProductServices.createAnnouncement)
 
 router.post('/my-announcements/edit/:id/category',
+  // validateDeleteOrCreateProductCategory,
   ProductCategoryServices.createProductCategory)
+
+router.delete('/my-announcements/edit/:id',
+  // validateDeleteOrCreateProductCategory,
+  ProductCategoryServices.deleteProductCategory)
 
 router.patch('/my-announcements/edit/:id',
   validateUpdateProduct,

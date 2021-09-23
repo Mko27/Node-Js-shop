@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     order: {
       type: DataTypes.INTEGER
     },
-    data: {
+    filePath: {
       type: DataTypes.STRING
     },
     createdAt: {

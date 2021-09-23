@@ -43,7 +43,7 @@ p(style='text-align:center') #{product.name}
         option(value=city.id) #{city.name}
     br  
     input.prod-edit#Submit(type="submit" value="Submit" data-id=product.id)
-  - console.log('tree ', JSON.stringify(__categories, null, 2))
+  //- - console.log('tree ', JSON.stringify(__categories, null, 2))
   each category, idx in __categories ? __categories : []
     label #{category.name}
     br
@@ -77,8 +77,8 @@ script.
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            ProductId: submitBtn.getAttribute('data-id'),
-            CategoryId: e.target.getAttribute('value')
+            //ProductId: submitBtn.getAttribute('data-id'),
+            categoryId: e.target.getAttribute('value')
           })
         })
         .then(res => res.json())
@@ -92,7 +92,26 @@ script.
         })
         .catch(err => console.log(err))
       }else{
-        return
+        fetch('/products/my-announcements/edit/' + submitBtn.getAttribute('data-id'), {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            //ProductId: submitBtn.getAttribute('data-id'),
+            categoryId: e.target.getAttribute('value')
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if(data.msg){
+            console.log(data.msg)
+            return;
+          }
+          alert(data.message)
+          throw new Error()
+        })
+        .catch(err => console.log(err))
       }
     })
   })

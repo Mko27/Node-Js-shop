@@ -3,26 +3,26 @@ const { ProductCategory } = models
 const Promise = require('bluebird')
 
 const findParents = (id, list, parentIds = []) => {
-  const el = list.find(item => item.id === id)
+  const elem = list.find(item => item.id === id)
 
-  if (el.parentId !== 0) {
-    parentIds.push(el.parentId)
-    findParents(el.parentId, list, parentIds)
+  if (elem.parentId !== 0) {
+    parentIds.push(elem.parentId)
+    findParents(elem.parentId, list, parentIds)
   }
 
   return parentIds
 }
 
 const createProductCategory = (req, res, next) => {
-  const ProductId = parseInt(req.params.id, 10)
-  const CategoryId = parseInt(req.body.CategoryId, 10)
+  const productId = parseInt(req.params.id, 10)
+  const categoryId = parseInt(req.body.categoryId, 10)
   const categories = res.locals.__categoriesList
 
-  const parents = findParents(CategoryId, categories)
-  parents.push(CategoryId)
+  const parents = findParents(categoryId, categories)
+  parents.push(categoryId)
 
-  return Promise.map(parents, (CategoryId) => {
-    const createData = { ProductId, CategoryId }
+  return Promise.map(parents, (categoryId) => {
+    const createData = { productId, categoryId }
     return ProductCategory.createProductCategory(createData)
       .then((result) => console.log(result))
       .catch(next)
@@ -31,6 +31,15 @@ const createProductCategory = (req, res, next) => {
     .catch(next)
 }
 
+const deleteProductCategory = (req, res, next) => {
+  const productId = parseInt(req.params.id, 10)
+  const categoryId = parseInt(req.body.categoryId, 10)
+  return ProductCategory.deleteProductCategory(categoryId, productId)
+    .then(() => res.json({ msg: 'Successfully deleted' }))
+    .catch(next)
+}
+
 module.exports = {
-  createProductCategory
+  createProductCategory,
+  deleteProductCategory
 }
