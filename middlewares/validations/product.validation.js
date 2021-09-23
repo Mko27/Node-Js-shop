@@ -16,7 +16,7 @@ module.exports = {
         brand: Joi.string().min(3).max(60).required(),
         model: Joi.string().min(3).max(60).required(),
         // status: Joi.string().valid('Unpublished').required(),
-        CityId: Joi.number().positive().integer().required()
+        cityId: Joi.number().positive().integer().required()
       }
     })
     , next)
@@ -45,7 +45,7 @@ module.exports = {
         brand: Joi.string().min(3).max(60).required(),
         model: Joi.string().min(3).max(60).required(),
         status: Joi.string().valid('Published', 'Unpublished').required(),
-        CityId: Joi.number().positive().integer().required()
+        cityId: Joi.number().positive().integer().required()
         // CategoryId: Joi.number().positive().integer().required()
       }
     })

@@ -22,7 +22,7 @@ div
           select.edit-status(name='status' id='select-state')
             option(value="Published") Published
             option(value="Unpublished") Unpublished 
-          select.edit-select(name="CityId")
+          select.edit-select(name="cityId")
             each city, idx in __cities ? __cities : []
               option(value=city.id) #{city.name}
           input.submit-icon(type='submit' data-id=announcement.id value='submit')
@@ -91,7 +91,7 @@ script.
       var brand = document.getElementsByName('brand')[index].value
       var model = document.getElementsByName('model')[index].value
       var description = document.getElementsByName('description')[index].value
-      var cityId = document.getElementsByName('CityId')[index].value
+      var cityId = document.getElementsByName('cityId')[index].value
       var status = document.getElementsByClassName('edit-status')[index].value
       console.log('name == ', name)
       console.log(BtnS)

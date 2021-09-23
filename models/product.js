@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    CityId: {
+    cityId: {
       type: DataTypes.INTEGER
       // allowNull: false
     }

@@ -30,7 +30,7 @@ form.container(action='/products/my-announcements/add' method='post')
     br
     label City
     br 
-    select(name="CityId")
+    select(name="cityId")
       each city, idx in __cities ? __cities : []
         option(value=city.id) #{city.name}
     br  

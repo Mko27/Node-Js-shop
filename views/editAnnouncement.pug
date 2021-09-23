@@ -38,7 +38,7 @@ p(style='text-align:center') #{product.name}
     br
     label City
     br 
-    select(name="CityId")
+    select(name="cityId")
       each city, idx in __cities ? __cities : []
         option(value=city.id) #{city.name}
     br  
@@ -128,7 +128,7 @@ script.
       var brand = document.getElementsByName('brand')[0].value
       var model = document.getElementsByName('model')[0].value
       var description = document.getElementsByName('description')[0].value
-      var cityId = document.getElementsByName('CityId')[0].value
+      var cityId = document.getElementsByName('cityId')[0].value
       var status = document.getElementsByName('status')[0].value
       alert('name == ', status)
       console.log(BtnS)
@@ -143,9 +143,9 @@ script.
         address: address,
         brand: brand,
         model: model,
-        description: description,
+        description,
         status: status, 
-        CityId: cityId}),
+        cityId}),
       })
       .then(res => res.json())
       .then(data => {
