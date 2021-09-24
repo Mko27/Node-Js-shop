@@ -6,6 +6,7 @@ const { validateCreateProduct, validateIdProduct, validateUpdateProduct } = requ
 // const { validateDeleteOrCreateProductCategory } = require('../middlewares/validations/productCategory.validation')
 const { ensureAuthenticated } = require('../lib/auth')
 const { getProductListByCategoryQuery, getProductDataAndEditForm } = require('../lib/product')
+const { multerImageUpload } = require('../middlewares/productFilesUpload.middlware')
 
 router.get('/',
   ProductServices.getAllProducts)
@@ -29,6 +30,7 @@ router.get('/my-announcements/edit/:id',
   getProductDataAndEditForm)
 
 router.post('/my-announcements/add',
+  multerImageUpload,
   validateCreateProduct,
   ProductServices.createAnnouncement)
 

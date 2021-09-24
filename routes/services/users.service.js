@@ -37,7 +37,7 @@ const userRegistration = (req, res, next) => {
   const data = req.body
   data.salt = bcrypt.genSaltSync(10)
   data.hash = bcrypt.hashSync(data.password, data.salt)
-
+  console.log('file ', req.file)
   if (req.file) {
     data.image = req.file.path
   }
@@ -78,7 +78,7 @@ const getUsers = (req, res, next) => {
 
 const createAnnouncement = (req, res, next) => {
   const data = req.body
-  data.UserId = req.user.id
+  data.userId = req.user.id
   if (data.status === 'Published') {
     data.publishedAt = new Date()
   }
@@ -89,9 +89,9 @@ const createAnnouncement = (req, res, next) => {
 }
 
 const getAnnouncements = (req, res, next) => {
-  const UserId = req.user.id
+  const userId = req.user.id
 
-  return Product.findByUserId(UserId)
+  return Product.findByUserId(userId)
     .then((announcements) => res.render('userAnnouncements', { announcements: announcements.rows }))
     .catch(next)
 }

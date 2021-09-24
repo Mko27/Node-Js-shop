@@ -9,11 +9,15 @@ a {
   color: #00B7FF;
 }
 
+.main-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .container{
   text-align: center;
-  position:fixed;
-  left:40%;
-  width:250px;
+  width: 250px;
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
@@ -236,3 +240,23 @@ ul:after {
 }
 
 ul:after { clear: both; }
+
+img {
+  width:30%;
+  float: left;
+}
+.closeDiv {
+  width: 20px;
+height: 21px;
+background-color: rgb(35, 179, 119);
+float: left;
+cursor: pointer;
+color: white;
+box-shadow: 2px 2px 7px rgb(74, 72, 72);
+text-align: center;
+margin: 5px;
+}
+.pDiv {
+  float:left;
+  width:100%
+}

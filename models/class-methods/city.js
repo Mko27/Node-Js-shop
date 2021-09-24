@@ -54,7 +54,7 @@ module.exports = (City, sequelize) => {
   City.findByRegionId = (regionId) => {
     const query = {
       where: {
-        RegionId: regionId
+        regionId
       },
       raw: true
     }

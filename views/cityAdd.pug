@@ -13,7 +13,7 @@ form.container(action='/cities/' method='post' id="add")
   br
   label Region
   br
-  select(name='RegionId' id="select-state")
+  select(name='regionId' id="select-state")
     option()
     each region, idx in __regions ? __regions : []
       option(value=region.dataValues.id) #{region.dataValues.name}

@@ -10,7 +10,7 @@ module.exports = {
     ValidatorUtil.validate({ body: req.body }, Joi.object({
       body: {
         name: Joi.string().required(),
-        RegionId: Joi.number().positive().integer().max(MAX_INT_VALUE).required()
+        regionId: Joi.number().positive().integer().max(MAX_INT_VALUE).required()
       }
     })
     , next)
@@ -32,7 +32,7 @@ module.exports = {
 
       body: {
         name: Joi.string().required(),
-        RegionId: Joi.number().positive().max(MAX_INT_VALUE).integer().required()
+        regionId: Joi.number().positive().max(MAX_INT_VALUE).integer().required()
       }
     }), next)
   }

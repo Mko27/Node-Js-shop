@@ -59,14 +59,14 @@ Object.keys(db).forEach(function (modelName) {
   // console.log(db[modelName])
 })
 
-db.Region.hasMany(db.City)
-db.City.belongsTo(db.Region)
+db.Region.hasMany(db.City, { foreignKey: 'regionId' })
+db.City.belongsTo(db.Region, { foreignKey: 'regionId', as: 'region' })
 
-db.User.hasMany(db.Product)
-db.Product.belongsTo(db.User)
+db.User.hasMany(db.Product, { foreignKey: 'userId' })
+db.Product.belongsTo(db.User, { foreignKey: 'userId', as: 'user' })
 
-db.City.hasMany(db.Product)
-db.Product.belongsTo(db.City)
+db.City.hasMany(db.Product, { foreignKey: 'cityId' })
+db.Product.belongsTo(db.City, { foreignKey: 'cityId', as: 'city' })
 
 db.Product.hasMany(db.ProductCategory, { foreignKey: 'productId' })
 db.ProductCategory.belongsTo(db.Product, { foreignKey: 'productId', as: 'product' })

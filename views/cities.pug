@@ -15,7 +15,7 @@ div
         td
           form(action='/cities/id' method='patch')
           input.edit-input(type='text' name='name')
-          select.edit-select(name='RegionId' id="select-state")
+          select.edit-select(name='regionId' id="select-state")
             each region, idx in __regions ? __regions : []
               option(value=region.id) #{region.name}
           input.submit-icon(type='submit' data-id=city.id value='submit')
@@ -30,7 +30,7 @@ div
     br
     label Region
     br
-    select(name='RegionId' id="select-state")
+    select(name='regionId' id="select-state")
       option()
       each region, idx in __regions ? __regions : []
         option(value=region.id) #{region.name}
@@ -38,7 +38,7 @@ div
     input(type='submit' value='Add')
   br
 
-script. 
+script.
   var deleteBtns = document.querySelectorAll('.delete-icon')
   var Btn;
   deleteBtns.forEach((deleteBtn) => {
@@ -97,7 +97,7 @@ script.
     submitBtn.addEventListener('click', function(){
       BtnS = submitBtn.getAttribute('data-id')
       var name = document.getElementsByClassName('edit-input')[index].value
-      var RegionId = document.getElementsByClassName('edit-select')[index].value
+      var regionId = document.getElementsByClassName('edit-select')[index].value
       console.log('name == ', name)
       console.log(BtnS)
       fetch('/cities/' + BtnS, {
@@ -105,7 +105,7 @@ script.
         headers: {
           'Content-Type': 'application/json',
         },
-       body: JSON.stringify({name: name, RegionId: RegionId}),
+       body: JSON.stringify({name: name, regionId: regionId}),
       })
       .then(res => res.json())
       .then(data => {

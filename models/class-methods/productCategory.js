@@ -2,7 +2,6 @@ const { Op } = require('sequelize')
 
 module.exports = (ProductCategory, sequelize) => {
   ProductCategory.createProductCategory = (data) => {
-    console.log('data ', data)
     const query = {
       where: data,
       defaults: data,

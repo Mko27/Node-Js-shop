@@ -10,10 +10,10 @@ module.exports = (Product, sequelize) => {
     return Product.findOne(query)
   }
 
-  Product.findByUserId = (UserId) => {
+  Product.findByUserId = (userId) => {
     const query = {
       where: {
-        UserId
+        userId
       },
       raw: true
     }

@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     soldedAt: {
       type: DataTypes.DATE
     },
-    UserId: {
+    userId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },

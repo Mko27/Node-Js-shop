@@ -1,37 +1,160 @@
 doctype html
 html 
   include head.pug
+script(src='https://code.jquery.com/jquery-2.1.1.min.js' type='text/javascript')
+link(href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css' rel='stylesheet')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js')
 style
   include ../public/stylesheets/style.css
-form.container(action='/products/my-announcements/add' method='post')
-    label Name
-    br 
-    input(name='name')
-    br
-    label Description 
-    br
-    textarea(name='description' cols="30" rows="10" style='resize:none')
-    br
-    label Price
-    br
-    input(name='price')
-    br
-    label Address
-    br 
-    input(name='address')
-    br
-    label Brand
-    br 
-    input(name='brand')
-    br
-    label Model
-    br 
-    input(name='model')
-    br
-    label City
-    br 
-    select(name="cityId")
-      each city, idx in __cities ? __cities : []
-        option(value=city.id) #{city.name}
-    br  
-    input(type="submit" value="Add")       
+.main-wrapper  
+  form.container(action='/products/my-announcements/add' enctype='multipart/form-data' method='post')
+      label Name
+      br 
+      input(name='name')
+      br
+      label Description 
+      br
+      textarea(name='description' cols="30" rows="10" style='resize:none')
+      br
+      label Price
+      br
+      input(name='price')
+      br
+      label Address
+      br 
+      input(name='address')
+      br
+      label Brand
+      br 
+      input(name='brand')
+      br
+      label Model
+      br 
+      input(name='model')
+      br
+      label City
+      br 
+      select(name="cityId")
+        each city, idx in __cities ? __cities : []
+          option(value=city.id) #{city.name}
+      br
+      label Product Images
+      br
+      #thumbnail
+      input.img-input#file-input(type='file' multiple='' name='images')
+      #preview
+      input(type="submit" value="Add")       
+
+script.
+  $(function(){
+    $("input[type = 'submit']").click(function(){
+      var $fileUpload = $("input[type='file']");
+      if (parseInt($fileUpload.get(0).files.length) > 5){
+          alert("You are only allowed to upload a maximum of 3 files");
+      }
+    });
+  });
+
+
+  //- function previewImages() {
+
+  //-   var preview = document.querySelector('#preview');
+    
+  //-   if (this.files) {
+  //-     [].forEach.call(this.files, readAndPreview);
+  //-   }
+
+  //-   function readAndPreview(file) {
+
+  //-     // Make sure `file.name` matches our extensions criteria
+  //-     if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
+  //-       return alert(file.name + " is not an image");
+  //-     } // else...
+      
+  //-     var reader = new FileReader();
+      
+  //-     reader.addEventListener("load", function() {
+  //-       var image = new Image();
+  //-       image.height = 100;
+  //-       image.title  = file.name;
+  //-       image.src    = this.result;
+  //-       preview.appendChild(image);
+  //-     });
+      
+  //-     reader.readAsDataURL(file);
+      
+  //-   }
+
+  //- }
+
+  //- document.querySelector('#file-input').addEventListener("change", previewImages);
+
+  //- const input = document.querySelector('#file-input');
+
+  //- // Listen for files selection
+  //- input.addEventListener('change', (e) => {
+  //-     // Retrieve all files
+  //-     const files = input.files;
+
+  //-     // Check files count
+  //-     if (files.length > 5) {
+  //-         alert(`Only 2 files are allowed to upload.`);
+  //-         return;
+  //-     }
+
+  //-     // TODO: continue uploading on server
+  //- });
+
+  //- jQuery(function ($) {
+  //-   $('div').on('click', '.closeDiv', function () {
+  //-       $(this).prev().remove();
+  //-       $(this).remove();
+  //-       $('#upload-file').val("");
+  //-   });
+  //-   var fileDiv = document.getElementById("preview");
+  //-   var fileInput = document.getElementById("file-input");
+
+  //-   fileInput.addEventListener("change", function (e) {
+
+  //-       var filesVAR = this.files;
+
+  //-       showThumbnail(filesVAR);
+
+  //-   }, false);
+
+
+
+  //-   function showThumbnail(files) {
+  //-       var file = files[0]
+  //-       var thumbnail = document.getElementById("thumbnail");
+  //-       var pDiv = document.createElement("div");
+  //-       var image = document.createElement("img");
+  //-       var div = document.createElement("div");
+
+
+  //-       pDiv.setAttribute('class', 'pDiv');
+  //-       thumbnail.appendChild(pDiv);
+
+
+  //-       image.setAttribute('class', 'imgKLIK5');
+  //-       pDiv.appendChild(image)
+
+  //-       div.innerHTML = "X";
+  //-       div.setAttribute('class', 'closeDiv');
+  //-       pDiv.appendChild(div)
+
+  //-       image.file = file;
+  //-       var reader = new FileReader()
+  //-       reader.onload = (function (aImg) {
+  //-           return function (e) {
+  //-               aImg.src = e.target.result;
+  //-           };
+  //-       }(image))
+  //-       var ret = reader.readAsDataURL(file);
+  //-       var canvas = document.createElement("canvas");
+  //-       ctx = canvas.getContext("2d");
+  //-       image.onload = function () {
+  //-           ctx.drawImage(image, 100, 100);
+  //-       }
+  //-   }
+  //- });

@@ -13,7 +13,7 @@ module.exports = {
         encoding: Joi.string(),
         destination: Joi.string(),
         path: Joi.string(),
-        size: Joi.number().min(0).max(1000),
+        size: Joi.number().min(0).max(1000000),
         mimetype: Joi.string().valid('image/png', 'image/jpeg', 'image/jpg')
       }
     })

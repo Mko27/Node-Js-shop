@@ -34,17 +34,17 @@ const createAnnouncementForm = (req, res, next) => {
 const createAnnouncement = (req, res, next) => {
   const data = req.body
   data.status = 'Unpublished'
-  data.UserId = req.user.id
-
+  data.userId = req.user.id
+  console.log('files', req.files)
   return Product.createProduct(data)
     .then(() => res.redirect('/products/my-announcements/add'))
     .catch(next)
 }
 
 const userAnnouncements = (req, res, next) => {
-  const UserId = req.user.id
+  const userId = req.user.id
 
-  return Product.findByUserId(UserId)
+  return Product.findByUserId(userId)
     .then((announcements) => {
       return res.render('userAnnouncements', { announcements: announcements.rows })
     })

@@ -13,6 +13,25 @@ const findParents = (id, list, parentIds = []) => {
   return parentIds
 }
 
+const findRelativesNodes = (list, id, relatives = []) => {
+  const elem = list.find(item => item.id === id)
+
+  if (elem.children) {
+    relatives.push(elem.children.reduce((acc, cur) => {
+      console.log('cur', cur)
+      acc.push(cur.id)
+      return acc
+    }, []))
+  }
+
+  if (elem.parentId) {
+    return findRelativesNodes(list, elem.parentId, relatives)
+  }
+  if (!elem.parentId) {
+    return relatives
+  }
+}
+
 const createProductCategory = (req, res, next) => {
   const productId = parseInt(req.params.id, 10)
   const categoryId = parseInt(req.body.categoryId, 10)
@@ -20,7 +39,7 @@ const createProductCategory = (req, res, next) => {
 
   const parents = findParents(categoryId, categories)
   parents.push(categoryId)
-
+  console.log('relatives', findRelativesNodes(categories, categoryId))
   return Promise.map(parents, (categoryId) => {
     const createData = { productId, categoryId }
     return ProductCategory.createProductCategory(createData)
