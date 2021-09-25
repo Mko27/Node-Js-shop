@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     order: {
       type: DataTypes.INTEGER
     },
-    filePath: {
+    path: {
       type: DataTypes.STRING
     },
     createdAt: {
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     thumb: {
       type: DataTypes.BOOLEAN
     },
-    mimeType: {
+    mimetype: {
       type: DataTypes.STRING
     },
     userId: {

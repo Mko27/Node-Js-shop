@@ -1,0 +1,28 @@
+html 
+  include head.pug
+.main-wrapper
+  form.container(action="" enctype='multipart/form-data' method='post')
+    input.img-input#file-input(type='file' multiple='' name='images')
+    input.image-submit(type='submit' value='Submit' data-id=productId)
+br
+br
+each image, idx in images ? images : []
+  - console.log(image.path)
+  input.delete-icon(type='submit' data-id=image.id value='delete')
+  br
+  img.prod-img(src=image.path width='150' height='150')
+
+script.
+  var submitBtns = document.querySelectorAll('.image-submit')
+  submitBtns.forEach((submitBtn, index) => {
+    submitBtn.addEventListener('click', function(){
+      BtnS = submitBtn.getAttribute('data-id')
+      fetch('/products/my-announcements/edit/' + submitBtn.getAttribute('data-id') +'/images', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        })
+      .then(() => location.href = '/products/my-announcements')
+      .catch(err => console.log(err))
+    })
+  })

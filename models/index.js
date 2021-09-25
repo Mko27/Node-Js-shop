@@ -74,6 +74,12 @@ db.ProductCategory.belongsTo(db.Product, { foreignKey: 'productId', as: 'product
 db.Category.hasMany(db.ProductCategory, { foreignKey: 'categoryId' })
 db.ProductCategory.belongsTo(db.Category, { foreignKey: 'categoryId', as: 'category' })
 
+db.User.hasMany(db.Image, { foreignKey: 'userId' })
+db.Image.belongsTo(db.User, { foreignKey: 'userId', as: 'user' })
+
+db.Product.hasMany(db.Image, { foreignKey: 'productId' })
+db.Image.belongsTo(db.Product, { foreignKey: 'productId', as: 'product' })
+
 // db.City.hasOne(db.Region, {
 //   foreignKey: {
 //     regionId: 'regionId'

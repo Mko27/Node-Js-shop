@@ -29,10 +29,19 @@ router.get('/my-announcements/edit/:id',
   ProductServices.appendCities,
   getProductDataAndEditForm)
 
+router.get('/my-announcements/edit/:id/images',
+  ensureAuthenticated,
+  ProductServices.userProductImages
+)
+
 router.post('/my-announcements/add',
-  multerImageUpload,
   validateCreateProduct,
   ProductServices.createAnnouncement)
+
+router.post('/my-announcements/edit/:id/images',
+  multerImageUpload,
+  ProductServices.createImages
+)
 
 router.post('/my-announcements/edit/:id/category',
   // validateDeleteOrCreateProductCategory,

@@ -1,17 +1,17 @@
 module.exports = (Image, sequelize) => {
-  Image.findById = (id) => {
+  Image.findByProductId = (productId) => {
     const query = {
       where: {
-        id
+        productId
       },
       raw: true
     }
 
-    return Image.findOne(query)
+    return Image.findAll(query)
   }
 
-  Image.findAll = () => {
-
+  Image.createImage = (data) => {
+    return Image.create(data)
   }
   return Image
 }

@@ -5,6 +5,7 @@ style
   include ../public/stylesheets/style.css
 
 p(style='text-align:center') #{product.name}
+.main-wrapper
   form.container(action="" method='patch') 
     label Name
     br 
@@ -43,22 +44,33 @@ p(style='text-align:center') #{product.name}
         option(value=city.id) #{city.name}
     br  
     input.prod-edit#Submit(type="submit" value="Submit" data-id=product.id)
-  //- - console.log('tree ', JSON.stringify(__categories, null, 2))
-  each category, idx in __categories ? __categories : []
-    label #{category.name}
+br
+input.edit-icon(type='submit' data-id=product.id value='Add Images' style='display: block; margin-right: auto;margin-left: auto;')
+br
+
+
+each category, idx in __categories ? __categories : []
+  label #{category.name}
+  br
+  each child in category.children ? category.children : []
+    .input-wrapper
+      input#homeCheck.inp(type='checkbox' value=child.id data-id=child.parentId)
+      label #{child.name}
+      each child_ in child.children ? child.children : []
+        .input-wrapper
+          input#homeCheck.inp(type='checkbox' value=child_.id data-id=child_.parentId)
+          label #{child_.name}
+          br
     br
-    each child in category.children ? category.children : []
-      .input-wrapper
-        input#homeCheck.inp(type='checkbox' value=child.id data-id=child.parentId)
-        label #{child.name}
-        each child_ in child.children ? child.children : []
-          .input-wrapper
-            input#homeCheck.inp(type='checkbox' value=child_.id data-id=child_.parentId)
-            label #{child_.name}
-            br
-      br
-    br
+  br
   
+
+
+
+
+
+
+
 
 script.
   var BtnS;
@@ -160,3 +172,29 @@ script.
       .catch(err => console.log(err))
     })
   })
+
+  var editBtns = document.querySelectorAll('.edit-icon')
+  var BtnE;
+  editBtns.forEach((editBtn, index) => {
+    editBtn.addEventListener('click', function(){
+      BtnE = editBtn.getAttribute('data-id')
+      fetch('/products/my-announcements/edit/' + BtnE + '/images', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(res => location.href = '/products/my-announcements/edit/' + BtnE + '/images')
+      //- .then(data => {
+      //-   console.log(data)
+      //-   if(data.msg){
+      //-     location.href = '/products/my-announcements/edit/' + BtnE
+      //-     return;
+      //-   }
+      //-   alert(data.message)
+      //-   throw new Error()
+      //- })
+      .catch(err => console.log(err))
+      
+    })  
+  });

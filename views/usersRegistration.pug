@@ -5,35 +5,36 @@ style
 head
   title User Registration
 h1.reg-form-h1 Registration
-form.container(action='/users/registration' enctype='multipart/form-data' id='reg' method='post')
-  label Name
-  br
-  input(type='text' name='name')
-  br
-  label Surname
-  br
-  input(type='text' name='surname')
-  br
-  label Email
-  br 
-  input(type='text' name='email')
-  br
-  label Phone number
-  br
-  input(type="text" name='phone')
-  br 
-  label Password
-  br 
-  input(type='password' name='password')
-  br
-  label Confirm password
-  br 
-  input(type='password' name='password_confirm')
-  br
-  label Profile picture
-  br
-  input.img-input(type='file' name='image')
-  br
-  input.regBtn(type='submit' value='Register')
+.main-wrapper
+  form.container(action='/users/registration' enctype='multipart/form-data' id='reg' method='post')
+    label Name
+    br
+    input(type='text' name='name')
+    br
+    label Surname
+    br
+    input(type='text' name='surname')
+    br
+    label Email
+    br 
+    input(type='text' name='email')
+    br
+    label Phone number
+    br
+    input(type="text" name='phone')
+    br 
+    label Password
+    br 
+    input(type='password' name='password')
+    br
+    label Confirm password
+    br 
+    input(type='password' name='password_confirm')
+    br
+    label Profile picture
+    br
+    input.img-input(type='file' name='image')
+    br
+    input.regBtn(type='submit' value='Register')
 
 

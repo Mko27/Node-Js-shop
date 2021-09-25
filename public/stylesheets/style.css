@@ -247,14 +247,14 @@ img {
 }
 .closeDiv {
   width: 20px;
-height: 21px;
-background-color: rgb(35, 179, 119);
-float: left;
-cursor: pointer;
-color: white;
-box-shadow: 2px 2px 7px rgb(74, 72, 72);
-text-align: center;
-margin: 5px;
+  height: 21px;
+  background-color: rgb(35, 179, 119);
+  float: left;
+  cursor: pointer;
+  color: white;
+  box-shadow: 2px 2px 7px rgb(74, 72, 72);
+  text-align: center;
+  margin: 5px;
 }
 .pDiv {
   float:left;

@@ -5,13 +5,14 @@ style
 head
   title Login
 h1 Login
-form.container(action='/users/' method='post')
-  label Email
-  br
-  input(type='text' name='email')
-  br
-  label Password
-  br
-  input(type='password' name='password')
-  br
-  input(type='submit' value='Login')
+.main-wrapper
+  form.container(action='/users/' method='post')
+    label Email
+    br
+    input(type='text' name='email')
+    br
+    label Password
+    br
+    input(type='password' name='password')
+    br
+    input(type='submit' value='Login')
