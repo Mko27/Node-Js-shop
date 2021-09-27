@@ -1,0 +1,14 @@
+doctype html
+html 
+  include head.pug
+style
+  include ../public/stylesheets/style.css
+div
+  p Announcements:
+  br
+  
+  table(style='width:100%', border='1')
+    each announcement, idx in announcements ? announcements : []
+      tr 
+        td( class='reg') #{announcement.name}                    
+      br

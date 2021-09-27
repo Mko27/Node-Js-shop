@@ -1,0 +1,200 @@
+doctype html
+html 
+  include head.pug
+style
+  include ../public/stylesheets/style.css
+
+p(style='text-align:center') #{product.name}
+.main-wrapper
+  form.container(action="" method='patch') 
+    label Name
+    br 
+    input(name='name' value=product.name)
+    br
+    label Description 
+    br
+    textarea(name='description' cols="30" rows="10" style='resize:none') #{product.description}
+    br
+    label Price
+    br
+    input(name='price' value=product.price)
+    br
+    label Address
+    br 
+    input(name='address' value=product.address)
+    br
+    label Brand
+    br 
+    input(name='brand' value=product.brand)
+    br
+    label Model
+    br 
+    input(name='model' value=product.model)
+    br
+    label Status
+    br 
+    select(name="status")
+      option(value="Published") Published
+      option(value="Unpublished") Unpublished
+    br
+    label City
+    br 
+    select(name="cityId")
+      each city, idx in __cities ? __cities : []
+        option(value=city.id) #{city.name}
+    br  
+    input.prod-edit#Submit(type="submit" value="Submit" data-id=product.id)
+br
+input.edit-icon(type='submit' data-id=product.id value='Add Images' style='display: block; margin-right: auto;margin-left: auto;')
+br
+
+
+each category, idx in __categories ? __categories : []
+  label #{category.name}
+  br
+  each child in category.children ? category.children : []
+    .input-wrapper
+      input#homeCheck.inp(type='checkbox' value=child.id data-id=child.parentId)
+      label #{child.name}
+      each child_ in child.children ? child.children : []
+        .input-wrapper
+          input#homeCheck.inp(type='checkbox' value=child_.id data-id=child_.parentId)
+          label #{child_.name}
+          br
+    br
+  br
+  
+
+
+
+
+
+
+
+
+script.
+  var BtnS;
+  var checkBtnS = document.querySelectorAll('.inp')
+  console.log(checkBtnS)
+  var submitBtn = document.getElementById('Submit')
+  console.log(submitBtn.getAttribute('data-id'))
+
+  checkBtnS.forEach((checkBtn, idx) => {
+    checkBtn.addEventListener('change', (e) => {
+      console.log(e.srcElement)
+      if(e.srcElement.checked){
+        fetch('/my-announcements/edit/' + submitBtn.getAttribute('data-id') + '/category', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            //ProductId: submitBtn.getAttribute('data-id'),
+            categoryId: e.target.getAttribute('value')
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if(data.msg){
+            console.log(data.msg)
+            return;
+          }
+          alert(data.message)
+          throw new Error()
+        })
+        .catch(err => console.log(err))
+      }else{
+        fetch('/my-announcements/edit/' + submitBtn.getAttribute('data-id'), {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            //ProductId: submitBtn.getAttribute('data-id'),
+            categoryId: e.target.getAttribute('value')
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if(data.msg){
+            console.log(data.msg)
+            return;
+          }
+          alert(data.message)
+          throw new Error()
+        })
+        .catch(err => console.log(err))
+      }
+    })
+  })
+
+
+  var submitBtns = document.querySelectorAll('.prod-edit')
+  submitBtns.forEach((submitBtn, index) => {
+    submitBtn.addEventListener('click', function(){
+      BtnS = submitBtn.getAttribute('data-id')
+      alert(BtnS)
+      var name = document.getElementsByName('name')[0].value
+      var price = document.getElementsByName('price')[0].value
+      var address = document.getElementsByName('address')[0].value
+      var brand = document.getElementsByName('brand')[0].value
+      var model = document.getElementsByName('model')[0].value
+      var description = document.getElementsByName('description')[0].value
+      var cityId = document.getElementsByName('cityId')[0].value
+      var status = document.getElementsByName('status')[0].value
+      alert('name == ', status)
+      console.log(BtnS)
+      fetch('/my-announcements/edit/' + BtnS, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+       body: JSON.stringify({
+        name: name,
+        price: price,
+        address: address,
+        brand: brand,
+        model: model,
+        description,
+        status: status, 
+        cityId}),
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if(data.msg){
+          location.href = '/my-announcements'
+          return;
+        }
+        alert(data.message)
+        throw new Error()
+      })
+      .catch(err => console.log(err))
+    })
+  })
+
+  var editBtns = document.querySelectorAll('.edit-icon')
+  var BtnE;
+  editBtns.forEach((editBtn, index) => {
+    editBtn.addEventListener('click', function(){
+      BtnE = editBtn.getAttribute('data-id')
+      fetch('/my-announcements/edit/' + BtnE + '/images', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(res => location.href = '/my-announcements/edit/' + BtnE + '/images')
+      //- .then(data => {
+      //-   console.log(data)
+      //-   if(data.msg){
+      //-     location.href = '/products/my-announcements/edit/' + BtnE
+      //-     return;
+      //-   }
+      //-   alert(data.message)
+      //-   throw new Error()
+      //- })
+      .catch(err => console.log(err))
+      
+    })  
+  });

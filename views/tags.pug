@@ -1,0 +1,46 @@
+doctype html
+html 
+  include head.pug
+style
+  include ../public/stylesheets/style.css
+div
+  p Tags:
+  br
+  
+  table(style='width:100%', border='1')
+    each tag, idx in tags ? tags : []
+      tr
+        form(action='' method='delete') 
+        td() #{tag.slug}
+          //- input.delete-icon(type='submit' data-id=region.dataValues.id value='delete')    
+        td
+          form(action='' method='patch')
+          input.edit-input(type='text' name='name')
+          input.submit-icon(type='submit' data-id=tag.id value='submit')
+          input.edit-icon(id='edit' type='submit' data-id=tag.id value='edit')
+          input.delete-icon(type='submit' data-id=tag.id value='delete')                    
+      br
+  input.add-icon(id='add' type="submit" value='add')
+  form.add-form(action='/tags' method='post' id="add")
+    label Slug
+    br
+    input.input-value(type='text' name='slug')
+    br
+    label Title
+    br
+    input(type='text' name='title')
+    br
+    input(type='submit' value='Add')
+    br
+
+script.
+  var addBtns = document.querySelectorAll('.add-icon');
+  addBtns.forEach((addBtn) => {
+    addBtn.addEventListener('click', function(){
+      console.log('click')
+      const addIcon = document.getElementsByClassName('add-icon')
+      const addForm = document.getElementsByClassName('add-form')
+      addForm[0].style.display = 'block'
+      addIcon[0].style.display = 'none'
+    })  
+  });
