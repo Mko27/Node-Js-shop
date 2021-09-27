@@ -1,0 +1,49 @@
+doctype html
+html 
+  include head.pug
+script(src='https://code.jquery.com/jquery-2.1.1.min.js' type='text/javascript')
+link(href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css' rel='stylesheet')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js')
+style
+  include ../public/stylesheets/style.css
+form.container(action=`/my-announcements/edit/${productId}/tags` method='post' id="add")
+  label Tag
+  br
+  select(name='tagId' id="select-state")
+    option()
+    each tag, idx in tags ? tags : []
+      option(value=tag.id) #{tag.title}
+  br
+  input#input-submit(type='submit' data-id=productId value='Add')
+  br
+
+
+script.
+//-     function createList(data) {
+//-         var a = document.getElementById('input-value')
+//-         var div = document.createElement('ul')
+//-         a.appendChild(div)
+//-         for(var i = 0; i < data.length; i ++){
+//-             div.innerHTML = "<li>Item " + data[i].title + "</li>";
+//-         }
+//-     }
+
+//-   function myFunction() {
+//-     var x = document.getElementById("input-value").value;
+//-     var a = document.getElementById('input-submit')
+//-     console.log('word', x)
+//-     console.log(a.getAttribute('data-id'))
+    
+//-     fetch(`/my-announcements/tags/?title=${x}`, {
+//-       method: 'GET',
+//-       headers: {
+//-         'Content-Type': 'application/json',
+//-       }
+//-       })
+//-         .then(res => res.json())
+//-         .then(data =>{ console.log(data.tags)
+//-             return createList(data.tags)
+//-         })
+//-         .catch(err => console.log(err))
+//-     }
+  

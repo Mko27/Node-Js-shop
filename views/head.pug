@@ -1,0 +1,29 @@
+doctype html
+script(src='https://code.jquery.com/jquery-2.1.1.min.js' type='text/javascript')
+link(href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css' rel='stylesheet')
+<link rel="shortcut icon" href="#">
+script(src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js')
+style
+  include ../public/stylesheets/style.css
+div.header
+  //- -console.log("head ",__categories)
+  ul
+    each category, idx in __categories ? __categories : []
+      li
+        a(href='http://localhost:3000/products/by-category/' + category.id) #{category.name}
+        ul.dropdown
+          each child, index in category.children ? category.children : []
+            li
+              a(href='http://localhost:3000/products/by-category/' + child.id) #{child.name}
+              ul 
+                each sub, i in child.children ? child.children : []
+                  li
+                    a(href='http://localhost:3000/products/by-category/' + sub.id) #{sub.name} 
+
+
+ 
+  //- each category, idx in __categories ? __categories : []
+  //-   a.header__category(href='#') #{category.name}
+  a.header__account(href='http://localhost:3000/products') All
+  a.header__account(href='http://localhost:3000/users') Sign In
+  a.header__account(href='http://localhost:3000/users/registration') Registration
