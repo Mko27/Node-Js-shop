@@ -1,0 +1,40 @@
+doctype html
+html 
+  include head.pug
+style
+  include ../public/stylesheets/style.css
+div
+  p Announcements:
+  br
+  
+  table(style='width:100%', border='1')
+    each announcement, idx in announcements ? announcements : []
+      tr 
+        td( class='reg') #{announcement.name}
+          form(action=`/products/${announcement.id}` method='get')
+            input.open-prod(type='submit' data-id=announcement.id value='Open')                    
+      br
+
+script.
+  //- var openBtns = document.querySelectorAll('.delete-icon')
+  //- var Btn;
+  //- openBtns.forEach((openBtn) => {
+  //-   openBtn.addEventListener('click', function(){
+  //-     Btn = openBtn.getAttribute('data-id')
+  //-     console.log(Btn)
+  //-     fetch('/products/' + Btn, {
+  //-       method: 'GET',
+  //-     })
+  //-     .then(res => res.json())
+  //-     .then(data => {
+  //-       console.log(data)
+  //-       if(data.msg){
+  //-         location.reload()
+  //-         return;
+  //-       }
+  //-       alert(data.message)
+  //-       throw new Error()
+  //-     })
+  //-     .catch(err => console.log(err))
+  //-   })
+  //- }); 

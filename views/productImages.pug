@@ -1,0 +1,63 @@
+html 
+  include head.pug
+.main-wrapper
+  form.container(action=`/my-announcements/edit/${productId}/images` enctype='multipart/form-data' method='post')
+    input.img-input#file-input(type='file' multiple='' name='images')
+    input#image-submit(type='submit' value='Submit' data-id=productId)
+br
+br
+each image, idx in images ? images : []
+  - console.log(image.path)
+  input.delete-icon(type='submit' data-id=image.id value='delete')
+  br
+  img.prod-img(src=image.path width='150' height='150')
+
+script.
+  
+  //- var submitBtns = document.getElementById('image-submit')
+  //- var BtnS = submitBtns.getAttribute('data-id')
+  //- console.log('dasdasdasd', BtnS)
+  //- submitBtns.addEventListener('click', function(){
+  //-   BtnS = submitBtn.getAttribute('data-id')
+  //-   fetch('/my-announcements/edit/' + submitBtn.getAttribute('data-id') +'/images', {
+  //-     method: 'POST',
+  //-     headers: {
+  //-       'Content-Type': 'application/json',
+  //-     }})
+  //-   .then(res => alert(res.json()))
+  //-     .then(data => {
+  //-       console.log(data)
+  //-       if(data.msg){
+  //-         location.reload()
+  //-         return;
+  //-       }
+  //-       alert(data.message)
+  //-       throw new Error()
+  //-     })
+  //-   .catch(err => console.log(err))
+  //- })
+  
+
+  var deleteBtns = document.querySelectorAll('.delete-icon')
+  var Btn;
+  deleteBtns.forEach((deleteBtn) => {
+   
+    deleteBtn.addEventListener('click', function(){
+      Btn = deleteBtn.getAttribute('data-id')
+      console.log(Btn)
+      fetch('/my-announcements/images/' + Btn, {
+        method: 'DELETE',
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if(data.msg){
+          location.reload()
+          return;
+        }
+        alert(data.message)
+        throw new Error()
+      })
+      .catch(err => console.log(err))
+    })
+  });
