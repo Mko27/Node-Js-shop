@@ -82,9 +82,12 @@ const userProductImages = (req, res, next) => {
 
 const deleteProductById = (req, res, next) => {
   const id = parseInt(req.params.id, 10)
-  return Product.deleteProduct(id)
-    .then(() => ProductTag.deleteProductTagByProductId(id).catch(next))
-    .then(() => deleteImagesWithProduct(id).catch(next))
+  return Promise.resolve()
+    .then(() => {
+      ProductTag.deleteProductTagByProductId(id).catch(console.log)
+      deleteImagesWithProduct(id).catch(console.log)
+    })
+    .then(() => Product.deleteProduct(id))
     .then(() => res.json({ msg: 'successed deleted' }))
     .catch(next)
 }
