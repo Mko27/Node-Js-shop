@@ -1,0 +1,16 @@
+doctype html
+html 
+  include head.pug
+style
+  include ../public/stylesheets/style.css
+label Announcement:
+h2 #{product.dataValues.name}
+br
+p address: #{product.dataValues.address}
+br
+p description: #{product.dataValues.description}
+br
+p price: #{product.dataValues.price}
+each image, idx in product.dataValues.Images ? product.dataValues.Images : []
+  img(src=image.path)
+

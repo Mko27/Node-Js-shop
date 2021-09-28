@@ -1,0 +1,117 @@
+doctype html
+html 
+  include head.pug
+style
+  include ../public/stylesheets/style.css
+div
+  p Tags:
+  br
+  
+  table(style='width:100%', border='1')
+    each tag, idx in tags ? tags : []
+      tr
+        form(action='' method='delete') 
+        td() 
+          p Slug: #{tag.slug}
+          p Title: #{tag.title}  
+        td
+          form(action='' method='patch')
+            input.edit-slug(type='text' name='slug')
+            input.edit-title(type='text' name='title')
+            input.submit-icon(type='submit' data-id=tag.id value='submit')
+          input.edit-icon(id='edit' type='submit' data-id=tag.id value='edit')
+          input.delete-icon(type='submit' data-id=tag.id value='delete')                    
+      br
+  input.add-icon(id='add' type="submit" value='add')
+  form.add-form(action='/tags' method='post' id="add")
+    label Slug
+    br
+    input.input-value(type='text' name='slug')
+    br
+    label Title
+    br
+    input(type='text' name='title')
+    br
+    input(type='submit' value='Add')
+    br
+
+script.
+  var addBtns = document.querySelectorAll('.add-icon');
+  addBtns.forEach((addBtn) => {
+    addBtn.addEventListener('click', function(){
+      console.log('click')
+      const addIcon = document.getElementsByClassName('add-icon')
+      const addForm = document.getElementsByClassName('add-form')
+      addForm[0].style.display = 'block'
+      addIcon[0].style.display = 'none'
+    })  
+  });
+
+  var deleteBtns = document.querySelectorAll('.delete-icon')
+  var Btn;
+  deleteBtns.forEach((deleteBtn) => {
+    deleteBtn.addEventListener('click', function(){
+      Btn = deleteBtn.getAttribute('data-id')
+      console.log(Btn)
+      fetch('/tags/' + Btn, {
+        method: 'DELETE',
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if(data.msg){
+          location.reload()
+          return;
+        }
+        alert(data.message)
+        throw new Error()
+      })
+      .catch(err => console.log(err))
+    })
+  });
+
+  var editBtns = document.querySelectorAll('.edit-icon')
+  var BtnE;
+  editBtns.forEach((editBtn, index) => {
+    editBtn.addEventListener('click', function(){
+      BtnE = editBtn.getAttribute('data-id')
+      const editIcon = document.getElementsByClassName('edit-icon')
+      editIcon[index].style.display = 'none'
+      console.log('------------------ ',BtnE)
+      const editSlug = document.getElementsByClassName('edit-slug')
+      const editTitle = document.getElementsByClassName('edit-title')
+      const submitInput = document.getElementsByClassName('submit-icon')
+      editSlug[index].style.display = 'block'
+      editTitle[index].style.display = 'block'
+      submitInput[index].style.display = 'block'
+    })  
+  });
+
+  var submitBtns = document.querySelectorAll('.submit-icon')
+  var BtnS;
+  submitBtns.forEach((submitBtn, index) => {
+    submitBtn.addEventListener('click', function(){
+      BtnS = submitBtn.getAttribute('data-id')
+      var slug = document.getElementsByClassName('edit-slug')[index].value
+      var title = document.getElementsByClassName('edit-title')[index].value
+      console.log('4856456456')
+      fetch('/tags/' + BtnS, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+       body: JSON.stringify({slug: slug, title: title}),
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if(data.msg){
+          location.reload()
+          return;
+        }
+        alert(data.message)
+        throw new Error()
+      })
+      .catch(err => console.log(err))
+    })
+  })

@@ -1,0 +1,18 @@
+html 
+  include head.pug
+style
+  include ../public/stylesheets/style.css
+head
+  title Login
+h1 Login
+.main-wrapper
+  form.container(action='/users/' method='post')
+    label Email
+    br
+    input(type='text' name='email')
+    br
+    label Password
+    br
+    input(type='password' name='password')
+    br
+    input(type='submit' value='Login')
